@@ -31,9 +31,6 @@ RUN git clone https://github.com/VundleVim/Vundle.vim.git
 RUN mkdir -p /root/.vim/bundle
 RUN mv Vundle.vim /root/.vim/bundle
 
-#RUN vim -c 'PluginInstall' -c 'qa!'
-#RUN cd /root/.vim/bundle/vim-prettier && npm install
-
 #install apache and php
 ENV TZ=Asia/Seoul
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
