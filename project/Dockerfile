@@ -40,6 +40,8 @@ RUN apt-get -y install libapache2-mod-php
 RUN apt-get -y install php-zip
 RUN apt-get -y install php-mbstring
 RUN apt-get -y install php-xml
+RUN apt-get -y install zip
+RUN apt-get -y install php-curl
 
 #install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin/ 
