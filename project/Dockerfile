@@ -46,7 +46,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN ln -s /usr/local/bin/composer.phar /usr/local/bin/composer
 RUN composer global require laravel/installer
 RUN ln -s /root/.composer/vendor/bin/laravel /usr/local/bin/laravel
-# RUN echo "<Directory \"/var/www/html/page/public\">\nOptions Indexes FollowSymLinks\nRequire all granted\nAllowOverride All\n</Directory>" >> /etc/apache2/apache2.conf
+RUN echo "<Directory \"/var/www/html/project/public\">\nOptions Indexes FollowSymLinks\nRequire all granted\nAllowOverride All\n</Directory>" >> /etc/apache2/apache2.conf
 
 #set file
 ADD ./script /root/script/
