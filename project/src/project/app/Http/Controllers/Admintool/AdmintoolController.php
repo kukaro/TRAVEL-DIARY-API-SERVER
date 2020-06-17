@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admintool;
 
-use App\Picture;
-use App\User;
+use App\Model\Picture;
+use App\Model\User;
 use Illuminate\Routing\Controller as BaseController;
 
 class AdmintoolController extends BaseController

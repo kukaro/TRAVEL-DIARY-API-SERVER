@@ -14,9 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::get('/user', function (Request $request) {
+//     dump($request);
+//     return $request->user();
+// });
+
+Route::get('/user', 'UserController@get')->name('uaer\get');
 
 Route::get('/health', function (Request $request) {
     return ['MSG' => 'OK', 'STATUS' => 200];

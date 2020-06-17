@@ -11,5 +11,6 @@ class User extends Model
     public $incrementing = false;
     protected $keyType = 'string';
     protected $fillable = ['email','name','age','birth_date', 'password'];
-    public $timestamps = false;
+    const CREATED_AT = 'created_date';
+    const UPDATED_AT = 'updated_date';
 }
