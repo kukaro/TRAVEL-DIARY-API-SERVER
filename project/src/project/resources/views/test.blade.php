@@ -5,6 +5,6 @@
     </head>
     <body>
         TEST!!
-        {{$users ?? ''}}
+        {{$name ?? ''}}
     </body>
 </html>

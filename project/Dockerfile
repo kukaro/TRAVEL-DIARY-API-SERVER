@@ -46,6 +46,7 @@ RUN apt-get -y install tree
 RUN apt-get -y install php-mysql
 RUN apt-get -y install mysql-server
 RUN apt-get update && apt-get -y install net-tools
+RUN apt-get -y install iputils-ping
 
 #install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin/ 
