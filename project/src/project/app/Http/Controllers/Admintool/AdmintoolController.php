@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Admintool;
 
+use App\Picture;
+use App\User;
 use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Support\Facades\DB;
 
 class AdmintoolController extends BaseController
 {
@@ -14,9 +15,27 @@ class AdmintoolController extends BaseController
      */
     public function index()
     {
-        $users = DB::select('select * from user');
-        dump($users[0]->name);
+        // $users = DB::select('select * from user');
+        // dump($users[0]);
+        $users = User::all();
+        dump($users);
+        $pictures = Picture::all();
+        dump($pictures);
 
         return view('test', ['name' => $users[0]->name]);
+    }
+
+    public function create()
+    {
+        $users = User::create([
+            'email' => 'dorami@dorami.do',
+            'name' => '도라미',
+            'age' => 19,
+            'birth_date' => '2020-11-11 12:12:12',
+            'password' => 'abcdefghijklmn'
+        ]);
+        dump(User::all());
+        $users->save();
+        return view('test');
     }
 }
