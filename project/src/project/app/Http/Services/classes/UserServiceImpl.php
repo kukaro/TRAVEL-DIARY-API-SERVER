@@ -26,4 +26,10 @@ class UserServiceImpl implements UserService
         $data = $this->repositories->get($request);
         return $data;
     }
+
+    public function post(RestRequest $request)
+    {
+        $data = $this->repositories->get($request);
+        return $data;
+    }
 }
