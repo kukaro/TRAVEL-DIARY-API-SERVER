@@ -2,33 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Model\User;
-use Illuminate\Http\Request;
-use Illuminate\Routing\Controller as BaseController;
 use App;
 use App\Http\Requests\RestRequests\UserRestRequest;
+use App\Http\Services\Interfaces\UserService;
+use Illuminate\Routing\Controller as BaseController;
 
 class UserController extends BaseController
 {
-    // public function get(Request $request)
-    // {
-    //     dump($request->query());
-    //     $email = $request->query('email');
-    //     $user = User::where('email', $email)->get();
-    //     $data = count($user) != 0 ? $user[0] : null;
-    //     return response()->json(['data' => $data], 200, [], JSON_UNESCAPED_UNICODE);
-    // }
+    private $user_service;
+
+    /**
+     * Class constructor.
+     */
+    public function __construct(UserService $user_service)
+    {
+        $this->user_service = $user_service;
+    }
 
     public function get(UserRestRequest $request)
     {
-        dump($request);
-        // $val = App()->make("dodo");
-        // dump($val);
-        // dump($request->query());
-        // $email = $request->query('email');
-        // $user = User::where('email', $email)->get();
-        // $data = count($user) != 0 ? $user[0] : null;
-        // return response()->json(['data' => $data], 200, [], JSON_UNESCAPED_UNICODE);
-        return response()->json(['data'=>$request->url]);
+        $data = $this->user_service->get($request);
+        return response()->json(['data' => $data], 200, [], JSON_UNESCAPED_UNICODE);
     }
 }

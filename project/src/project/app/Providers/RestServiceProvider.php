@@ -4,9 +4,10 @@ namespace App\Providers;
 
 use App\Http\Controllers\UserController;
 use App\Http\Requests\RestRequests\RestRequest;
-use App\Http\Requests\RestRequests\UserRestRequest;
+use App\Http\Services\Interfaces\UserService;
+use App\Http\Services\Classes\UserServiceImpl;
+use App\Http\Repositories\UserRepositories;
 use Illuminate\Support\ServiceProvider;
-use ReflectionClass;
 
 class RestServiceProvider extends ServiceProvider
 {
@@ -27,8 +28,16 @@ class RestServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->app->bind(UserService::class, function () {
+            return new UserServiceImpl();
+        });
+
+        $this->app->bind(UserService::class, function () {
+            return new UserServiceImpl(new UserRepositories());
+        });
+
         // $this->app->bind(UserController::class, function () {
-        //     return new UserController();
+        //     return new UserController($this->app->make(UserService::class));
         // });
 
         // $this->app->bind(RestRequest::class, function ($app) {
@@ -58,14 +67,14 @@ class RestServiceProvider extends ServiceProvider
                 $obj->url = $app->request->url();
                 $obj->path = $app->request->path();
                 $obj->param = $app->request->route()->parameters();
-                foreach($obj->param as $key => $value){
-                    if(isset($key, $obj)){
-                        $obj->$key = $value; 
+                foreach ($obj->param as $key => $value) {
+                    if (isset($key, $obj)) {
+                        $obj->$key = $value;
                     }
                 }
-                foreach($obj->query as $key => $value){
-                    if(isset($key, $obj)){
-                        $obj->$key = $value; 
+                foreach ($obj->query as $key => $value) {
+                    if (isset($key, $obj)) {
+                        $obj->$key = $value;
                     }
                 }
             }
