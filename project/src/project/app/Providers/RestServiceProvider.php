@@ -67,12 +67,18 @@ class RestServiceProvider extends ServiceProvider
                 $obj->url = $app->request->url();
                 $obj->path = $app->request->path();
                 $obj->param = $app->request->route()->parameters();
+                $obj->body = $app->request->input();
                 foreach ($obj->param as $key => $value) {
                     if (isset($key, $obj)) {
                         $obj->$key = $value;
                     }
                 }
                 foreach ($obj->query as $key => $value) {
+                    if (isset($key, $obj)) {
+                        $obj->$key = $value;
+                    }
+                }
+                foreach ($obj->body as $key => $value) {
                     if (isset($key, $obj)) {
                         $obj->$key = $value;
                     }

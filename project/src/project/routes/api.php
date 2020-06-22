@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/user', 'UserController@get')->name('uaer\get');
 Route::post('/user', 'UserController@post')->name('uaer\post');
+Route::patch('/user/{email}', 'UserController@patch')->name('uaer\patch');
 
 Route::get('/health', function (Request $request) {
     return ['MSG' => 'OK', 'STATUS' => 200];

@@ -6,7 +6,7 @@ class UserRestRequest extends RestRequest
 {
     private $email;
     private $name;
-    private int $age;
+    private $age;
     private $birth_date;
     private $password;
     private $created_date;

@@ -6,5 +6,7 @@ use App\Http\Requests\RestRequests\RestRequest;
 
 interface Repositories
 {
-    public function get(RestRequest $request);
+    public function read(RestRequest $request);
+    public function create(RestRequest $request);
+    public function update(RestRequest $request);
 }

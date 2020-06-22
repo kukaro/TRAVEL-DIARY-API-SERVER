@@ -24,4 +24,16 @@ class UserController extends BaseController
         $data = $this->user_service->get($request);
         return response()->json(['data' => $data], 200, [], JSON_UNESCAPED_UNICODE);
     }
+
+    public function post(UserRestRequest $request)
+    {
+        $this->user_service->post($request);
+        return response()->json(['data' => 'SUCCESS'], 200, [], JSON_UNESCAPED_UNICODE);
+    }
+
+    public function patch(UserRestRequest $request)
+    {
+        $this->user_service->patch($request);
+        return response()->json(['data' => 'SUCCESS'], 200, [], JSON_UNESCAPED_UNICODE);
+    }
 }

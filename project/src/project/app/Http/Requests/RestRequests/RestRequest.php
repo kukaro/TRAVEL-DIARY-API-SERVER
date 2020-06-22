@@ -11,4 +11,5 @@ class RestRequest implements TravleDiaryRequest
     protected $query;
     protected $param;
     protected $method;
+    protected $body;
 }
