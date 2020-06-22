@@ -39,7 +39,8 @@ class UserServiceImpl implements UserService
     }
 
     public function delete(RestRequest $request){
-
+        $data = $this->repositories->delete($request);
+        return $data;
     }
 
     public function put(RestRequest $request){

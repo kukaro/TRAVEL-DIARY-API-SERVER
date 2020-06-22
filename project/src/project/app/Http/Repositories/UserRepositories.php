@@ -55,4 +55,10 @@ class UserRepositories implements Repositories
         $data = User::where('email', $request->email)->update($arr);
         return $data;
     }
+
+    public function delete(RestRequest $request)
+    {
+        $data = User::where('email', $request->email)->delete();
+        return $data;
+    }
 }

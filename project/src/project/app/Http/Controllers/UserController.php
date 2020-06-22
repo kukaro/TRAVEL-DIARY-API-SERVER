@@ -36,4 +36,10 @@ class UserController extends BaseController
         $this->user_service->patch($request);
         return response()->json(['data' => 'SUCCESS'], 200, [], JSON_UNESCAPED_UNICODE);
     }
+
+    public function delete(UserRestRequest $request)
+    {
+        $this->user_service->delete($request);
+        return response()->json(['data' => 'SUCCESS'], 200, [], JSON_UNESCAPED_UNICODE);
+    }
 }
