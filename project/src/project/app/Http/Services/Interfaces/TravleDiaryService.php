@@ -4,7 +4,7 @@ namespace App\Http\Services\Interfaces;
 
 use App\Http\Requests\RestRequests\RestRequest;
 
-interface UserService extends TravleDiaryService
+interface TravleDiaryService
 {
     public function get(RestRequest $request);
     public function post(RestRequest $request);

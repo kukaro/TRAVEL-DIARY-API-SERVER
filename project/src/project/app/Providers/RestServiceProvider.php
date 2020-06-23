@@ -28,12 +28,13 @@ class RestServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->app->bind(UserService::class, function () {
-            return new UserServiceImpl();
-        });
-
+        
         $this->app->bind(UserService::class, function () {
             return new UserServiceImpl(new UserRepositories());
+        });
+
+        $this->app->bind(UserController::class, function(){
+            return new UserController($this->app->make(UserService::class));
         });
 
         // $this->app->bind(UserController::class, function () {
