@@ -3,10 +3,11 @@
 namespace App\Providers;
 
 use App\Http\Controllers\UserController;
-use App\Http\Requests\RestRequests\RestRequest;
-use App\Http\Services\Interfaces\UserService;
-use App\Http\Services\Classes\UserServiceImpl;
 use App\Http\Repositories\UserRepositories;
+use App\Http\Requests\RestRequests\RestRequest;
+use App\Http\Requests\RestRequests\UserRestRequest;
+use App\Http\Services\Classes\UserServiceImpl;
+use App\Http\Services\Interfaces\UserService;
 use Illuminate\Support\ServiceProvider;
 
 class RestServiceProvider extends ServiceProvider
@@ -28,13 +29,16 @@ class RestServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        
+        $this->app->bind(UserRestRequest::class, function () {
+            return new UserRestRequest();
+        });
+
         $this->app->bind(UserService::class, function () {
             return new UserServiceImpl(new UserRepositories());
         });
 
-        $this->app->bind(UserController::class, function(){
-            return new UserController($this->app->make(UserService::class));
+        $this->app->bind(UserController::class, function () {
+            return new UserController($this->app->make(UserService::class), $this->app->make(UserRestRequest::class));
         });
 
         // $this->app->bind(UserController::class, function () {
@@ -51,12 +55,14 @@ class RestServiceProvider extends ServiceProvider
         //     "getMiddleware" => true,
         //     "callAction" => true,
         //     "__call" => true,
+        //     "__construct" => true
         // ];
-        // $controller_methods = (new ReflectionClass(UserController::class))->getMethods();
+        // $controller_methods = (new \ReflectionClass(UserController::class))->getMethods();
         // foreach ($controller_methods as $method) {
+        //     // echo $method;
         //     $method_name = $method->name;
         //     if (!array_key_exists($method_name, $ignore_methods)) {
-        //         $this->app->call([$this->app->make(UserController::class), $method_name], [$this->app->make(\App\Http\Requests\RestRequests\RestRequest::class)]);
+        //         $this->app->call([$this->app->make(UserController::class), $method_name], [$this->app->make(UserRestRequest::class)]);
         //     }
         // }
         //END METHODS INJECTION

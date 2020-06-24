@@ -3,43 +3,43 @@
 namespace App\Http\Controllers;
 
 use App;
+use App\Http\Requests\RestRequests\RestRequest;
 use App\Http\Requests\RestRequests\UserRestRequest;
 use App\Http\Services\Interfaces\TravleDiaryService;
 use Illuminate\Routing\Controller as BaseController;
 
-class UserController extends BaseController
+class UserController extends TravleDiaryController
 {
-    private $service;
 
     /**
      * Class constructor.
      */
-    public function __construct(TravleDiaryService $service)
+    public function __construct(TravleDiaryService $service, RestRequest $request)
     {
-        $this->service = $service;
+        parent::__construct($service, $request);
     }
 
-    public function get(UserRestRequest $request)
+    public function get()
     {
-        $data = $this->service->get($request);
+        $data = $this->service->get($this->request);
         return response()->json(['data' => $data], 200, [], JSON_UNESCAPED_UNICODE);
     }
 
-    public function post(UserRestRequest $request)
+    public function post()
     {
-        $this->service->post($request);
+        $this->service->post($this->request);
         return response()->json(['data' => 'SUCCESS'], 200, [], JSON_UNESCAPED_UNICODE);
     }
 
-    public function patch(UserRestRequest $request)
+    public function patch()
     {
-        $this->service->patch($request);
+        $this->service->patch($this->request);
         return response()->json(['data' => 'SUCCESS'], 200, [], JSON_UNESCAPED_UNICODE);
     }
 
-    public function delete(UserRestRequest $request)
+    public function delete()
     {
-        $this->service->delete($request);
+        $this->service->delete($this->request);
         return response()->json(['data' => 'SUCCESS'], 200, [], JSON_UNESCAPED_UNICODE);
     }
 }
