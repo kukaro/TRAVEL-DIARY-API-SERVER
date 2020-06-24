@@ -49,10 +49,8 @@ function filewrite($seps, $file_data)
     fclose($fp);
 }
 
-if(!DEBUG){
+if(!$DEBUG){
     foreach(array_keys(ApiConfig::$data) as $atom){
         filewrite($seps, atom);
     }
 }
-
-// filewrite($seps, ApiConfig::$data["Controller"]);
