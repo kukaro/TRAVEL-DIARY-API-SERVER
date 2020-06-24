@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers;
+namespace App\Providers\RestService;
 
 use App\Http\Controllers\UserController;
 use App\Http\Repositories\UserRepositories;
