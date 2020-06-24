@@ -3,7 +3,6 @@
 namespace App\Providers\RestService;
 
 use App\Http\Controllers\UserController;
-use App\Http\Repositories\UserRepositories;
 use App\Http\Requests\RestRequests\RestRequest;
 use App\Http\Requests\RestRequests\UserRestRequest;
 use App\Http\Services\Classes\UserServiceImpl;

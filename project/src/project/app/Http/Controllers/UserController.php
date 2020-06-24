@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App;
 use App\Http\Requests\RestRequests\RestRequest;
-use App\Http\Requests\RestRequests\UserRestRequest;
 use App\Http\Services\Interfaces\TravleDiaryService;
 use Illuminate\Routing\Controller as BaseController;
 

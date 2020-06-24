@@ -4,7 +4,7 @@ namespace App\Http\Repositories;
 
 use App\Http\Requests\RestRequests\RestRequest;
 
-interface Repositories
+interface Repository
 {
     public function read(RestRequest $request);
     public function create(RestRequest $request);

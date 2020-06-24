@@ -4,7 +4,7 @@ namespace App\Providers\RestService;
 
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\UserController;
-use App\Http\Repositories\UserRepositories;
+use App\Http\Repositories\UserRepository;
 use App\Http\Requests\RestRequests\RestRequest;
 use App\Http\Requests\RestRequests\UserRestRequest;
 use App\Http\Services\Classes\UserServiceImpl;
@@ -19,7 +19,7 @@ class UserPart{
         });
     
         app()->bind(UserService::class, function () {
-            return new UserServiceImpl(new UserRepositories());
+            return new UserServiceImpl(new UserRepository());
         });
     
         app()->bind(UserController::class, function () {

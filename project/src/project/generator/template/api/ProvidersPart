@@ -1,0 +1,30 @@
+<?php
+
+namespace App\Providers\RestService;
+
+use Illuminate\Foundation\Application;
+use App\Http\Controllers\<0>Controller;
+use App\Http\Repositories\<0>Repository;
+use App\Http\Requests\RestRequests\RestRequest;
+use App\Http\Requests\RestRequests\<0>RestRequest;
+use App\Http\Services\Classes\<0>ServiceImpl;
+use App\Http\Services\Interfaces\<0>Service;
+use Illuminate\Support\ServiceProvider;
+
+class <0>Part{
+    static function run()
+    {
+        app()->bind(<0>RestRequest::class, function () {
+            return new <0>RestRequest();
+        });
+    
+        app()->bind(<0>Service::class, function () {
+            return new <0>ServiceImpl(new <0>Repository());
+        });
+    
+        app()->bind(<0>Controller::class, function () {
+            return new <0>Controller(app()->make(<0>Service::class), app()->make(<0>RestRequest::class));
+        });
+    
+    }
+}

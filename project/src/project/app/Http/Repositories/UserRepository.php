@@ -5,7 +5,7 @@ use App\Http\Dto\UserDto;
 use App\Http\Requests\RestRequests\RestRequest;
 use App\Model\User;
 
-class UserRepositories implements Repositories
+class UserRepository implements Repository
 {
     public function read(RestRequest $request)
     {
