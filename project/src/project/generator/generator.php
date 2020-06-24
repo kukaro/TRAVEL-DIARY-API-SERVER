@@ -42,7 +42,6 @@ function filewrite($seps, $file_data)
         $content = str_replace($sep, $name, $content);
         $file_name = str_replace($sep, $name, $file_name);
     }
-    echo $file_data["path"] . "/" . $file_name;
     $fp =  fopen($file_data["path"] . "/" . $file_name, "w");
     fwrite($fp, $content);
     fclose($tp);
