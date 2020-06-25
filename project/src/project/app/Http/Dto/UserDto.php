@@ -2,7 +2,7 @@
 
 namespace App\Http\Dto;
 
-class UserDto implements Dto
+class UserDto extends DtoImpl
 {
     private $email;
     private $name;

@@ -2,7 +2,7 @@
 
 namespace App\Http\Dto;
 
-class PictureDto implements Dto
+class PictureDto extends DtoImpl
 {
     private $id;
     private $owner_email;
@@ -30,7 +30,7 @@ class PictureDto implements Dto
             $this->$name = $value;
         }
     }
-
+    
     public function jsonSerialize()
     {
         return get_object_vars($this);
