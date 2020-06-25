@@ -6,10 +6,10 @@ use App\Http\Requests\TravleDiaryRequest;
 
 class RestRequest implements TravleDiaryRequest
 {
-    protected $url;
-    protected $path;
-    protected $query;
-    protected $param;
-    protected $method;
-    protected $body;
+    protected $req_url;
+    protected $req_path;
+    protected $req_query;
+    protected $req_param;
+    protected $req_method;
+    protected $req_body;
 }

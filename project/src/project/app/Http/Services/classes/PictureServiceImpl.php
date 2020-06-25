@@ -3,10 +3,10 @@
 namespace App\Http\Services\Classes;
 
 use App\Http\Requests\RestRequests\RestRequest;
-use App\Http\Services\Interfaces\UserService;
+use App\Http\Services\Interfaces\PictureService;
 use App\Http\Repositories\Repository;
 
-class UserServiceImpl implements UserService
+class PictureServiceImpl implements PictureService
 {
 
     private $repository;
@@ -42,5 +42,7 @@ class UserServiceImpl implements UserService
     }
 
     public function put(RestRequest $request){
+        $data = null;
+        return $data;
     }
 }

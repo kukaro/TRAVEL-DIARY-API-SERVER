@@ -27,7 +27,7 @@ class ApiConfig
         ],
         "ServicesClasses" => [
             "path"=>"../app/Http/Services/Classes",
-            "name"=>"<0>ServiceImple.php",
+            "name"=>"<0>ServiceImpl.php",
             "template_path" => "template/api/ServicesClasses",
         ],
         "ServicesInterfaces" => [

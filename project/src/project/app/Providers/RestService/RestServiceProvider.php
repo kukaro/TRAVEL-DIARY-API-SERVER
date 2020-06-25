@@ -29,6 +29,7 @@ class RestServiceProvider extends ServiceProvider
     public function boot()
     {
         UserPart::run();
+        PicturePart::run();
 
         // $this->app->bind(UserController::class, function () {
         //     return new UserController($this->app->make(UserService::class));
@@ -58,23 +59,23 @@ class RestServiceProvider extends ServiceProvider
 
         $this->app->resolving(function ($obj, $app) {
             if ($obj instanceof RestRequest) {
-                $obj->method = $app->request->method();
-                $obj->query = $app->request->query();
-                $obj->url = $app->request->url();
-                $obj->path = $app->request->path();
-                $obj->param = $app->request->route()->parameters();
-                $obj->body = $app->request->input();
-                foreach ($obj->param as $key => $value) {
+                $obj->req_method = $app->request->method();
+                $obj->req_query = $app->request->query();
+                $obj->req_url = $app->request->url();
+                $obj->req_path = $app->request->path();
+                $obj->req_param = $app->request->route()->parameters();
+                $obj->req_body = $app->request->input();
+                foreach ($obj->req_param as $key => $value) {
                     if (isset($key, $obj)) {
                         $obj->$key = $value;
                     }
                 }
-                foreach ($obj->query as $key => $value) {
+                foreach ($obj->req_query as $key => $value) {
                     if (isset($key, $obj)) {
                         $obj->$key = $value;
                     }
                 }
-                foreach ($obj->body as $key => $value) {
+                foreach ($obj->req_body as $key => $value) {
                     if (isset($key, $obj)) {
                         $obj->$key = $value;
                     }
