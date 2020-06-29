@@ -54,6 +54,7 @@ RUN ln -s /usr/local/bin/composer.phar /usr/local/bin/composer
 RUN composer global require laravel/installer
 RUN ln -s /root/.composer/vendor/bin/laravel /usr/local/bin/laravel
 RUN echo "<Directory \"/var/www/html/project/public\">\nOptions Indexes FollowSymLinks\nRequire all granted\nAllowOverride All\n</Directory>" >> /etc/apache2/apache2.conf
+RUN sed -ri 's/\/var\/www\/html/\/var\/www\/html\/project\/public/g' /etc/apache2/sites-available/000-default.conf
 
 #set file
 ADD ./script /root/script/
