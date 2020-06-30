@@ -15,8 +15,15 @@ class UserDto extends DtoImpl
     /**
      * Class constructor.
      */
-    public function __construct($email, $name, $age, $birth_date, $password, $created_date, $updated_date)
-    {
+    public function __construct(
+        $email,
+        $name,
+        $age,
+        $birth_date,
+        $password,
+        $created_date,
+        $updated_date
+    ) {
         $this->email = $email;
         $this->name = $name;
         $this->age = $age;
