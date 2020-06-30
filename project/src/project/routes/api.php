@@ -21,7 +21,7 @@ use App\Model\Picture;
 //     return $request->user();
 // });
 
-Route::get('/user/{email}', 'UserController@get')->name('uaer\get');
+Route::middleware('auth:api')->get('/user/{email}', 'UserController@get')->name('uaer\get');
 Route::post('/user', 'UserController@post')->name('uaer\post');
 Route::patch('/user/{email}', 'UserController@patch')->name('uaer\patch');
 Route::delete('/user/{email}', 'UserController@delete')->name('uaer\delete');
