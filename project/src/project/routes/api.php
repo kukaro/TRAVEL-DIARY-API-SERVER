@@ -31,6 +31,9 @@ Route::post('/picture', 'PictureController@post')->name('picture\post');
 Route::patch('/picture/{id}', 'PictureController@patch')->name('picture\patch');
 Route::delete('/picture/{id}', 'PictureController@delete')->name('picture\delete');
 
+Route::get('/post/{id}', 'PostController@get')->name('post\get');
+Route::post('/post', 'PostController@post')->name('post\post');
+
 Route::get('/health', function (Request $request) {
     return ['MSG' => 'OK', 'STATUS' => 200];
 });
