@@ -2,11 +2,7 @@
 
 namespace App\Providers\RestService;
 
-use App\Http\Controllers\UserController;
 use App\Http\Requests\RestRequests\RestRequest;
-use App\Http\Requests\RestRequests\UserRestRequest;
-use App\Http\Services\Classes\UserServiceImpl;
-use App\Http\Services\Interfaces\UserService;
 use Illuminate\Support\ServiceProvider;
 
 class RestServiceProvider extends ServiceProvider
@@ -63,7 +59,10 @@ class RestServiceProvider extends ServiceProvider
                 $obj->req_query = $app->request->query();
                 $obj->req_url = $app->request->url();
                 $obj->req_path = $app->request->path();
-                $obj->req_param = $app->request->route()->parameters();
+                $obj->req_param = [];
+                if($app->request->route()){
+                    $obj->req_param = $app->request->route()->parameters();
+                }
                 $obj->req_body = $app->request->input();
                 foreach ($obj->req_param as $key => $value) {
                     if (isset($key, $obj)) {
