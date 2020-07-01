@@ -38,15 +38,15 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function authenticate(Request $request)
-    {
-        $credentials = $request->only('email', 'password');
+    // public function authenticate(Request $request)
+    // {
+    //     $credentials = $request->only('email', 'password');
 
-        error_log(date("Y-m-d H:i:s")."\n", 3, "debug.log");
+    //     error_log(date("Y-m-d H:i:s")."\n", 3, "debug.log");
 
-        if (Auth::attempt($credentials)) {
-            // Authentication passed...
-            return redirect()->intended('dashboard');
-        }
-    }
+    //     if (Auth::attempt($credentials)) {
+    //         // Authentication passed...
+    //         return redirect()->intended('dashboard');
+    //     }
+    // }
 }
