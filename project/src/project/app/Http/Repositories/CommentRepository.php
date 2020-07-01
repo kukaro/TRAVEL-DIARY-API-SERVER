@@ -27,19 +27,37 @@ class CommentRepository implements Repository
 
     public function create(RestRequest $request)
     {
-        $data = null;
+        $data = new Comment();
+        $data->id = $request->id;
+        $data->owner_email = $request->owner_email;
+        $data->contents = $request->contents;
+        $data->parents_comment_id = $request->parents_comment_id;
+        $data->save();
         return $data;
     }
 
     public function update(RestRequest $request)
     {
-        $data = null;
+        $arr = [
+            'id' => $request->id,
+            'owner_email' => $request->owner_email,
+            'contents' => $request->contents,
+            'parents_comment_id' => $request->parents_comment_id,
+            'created_date' => $request->created_date,
+            'updated_date' => $request->updated_date,
+        ];
+        foreach ($arr as $key => $value) {
+            if ($value === null) {
+                unset($arr[$key]);
+            }
+        }
+        $data = Comment::where('id', $request->id)->update($arr);
         return $data;
     }
 
     public function delete(RestRequest $request)
     {
-        $data = null;
+        $data = Comment::where('id', $request->id)->delete();
         return $data;
     }
 }
