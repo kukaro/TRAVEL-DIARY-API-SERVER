@@ -33,6 +33,8 @@ Route::delete('/picture/{id}', 'PictureController@delete')->name('picture\delete
 
 Route::get('/post/{id}', 'PostController@get')->name('post\get');
 Route::post('/post', 'PostController@post')->name('post\post');
+Route::patch('/post/{id}', 'PostController@patch')->name('post\patch');
+Route::delete('/post/{id}', 'PostController@delete')->name('post\delete');
 
 Route::get('/health', function (Request $request) {
     return ['MSG' => 'OK', 'STATUS' => 200];
