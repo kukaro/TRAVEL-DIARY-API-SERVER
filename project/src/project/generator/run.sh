@@ -3,4 +3,4 @@ cd $RELATIVE_DIR
 SHELL_PATH=`pwd -P`
 cd $SHELL_PATH
 php generator.php deafult api $1
-php ../artisan make:model Post
+php ../artisan make:model $1
