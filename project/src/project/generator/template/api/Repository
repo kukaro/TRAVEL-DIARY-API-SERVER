@@ -1,7 +1,9 @@
 <?php
 namespace App\Http\Repositories;
 
+use App\Http\Dto\<0>Dto;
 use App\Http\Requests\RestRequests\RestRequest;
+use App\Model\<0>;
 
 class <0>Repository implements Repository
 {

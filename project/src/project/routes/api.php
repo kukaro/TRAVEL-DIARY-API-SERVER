@@ -36,6 +36,11 @@ Route::post('/post', 'PostController@post')->name('post\post');
 Route::patch('/post/{id}', 'PostController@patch')->name('post\patch');
 Route::delete('/post/{id}', 'PostController@delete')->name('post\delete');
 
+Route::get('/comment/{id}', 'CommentController@get')->name('comment\get');
+Route::post('/comment', 'CommentController@post')->name('comment\post');
+Route::patch('/comment/{id}', 'CommentController@patch')->name('comment\patch');
+Route::delete('/comment/{id}', 'CommentController@delete')->name('comment\delete');
+
 Route::get('/health', function (Request $request) {
     return ['MSG' => 'OK', 'STATUS' => 200];
 });

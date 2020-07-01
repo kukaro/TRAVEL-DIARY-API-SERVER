@@ -4,6 +4,12 @@ namespace App\Http\Requests\RestRequests;
 
 class CommentRestRequest extends RestRequest
 {
+    private $id;
+    private $owner_email;
+    private $contents;
+    private $parents_comment_id;
+    private $created_date;
+    private $updated_date;
 
     /**
      * Class constructor.
@@ -11,7 +17,7 @@ class CommentRestRequest extends RestRequest
     public function __construct()
     {
     }
-    
+
     public function __set($name, $value)
     {
         if (property_exists($this, $name)) {
