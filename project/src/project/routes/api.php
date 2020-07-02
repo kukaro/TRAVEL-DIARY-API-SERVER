@@ -21,6 +21,12 @@ use App\Model\Picture;
 //     return $request->user();
 // });
 
+Route::post('/login', 'JWTAuthController@login')->name('api.jwt.login');
+//Route::middleware('auth:api')->get('/user', 'JWTAuthController@user')->name('api.jwt.user');
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::get('user', 'JWTAuthController@user')->name('api.jwt.user');
+});
+
 Route::middleware('auth:api')->get('/user/{email}', 'UserController@get')->name('uaer\get');
 Route::post('/user', 'UserController@post')->name('uaer\post');
 Route::patch('/user/{email}', 'UserController@patch')->name('uaer\patch');
@@ -45,9 +51,9 @@ Route::get('/health', function (Request $request) {
     return ['MSG' => 'OK', 'STATUS' => 200];
 });
 
-Route::get('/test/join',function (Request $reqeust){
+Route::get('/test/join', function (Request $reqeust) {
     $data = User::join('picture', 'user.email', '=', 'picture.owner_email')
-    ->where('email','dudu@dudu.du')->get();
+        ->where('email', 'dudu@dudu.du')->get();
     dump($data);
     // dump($data->getAttributes());
     // $data = User::find(['dudu@dudu.du'])[0]->picture();
