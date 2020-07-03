@@ -21,7 +21,6 @@ class CommentDto extends DtoImpl
         $parents_comment_id,
         $created_date,
         $updated_date
-
     ) {
         $this->id = $id;
         $this->owner_email = $owner_email;

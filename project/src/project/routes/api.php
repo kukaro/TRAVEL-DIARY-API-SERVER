@@ -21,10 +21,11 @@ use App\Model\Picture;
 //     return $request->user();
 // });
 
-Route::get('/user/{email}', 'UserController@get')->name('uaer\get');
-Route::post('/user', 'UserController@post')->name('uaer\post');
-Route::patch('/user/{email}', 'UserController@patch')->name('uaer\patch');
-Route::delete('/user/{email}', 'UserController@delete')->name('uaer\delete');
+Route::get('/user/{email}', 'UserController@get')->name('user\get');
+Route::post('/user', 'UserController@post')->name('user\post');
+Route::patch('/user/{email}', 'UserController@patch')->name('user\patch');
+Route::delete('/user/{email}', 'UserController@delete')->name('user\delete');
+
 
 Route::get('/picture/{id}', 'PictureController@get')->name('picture\get');
 Route::post('/picture', 'PictureController@post')->name('picture\post');
@@ -35,6 +36,7 @@ Route::get('/post/{id}', 'PostController@get')->name('post\get');
 Route::post('/post', 'PostController@post')->name('post\post');
 Route::patch('/post/{id}', 'PostController@patch')->name('post\patch');
 Route::delete('/post/{id}', 'PostController@delete')->name('post\delete');
+Route::get('/post/user/{email}', 'PostController@getWithUser')->name('post\get');
 
 Route::get('/comment/{id}', 'CommentController@get')->name('comment\get');
 Route::post('/comment', 'CommentController@post')->name('comment\post');
