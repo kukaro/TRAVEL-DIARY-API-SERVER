@@ -41,4 +41,10 @@ class PostController extends TravleDiaryController
         $this->service->delete($this->request);
         return response()->json(['data' => 'SUCCESS'], 200, [], JSON_UNESCAPED_UNICODE);
     }
+
+    public function getWithUser()
+    {
+        $data = $this->service->getWithUser($this->request);
+        return response()->json(['data' => $data], 200, [], JSON_UNESCAPED_UNICODE);
+    }
 }

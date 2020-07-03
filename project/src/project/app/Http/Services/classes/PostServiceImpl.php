@@ -45,4 +45,10 @@ class PostServiceImpl implements PostService
         $data = null;
         return $data;
     }
+
+    public function getWithUser(RestRequest $request)
+    {
+        $data = $this->repository->readWithUser($request);
+        return $data;
+    }
 }

@@ -41,6 +41,7 @@ Route::get('/post/{id}', 'PostController@get')->name('post\get');
 Route::post('/post', 'PostController@post')->name('post\post');
 Route::patch('/post/{id}', 'PostController@patch')->name('post\patch');
 Route::delete('/post/{id}', 'PostController@delete')->name('post\delete');
+Route::get('/post/user/{id}', 'PostController@getWithUser')->name('post\getWithUser');
 
 Route::get('/comment/{id}', 'CommentController@get')->name('comment\get');
 Route::post('/comment', 'CommentController@post')->name('comment\post');

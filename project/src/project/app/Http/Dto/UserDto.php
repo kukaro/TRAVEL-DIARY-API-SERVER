@@ -11,6 +11,7 @@ class UserDto extends DtoImpl
     private $password;
     private $created_date;
     private $updated_date;
+    private $post;
 
     /**
      * Class constructor.

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Repositories;
 
 use App\Http\Dto\PostDto;
@@ -62,5 +63,31 @@ class PostRepository implements Repository
     {
         $data = Post::where('id', $request->id)->delete();
         return $data;
+    }
+    /*
+     * TODO : POST와 USER를 JOIN을 하긴했는데 POST에 USER정보를 넣어야할지 말아야할지 솔직히 고민이다. 나중에 엄청 중요해질거 같으니까 일단은 POSTDTO에는 USERDTO를 않넣고(개념상은 필요없음)진행하자.
+     */
+    public function readWithUser(RestRequest $request)
+    {
+        $ret = [];
+        $datas = Post::join('user', 'user.email', '=', 'post.owner_email')
+            ->where('email', $request->id)->get();
+        if (count($datas) == 0) {
+            $datas = null;
+        } else {
+            foreach ($datas as $data) {
+                $data = $data->getAttributes();
+                $data = new PostDto(intval($data['id']),
+                    $data['owner_email'],
+                    $data['title'],
+                    $data['contents'],
+                    $data['parents_post_id'],
+                    $data['created_date'],
+                    $data['updated_date']
+                );
+                array_push($ret, $data);
+            }
+        }
+        return $ret;
     }
 }
