@@ -22,12 +22,12 @@ use App\Model\Picture;
 // });
 
 Route::post('/login', 'JWTAuthController@login')->name('api.jwt.login');
-//Route::middleware('auth:api')->get('/user', 'JWTAuthController@user')->name('api.jwt.user');
+Route::middleware('auth:api')->get('/user', 'JWTAuthController@user')->name('api.jwt.user');
 Route::group(['middleware' => 'auth:api'], function () {
     Route::get('user', 'JWTAuthController@user')->name('api.jwt.user');
 });
 
-Route::middleware('auth:api')->get('/user/{email}', 'UserController@get')->name('uaer\get');
+Route::get('/user/{email}', 'UserController@get')->name('uaer\get');
 Route::post('/user', 'UserController@post')->name('uaer\post');
 Route::patch('/user/{email}', 'UserController@patch')->name('uaer\patch');
 Route::delete('/user/{email}', 'UserController@delete')->name('uaer\delete');
