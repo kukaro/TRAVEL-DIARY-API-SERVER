@@ -15,17 +15,20 @@ class Authenticate extends Middleware
      */
     protected function redirectTo($request)
     {
-        if (!$request->expectsJson()) {
+        if (! $request->expectsJson()) {
+            if ($request->is('api/*')) {
+                return route('api.jwt.unauthorized');
+            }
             return route('login');
         }
     }
 
-    public function handle($request, Closure $next)
-    {
-        if ($this->auth->check()) {
-            return $next($request);
-        } else {
-            return redirect()->guest('login');
-        }
-    }
+//    public function handle($request, Closure $next)
+//    {
+//        if ($this->auth->check()) {
+//            return $next($request);
+//        } else {
+//            return redirect()->guest('login');
+//        }
+//    }
 }
