@@ -45,7 +45,7 @@ return [
 
         'mysql' => [
             'driver' => 'mysql',
-            'url' => env('DATABASE_URL', 'mysql://root:root@172.20.0.2:3306/td_db'),
+            'url' => env('DATABASE_URL', 'mysql://root:root@172.22.0.2:3306/td_db'),
             'host' => env('DB_HOST', '172.22.0.2'),
             'port' => env('DB_PORT', '3306'),
             'database' => env('DB_DATABASE', 'td_db'),

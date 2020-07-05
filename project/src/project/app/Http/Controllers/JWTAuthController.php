@@ -9,32 +9,6 @@ use Illuminate\Support\Facades\Validator;
 
 class JWTAuthController extends Controller
 {
-    public function register(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:100',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|string|min:1|max:255|confirmed',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => 'error',
-                'messages' => $validator->messages()
-            ], 200);
-        }
-
-        $user = new User;
-        $user->fill($request->all());
-        $user->password = $request->password;
-        $user->save();
-
-        return response()->json([
-            'status' => 'success',
-            'data' => $user
-        ], 200);
-    }
-
     public function login(Request $request)
     {
         $validator = Validator::make($request->all(), [
