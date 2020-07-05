@@ -9,14 +9,15 @@ use Illuminate\Support\Facades\Validator;
 
 class JWTAuthController extends Controller
 {
-    public function register(Request $request) {
+    public function register(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:100',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|string|min:1|max:255|confirmed',
         ]);
 
-        if($validator->fails()) {
+        if ($validator->fails()) {
             return response()->json([
                 'status' => 'error',
                 'messages' => $validator->messages()
@@ -34,27 +35,29 @@ class JWTAuthController extends Controller
         ], 200);
     }
 
-    public function login(Request $request) {
+    public function login(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'email' => 'required|email|max:255',
             'password' => 'required|string|min:1|max:255',
         ]);
 
-        if($validator->fails()) {
+        if ($validator->fails()) {
             return response()->json([
                 'status' => 'error',
                 'messages' => $validator->messages()
             ], 200);
         }
 
-        if (! $token = Auth::guard('api')->attempt(['email' => $request->email, 'password' => $request->password])) {
+        if (!$token = Auth::guard('api')->attempt(['email' => $request->email, 'password' => $request->password])) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
         return $this->respondWithToken($token);
     }
 
-    protected function respondWithToken($token) {
+    protected function respondWithToken($token)
+    {
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
@@ -62,7 +65,8 @@ class JWTAuthController extends Controller
         ]);
     }
 
-    public function user() {
-        return response()->json(Auth::guard('api')->user());
+    public function user()
+    {
+        return response()->json(['data' => Auth::guard('api')->user()]);
     }
 }
