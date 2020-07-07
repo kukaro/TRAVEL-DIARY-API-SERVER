@@ -64,6 +64,7 @@ class PostRepository implements Repository
         $data = Post::where('id', $request->id)->delete();
         return $data;
     }
+
     /*
      * TODO : POST와 USER를 JOIN을 하긴했는데 POST에 USER정보를 넣어야할지 말아야할지 솔직히 고민이다. 나중에 엄청 중요해질거 같으니까 일단은 POSTDTO에는 USERDTO를 않넣고(개념상은 필요없음)진행하자.
      */
@@ -71,7 +72,15 @@ class PostRepository implements Repository
     {
         $ret = [];
         $datas = Post::join('user', 'user.email', '=', 'post.owner_email')
-            ->where('email', $request->id)->get();
+            ->where('email', $request->id)->
+            select('id',
+                'owner_email',
+                'title',
+                'contents',
+                'parents_post_id',
+                'post.created_date as created_date',
+                'post.updated_date as updated_date'
+            )->get();
         if (count($datas) == 0) {
             $datas = null;
         } else {

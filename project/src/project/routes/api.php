@@ -37,11 +37,11 @@ Route::post('/picture', 'PictureController@post')->name('picture\post');
 Route::patch('/picture/{id}', 'PictureController@patch')->name('picture\patch');
 Route::delete('/picture/{id}', 'PictureController@delete')->name('picture\delete');
 
-Route::get('/post/{id}', 'PostController@get')->name('post\get');
+Route::middleware('auth:api')->get('/post/{id}', 'PostController@get')->name('post\get');
 Route::post('/post', 'PostController@post')->name('post\post');
 Route::patch('/post/{id}', 'PostController@patch')->name('post\patch');
 Route::delete('/post/{id}', 'PostController@delete')->name('post\delete');
-Route::get('/post/user/{id}', 'PostController@getWithUser')->name('post\getWithUser');
+Route::middleware('auth:api')->get('/post/user/{id}', 'PostController@getWithUser')->name('post\getWithUser');
 
 Route::get('/comment/{id}', 'CommentController@get')->name('comment\get');
 Route::post('/comment', 'CommentController@post')->name('comment\post');
