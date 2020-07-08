@@ -21,6 +21,7 @@ use App\Model\Picture;
 //     return $request->user();
 // });
 
+Route::post('/login/hiworks', 'HiworksAuthController@login')->name('api.hiworks.login');
 Route::post('/login', 'JWTAuthController@login')->name('api.jwt.login');
 Route::middleware('auth:api')->get('/user', 'JWTAuthController@user')->name('api.jwt.user');
 Route::group(['middleware' => 'auth:api'], function () {
@@ -39,7 +40,7 @@ Route::delete('/picture/{id}', 'PictureController@delete')->name('picture\delete
 
 Route::middleware('auth:api')->get('/post/{id}', 'PostController@get')->name('post\get');
 Route::post('/post', 'PostController@post')->name('post\post');
-Route::patch('/post/{id}', 'PostController@patch')->name('post\patch');
+Route::middleware('auth:api')->patch('/post/{id}', 'PostController@patch')->name('post\patch');
 Route::delete('/post/{id}', 'PostController@delete')->name('post\delete');
 Route::middleware('auth:api')->get('/post/user/{id}', 'PostController@getWithUser')->name('post\getWithUser');
 
