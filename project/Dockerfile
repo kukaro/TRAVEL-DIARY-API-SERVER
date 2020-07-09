@@ -3,6 +3,7 @@ MAINTAINER kukaro <justkukaro@naver.com>
 RUN apt-get update
 RUN apt-get install -y openssh-server
 RUN mkdir /var/run/sshd
+ARG HOST_IP=127.0.0.1
 
 #set password
 RUN echo 'root:root' |chpasswd
@@ -61,6 +62,7 @@ ADD ./script /root/script/
 RUN touch ~/.vimrc
 RUN echo "set nu\n" >> ~/.vimrc
 RUN a2enmod rewrite
+RUN echo "$HOST_IP"
 
 EXPOSE 22 80 8080
 
