@@ -1,1 +1,1 @@
-docker exec -it travle-diary-api-server-project /bin/bash
+docker exec -it travel-diary-api-server-project /bin/bash

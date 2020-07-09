@@ -1,4 +1,4 @@
-# TRAVLE-DIARY-API-SERVER
+# TRAVEL-DIARY-API-SERVER
 API서버
 
 composer install은 따로 해야합니다.
