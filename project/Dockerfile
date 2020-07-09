@@ -62,7 +62,7 @@ ADD ./script /root/script/
 RUN touch ~/.vimrc
 RUN echo "set nu\n" >> ~/.vimrc
 RUN a2enmod rewrite
-RUN touch /root/test/$HOST_IP
+RUN echo "$HOST_IP" > /root/test.txt
 
 EXPOSE 22 80 8080
 
