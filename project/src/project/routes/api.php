@@ -23,6 +23,7 @@ use App\Model\Picture;
 
 Route::post('/login/hiworks', 'HiworksAuthController@login')->name('api.hiworks.login');
 Route::post('/login', 'JWTAuthController@login')->name('api.jwt.login');
+Route::post('/signup', 'JWTAuthController@signup')->name('api.jwt.signup');
 Route::middleware('auth:api')->get('/user', 'JWTAuthController@user')->name('api.jwt.user');
 Route::group(['middleware' => 'auth:api'], function () {
     Route::get('user', 'JWTAuthController@user')->name('api.jwt.user');
