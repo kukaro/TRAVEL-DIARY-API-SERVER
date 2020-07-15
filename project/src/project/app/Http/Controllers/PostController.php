@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use App;
 use App\Http\Requests\RestRequests\RestRequest;
 use App\Http\Services\Interfaces\TravleDiaryService;
-use Illuminate\Routing\Controller as BaseController;
 
 class PostController extends TravleDiaryController
 {
 
     /**
      * Class constructor.
+     * @param TravleDiaryService $service
+     * @param RestRequest $request
      */
     public function __construct(TravleDiaryService $service, RestRequest $request)
     {
@@ -26,8 +27,8 @@ class PostController extends TravleDiaryController
 
     public function post()
     {
-        $this->service->post($this->request);
-        return response()->json(['data' => 'SUCCESS'], 200, [], JSON_UNESCAPED_UNICODE);
+        $data = $this->service->post($this->request);
+        return response()->json(['data' => $data], 200, [], JSON_UNESCAPED_UNICODE);
     }
 
     public function patch()

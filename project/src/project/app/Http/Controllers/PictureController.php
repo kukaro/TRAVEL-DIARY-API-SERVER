@@ -26,8 +26,8 @@ class PictureController extends TravleDiaryController
 
     public function post()
     {
-        $this->service->post($this->request);
-        return response()->json(['data' => 'SUCCESS'], 200, [], JSON_UNESCAPED_UNICODE);
+        $data = $this->service->post($this->request);
+        return response()->json(['data' => $data], 200, [], JSON_UNESCAPED_UNICODE);
     }
 
     public function patch()

@@ -65,3 +65,6 @@ Route::get('/test/join', function (Request $reqeust) {
     // dump($data[0]->getAttributes());
     return ['MSG' => 'OK', 'STATUS' => 200];
 });
+
+Route::get('/file/{catchall}','FileController@get')->where('catchall', '.*')->name('file\get');
+Route::post('/file','FileController@post')->name('file\post');

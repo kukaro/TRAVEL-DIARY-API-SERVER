@@ -4,6 +4,7 @@ namespace App\Http\Repositories;
 use App\Http\Dto\PictureDto;
 use App\Http\Requests\RestRequests\RestRequest;
 use App\Model\Picture;
+use Illuminate\Support\Facades\DB;
 
 class PictureRepository implements Repository
 {
@@ -27,12 +28,15 @@ class PictureRepository implements Repository
 
     public function create(RestRequest $request)
     {
+        DB::beginTransaction();
         $data = new Picture();
         $data->id = $request->id;
         $data->owner_email = $request->owner_email;
         $data->location = $request->location;
         $data->path = $request->path;
         $data->save();
+        $data = DB::select('select last_insert_id() as id')[0];
+        DB::commit();
         return $data;
     }
 

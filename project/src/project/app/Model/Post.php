@@ -8,7 +8,7 @@ class Post extends Model
 {
     protected $table = 'post';
     protected $primaryKey = 'id';
-    public $incrementing = false;
+    public $incrementing = true;
     protected $fillable = ['id', 'owner_email', 'title', 'contents', 'parents_post_id'];
     const CREATED_AT = 'created_date';
     const UPDATED_AT = 'updated_date';

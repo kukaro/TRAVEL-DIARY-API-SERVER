@@ -5,6 +5,7 @@ namespace App\Http\Repositories;
 use App\Http\Dto\PostDto;
 use App\Http\Requests\RestRequests\RestRequest;
 use App\Model\Post;
+use Illuminate\Support\Facades\DB;
 
 class PostRepository implements Repository
 {
@@ -29,6 +30,7 @@ class PostRepository implements Repository
 
     public function create(RestRequest $request)
     {
+        DB::beginTransaction();
         $data = new Post();
         $data->id = $request->id;
         $data->owner_email = $request->owner_email;
@@ -36,6 +38,8 @@ class PostRepository implements Repository
         $data->contents = $request->contents;
         $data->parents_post_id = $request->parents_post_id;
         $data->save();
+        $data = DB::select('select last_insert_id() as id')[0];
+        DB::commit();
         return $data;
     }
 
