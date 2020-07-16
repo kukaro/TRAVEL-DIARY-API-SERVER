@@ -28,6 +28,7 @@ class RestServiceProvider extends ServiceProvider
         PicturePart::run();
         PostPart::run();
         CommentPart::run();
+        PostPicturePart::run();
 
         // $this->app->bind(UserController::class, function () {
         //     return new UserController($this->app->make(UserService::class));

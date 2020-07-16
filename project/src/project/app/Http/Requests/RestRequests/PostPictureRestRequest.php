@@ -4,14 +4,21 @@ namespace App\Http\Requests\RestRequests;
 
 class PostPictureRestRequest extends RestRequest
 {
-
     /**
-     * Class constructor.
+     * @var int
      */
-    public function __construct()
-    {
-    }
-    
+    private $id;
+    /**
+     * @var int
+     */
+    private $post_id;
+    /**
+     * @var int
+     */
+    private $picture_id;
+
+    public function __construct(){}
+
     public function __set($name, $value)
     {
         if (property_exists($this, $name)) {

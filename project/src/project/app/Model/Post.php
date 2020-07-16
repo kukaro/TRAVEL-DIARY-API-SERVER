@@ -17,4 +17,12 @@ class Post extends Model
     {
         return $this->belongsTo('App\Model\User', 'email', 'owner_email');
     }
+
+    public function picture()
+    {
+        return $this->belongsToMany('App\Model\Post',
+            'post_picture',
+            'post_id',
+            'picture_id');
+    }
 }

@@ -39,10 +39,13 @@ Route::post('/picture', 'PictureController@post')->name('picture\post');
 Route::patch('/picture/{id}', 'PictureController@patch')->name('picture\patch');
 Route::delete('/picture/{id}', 'PictureController@delete')->name('picture\delete');
 
+Route::get('/post-picture/{id}', 'PostPictureController@get')->name('post\get');
+Route::post('/post-picture', 'PostPictureController@post')->name('post\post');
+
 Route::middleware('auth:api')->get('/post/{id}', 'PostController@get')->name('post\get');
-Route::post('/post', 'PostController@post')->name('post\post');
+Route::middleware('auth:api')->post('/post', 'PostController@post')->name('post\post');
 Route::middleware('auth:api')->patch('/post/{id}', 'PostController@patch')->name('post\patch');
-Route::delete('/post/{id}', 'PostController@delete')->name('post\delete');
+Route::middleware('auth:api')->delete('/post/{id}', 'PostController@delete')->name('post\delete');
 Route::middleware('auth:api')->get('/post/user/{id}', 'PostController@getWithUser')->name('post\getWithUser');
 
 Route::get('/comment/{id}', 'CommentController@get')->name('comment\get');
