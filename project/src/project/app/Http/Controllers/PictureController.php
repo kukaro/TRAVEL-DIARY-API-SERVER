@@ -12,6 +12,8 @@ class PictureController extends TravleDiaryController
 
     /**
      * Class constructor.
+     * @param TravleDiaryService $service
+     * @param RestRequest $request
      */
     public function __construct(TravleDiaryService $service, RestRequest $request)
     {
@@ -21,6 +23,12 @@ class PictureController extends TravleDiaryController
     public function get()
     {
         $data = $this->service->get($this->request);
+        return response()->json(['data' => $data], 200, [], JSON_UNESCAPED_UNICODE);
+    }
+
+    public function getWithUser()
+    {
+        $data = $this->service->getWithUser($this->request);
         return response()->json(['data' => $data], 200, [], JSON_UNESCAPED_UNICODE);
     }
 

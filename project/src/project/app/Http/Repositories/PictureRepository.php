@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Repositories;
 
 use App\Http\Dto\PictureDto;
@@ -24,6 +25,35 @@ class PictureRepository implements Repository
             );
         }
         return $data;
+    }
+
+    public function readWithUser(RestRequest $request)
+    {
+        $ret = [];
+        $datas = Picture::join('user', 'user.email', '=', 'picture.owner_email')
+            ->where('email', $request->id)->select('id',
+                'owner_email',
+                'location',
+                'path',
+                'picture.created_date as created_date',
+                'picture.updated_date as updated_date'
+            )->get();
+        if (count($datas) == 0) {
+            $data = null;
+        } else {
+            foreach ($datas as $data) {
+                $data = $data->getAttributes();
+                $data = new PictureDto(intval($data['id']),
+                    $data['owner_email'],
+                    $data['location'],
+                    $data['path'],
+                    $data['created_date'],
+                    $data['updated_date']
+                );
+                array_push($ret, $data);
+            }
+        }
+        return $ret;
     }
 
     public function create(RestRequest $request)

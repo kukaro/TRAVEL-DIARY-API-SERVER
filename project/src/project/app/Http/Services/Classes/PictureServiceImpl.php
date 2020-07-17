@@ -13,6 +13,7 @@ class PictureServiceImpl implements PictureService
 
     /**
      * Class constructor.
+     * @param Repository $repository
      */
     public function __construct(Repository $repository)
     {
@@ -45,4 +46,10 @@ class PictureServiceImpl implements PictureService
         $data = null;
         return $data;
     }
+
+    public function getWithUser(RestRequest $request){
+        $data = $this->repository->readWithUser($request);
+        return $data;
+    }
+
 }

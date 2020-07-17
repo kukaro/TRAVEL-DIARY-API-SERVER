@@ -34,6 +34,7 @@ Route::post('/user', 'UserController@post')->name('uaer\post');
 Route::patch('/user/{email}', 'UserController@patch')->name('uaer\patch');
 Route::delete('/user/{email}', 'UserController@delete')->name('uaer\delete');
 
+Route::get('/picture/user/{id}', 'PictureController@getWithUser')->name('picture\getWithUser');
 Route::get('/picture/{id}', 'PictureController@get')->name('picture\get');
 Route::post('/picture', 'PictureController@post')->name('picture\post');
 Route::patch('/picture/{id}', 'PictureController@patch')->name('picture\patch');
