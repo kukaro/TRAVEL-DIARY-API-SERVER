@@ -54,8 +54,12 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN ln -s /usr/local/bin/composer.phar /usr/local/bin/composer
 RUN composer global require laravel/installer
 RUN ln -s /root/.composer/vendor/bin/laravel /usr/local/bin/laravel
-RUN echo "<Directory \"/var/www/html/project/public\">\nOptions Indexes FollowSymLinks\nRequire all granted\nAllowOverride All\n</Directory>" >> /etc/apache2/apache2.conf
+RUN echo "<Directory \"/var/www/html/project/public\">\nOptions Indexes FollowSymLinks\nRequire all granted\nAllowOverride All\nLimitRequestBody 10240000\nphp_value upload_max_filesize 2000M\nphp_value post_max_size 2000M\n</Directory>" >> /etc/apache2/apache2.conf
 RUN sed -ri 's/\/var\/www\/html/\/var\/www\/html\/project\/public/g' /etc/apache2/sites-available/000-default.conf
+ENV PHP_INI_PATH /etc/php/7.4/cli/php.ini
+RUN sed -ri 's/upload_max_filesize = 2M/upload_max_filesize = 64M/g' $PHP_INI_PATH
+RUN sed -ri 's/post_max_size = 8M/post_max_size = 64M/g' $PHP_INI_PATH
+RUN sed -ri 's/memory_limit = 128M/memory_limit = 256M/g' $PHP_INI_PATH
 
 #set file
 ADD ./script /root/script/
