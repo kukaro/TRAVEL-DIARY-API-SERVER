@@ -25,6 +25,12 @@ class PostController extends TravleDiaryController
         return response()->json(['data' => $data], 200, [], JSON_UNESCAPED_UNICODE);
     }
 
+    public function getWithPicture()
+    {
+        $data = $this->service->getWithPicture($this->request);
+        return response()->json(['data' => $data], 200, [], JSON_UNESCAPED_UNICODE);
+    }
+
     public function post()
     {
         $data = $this->service->post($this->request);

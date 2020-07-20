@@ -28,6 +28,39 @@ class PostRepository implements Repository
         return $data;
     }
 
+    public function readWithPicture(RestRequest $request)
+    {
+        $ret = [];
+        $datas = Post::join('post_picture', 'post_picture.post_id', '=', 'post.id')
+            ->join('picture', 'picture.id', '=', 'picture_id')
+            ->where('picture.id', $request->id)
+            ->select('post.id as id',
+                'post.owner_email as owner_email',
+                'title',
+                'contents',
+                'parents_post_id',
+                'post.created_date as created_date',
+                'post.updated_date as updated_date'
+            )->get();
+        if (count($datas) == 0) {
+            $datas = null;
+        } else {
+            foreach ($datas as $data) {
+                $data = $data->getAttributes();
+                $data = new PostDto(intval($data['id']),
+                    $data['owner_email'],
+                    $data['title'],
+                    $data['contents'],
+                    $data['parents_post_id'],
+                    $data['created_date'],
+                    $data['updated_date']
+                );
+                array_push($ret, $data);
+            }
+        }
+        return $ret;
+    }
+
     public function create(RestRequest $request)
     {
         DB::beginTransaction();

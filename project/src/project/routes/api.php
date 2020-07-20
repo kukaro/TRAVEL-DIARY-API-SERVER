@@ -48,6 +48,7 @@ Route::middleware('auth:api')->post('/post', 'PostController@post')->name('post\
 Route::middleware('auth:api')->patch('/post/{id}', 'PostController@patch')->name('post\patch');
 Route::middleware('auth:api')->delete('/post/{id}', 'PostController@delete')->name('post\delete');
 Route::middleware('auth:api')->get('/post/user/{id}', 'PostController@getWithUser')->name('post\getWithUser');
+Route::get('/post/picture/{id}', 'PostController@getWithPicture')->name('post\getWithPicture');
 
 Route::get('/comment/{id}', 'CommentController@get')->name('comment\get');
 Route::post('/comment', 'CommentController@post')->name('comment\post');

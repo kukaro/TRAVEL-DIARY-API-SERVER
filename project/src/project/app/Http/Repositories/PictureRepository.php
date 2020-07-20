@@ -27,6 +27,24 @@ class PictureRepository implements Repository
         return $data;
     }
 
+    public function readWithPicture(RestRequest $request)
+    {
+        $data = Picture::where('id', $request->id)->get();
+        if (count($data) == 0) {
+            $data = null;
+        } else {
+            $data = $data[0]->getAttributes();
+            $data = new PictureDto(intval($data['id']),
+                $data['owner_email'],
+                $data['location'],
+                $data['path'],
+                $data['created_date'],
+                $data['updated_date']
+            );
+        }
+        return $data;
+    }
+
     public function readWithUser(RestRequest $request)
     {
         $ret = [];

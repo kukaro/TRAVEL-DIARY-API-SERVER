@@ -25,6 +25,12 @@ class PostServiceImpl implements PostService
         return $data;
     }
 
+    public function getWithPicture(RestRequest $request)
+    {
+        $data = $this->repository->readWithPicture($request);
+        return $data;
+    }
+
     public function post(RestRequest $request)
     {
         $data = $this->repository->create($request);
