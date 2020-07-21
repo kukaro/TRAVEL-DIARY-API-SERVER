@@ -73,3 +73,4 @@ Route::get('/test/join', function (Request $reqeust) {
 
 Route::get('/file/{catchall}','FileController@get')->where('catchall', '.*')->name('file\get');
 Route::post('/file','FileController@post')->name('file\post');
+Route::delete('/file/{catchall}','FileController@delete')->where('catchall', '.*')->name('file\delete');

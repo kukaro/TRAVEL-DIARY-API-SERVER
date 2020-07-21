@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
-//TODO : 이건 피드백 한번 받아보자
 class FileController extends Controller
 {
     public function get(Request $request)
@@ -30,8 +29,6 @@ class FileController extends Controller
         return $response;
     }
 
-
-    //TODO : 나중에 추상화 해야함
     public function post(Request $request)
     {
         $file_path = $request->all()['file_path'];
@@ -45,7 +42,23 @@ class FileController extends Controller
         $file->storeAs($file_path, $file_name);
 
         return response()->json([
-            'status' => 'FILE CONTROLLER',
+            'MSG' => 'SUCCESS',
+        ], 200);
+    }
+
+    //TODO : 나중에 파일 없을떄는 다른 메세지랑 코드 나가게 수정해야함
+    public function delete(Request $request){
+        $path = $request->route()->catchall;
+        $path = storage_path("app/$path");
+
+        if (!File::exists($path)) {
+            abort(404);
+        }
+
+        File::delete($path);
+
+        return response()->json([
+            'MSG' => 'SUCCESS',
         ], 200);
     }
 }
