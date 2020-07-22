@@ -18,7 +18,7 @@ class PostRestRequest extends RestRequest
     public function __construct()
     {
     }
-    
+
     public function __set($name, $value)
     {
         if (property_exists($this, $name)) {

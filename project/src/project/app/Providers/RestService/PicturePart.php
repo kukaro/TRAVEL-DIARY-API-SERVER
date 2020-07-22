@@ -14,17 +14,21 @@ use Illuminate\Support\ServiceProvider;
 class PicturePart{
     static function run()
     {
-        app()->bind(PictureRestRequest::class, function () {
+        app()->singleton(PictureRestRequest::class, function () {
             return new PictureRestRequest();
         });
-    
-        app()->bind(PictureService::class, function () {
+
+        app()->singleton(RestRequest::class, function () {
+            return app()->make(PictureRestRequest::class);
+        });
+
+        app()->singleton(PictureService::class, function () {
             return new PictureServiceImpl(new PictureRepository());
         });
-    
-        app()->bind(PictureController::class, function () {
+
+        app()->singleton(PictureController::class, function () {
             return new PictureController(app()->make(PictureService::class), app()->make(PictureRestRequest::class));
         });
-    
+
     }
 }

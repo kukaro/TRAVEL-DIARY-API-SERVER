@@ -14,17 +14,21 @@ use Illuminate\Support\ServiceProvider;
 class UserPart{
     static function run()
     {
-        app()->bind(UserRestRequest::class, function () {
+        app()->singleton(UserRestRequest::class, function () {
             return new UserRestRequest();
         });
-    
-        app()->bind(UserService::class, function () {
+
+        app()->singleton(RestRequest::class, function () {
+            return app()->make(UserRestRequest::class);
+        });
+
+        app()->singleton(UserService::class, function () {
             return new UserServiceImpl(new UserRepository());
         });
-    
-        app()->bind(UserController::class, function () {
+
+        app()->singleton(UserController::class, function () {
             return new UserController(app()->make(UserService::class), app()->make(UserRestRequest::class));
         });
-    
+
     }
 }

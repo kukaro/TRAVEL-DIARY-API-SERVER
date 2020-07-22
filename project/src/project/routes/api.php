@@ -1,5 +1,6 @@
 <?php
 
+use App\Model\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Model\User;
@@ -29,10 +30,10 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('user', 'JWTAuthController@user')->name('api.jwt.user');
 });
 
-Route::get('/user/{email}', 'UserController@get')->name('uaer\get');
-Route::post('/user', 'UserController@post')->name('uaer\post');
-Route::patch('/user/{email}', 'UserController@patch')->name('uaer\patch');
-Route::delete('/user/{email}', 'UserController@delete')->name('uaer\delete');
+Route::get('/user/{email}', 'UserController@get')->name('user\get');
+Route::post('/user', 'UserController@post')->name('user\post');
+Route::patch('/user/{email}', 'UserController@patch')->name('user\patch');
+Route::delete('/user/{email}', 'UserController@delete')->name('user\delete');
 
 Route::get('/picture/user/{id}', 'PictureController@getWithUser')->name('picture\getWithUser');
 Route::get('/picture/{id}', 'PictureController@get')->name('picture\get');
@@ -43,11 +44,11 @@ Route::delete('/picture/{id}', 'PictureController@delete')->name('picture\delete
 Route::get('/post-picture/{id}', 'PostPictureController@get')->name('post\get');
 Route::post('/post-picture', 'PostPictureController@post')->name('post\post');
 
+Route::middleware('auth:api', 'can:general,'.User::class)->get('/post/user', 'PostController@getWithUser')->name('post\getWithUser');
 Route::middleware('auth:api')->get('/post/{id}', 'PostController@get')->name('post\get');
 Route::middleware('auth:api')->post('/post', 'PostController@post')->name('post\post');
 Route::middleware('auth:api')->patch('/post/{id}', 'PostController@patch')->name('post\patch');
 Route::middleware('auth:api')->delete('/post/{id}', 'PostController@delete')->name('post\delete');
-Route::middleware('auth:api')->get('/post/user/{id}', 'PostController@getWithUser')->name('post\getWithUser');
 Route::get('/post/picture/{id}', 'PostController@getWithPicture')->name('post\getWithPicture');
 
 Route::get('/comment/{id}', 'CommentController@get')->name('comment\get');
@@ -59,7 +60,7 @@ Route::get('/health', function (Request $request) {
     return ['MSG' => 'OK', 'STATUS' => 200];
 });
 
-Route::get('/test/join', function (Request $reqeust) {
+Route::get('/test/join', function (Request $request) {
     $data = User::join('picture', 'user.email', '=', 'picture.owner_email')
         ->where('email', 'dudu@dudu.du')->get();
     dump($data);
@@ -71,6 +72,6 @@ Route::get('/test/join', function (Request $reqeust) {
     return ['MSG' => 'OK', 'STATUS' => 200];
 });
 
-Route::get('/file/{catchall}','FileController@get')->where('catchall', '.*')->name('file\get');
-Route::post('/file','FileController@post')->name('file\post');
-Route::delete('/file/{catchall}','FileController@delete')->where('catchall', '.*')->name('file\delete');
+Route::get('/file/{catchall}', 'FileController@get')->where('catchall', '.*')->name('file\get');
+Route::post('/file', 'FileController@post')->name('file\post');
+Route::delete('/file/{catchall}', 'FileController@delete')->where('catchall', '.*')->name('file\delete');

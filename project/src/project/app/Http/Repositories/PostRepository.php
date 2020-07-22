@@ -108,16 +108,19 @@ class PostRepository implements Repository
     public function readWithUser(RestRequest $request)
     {
         $ret = [];
-        $datas = Post::join('user', 'user.email', '=', 'post.owner_email')
-            ->where('email', $request->id)->
-            select('id',
-                'owner_email',
-                'title',
-                'contents',
-                'parents_post_id',
-                'post.created_date as created_date',
-                'post.updated_date as updated_date'
-            )->get();
+        $datas = Post::join('user', 'user.email', '=', 'post.owner_email');
+        foreach ($request->wheres as $where) {
+            $datas = $datas->where($where->getColumn(), $where->getOp(), $where->getValue());
+        }
+        $datas = $datas->
+        select('id',
+            'owner_email',
+            'title',
+            'contents',
+            'parents_post_id',
+            'post.created_date as created_date',
+            'post.updated_date as updated_date'
+        )->get();
         if (count($datas) == 0) {
             $datas = null;
         } else {

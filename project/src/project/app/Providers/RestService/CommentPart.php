@@ -14,17 +14,21 @@ use Illuminate\Support\ServiceProvider;
 class CommentPart{
     static function run()
     {
-        app()->bind(CommentRestRequest::class, function () {
+        app()->singleton(CommentRestRequest::class, function () {
             return new CommentRestRequest();
         });
-    
-        app()->bind(CommentService::class, function () {
+
+        app()->singleton(RestRequest::class, function () {
+            return app()->make(CommentRestRequest::class);
+        });
+
+        app()->singleton(CommentService::class, function () {
             return new CommentServiceImpl(new CommentRepository());
         });
-    
-        app()->bind(CommentController::class, function () {
+
+        app()->singleton(CommentController::class, function () {
             return new CommentController(app()->make(CommentService::class), app()->make(CommentRestRequest::class));
         });
-    
+
     }
 }

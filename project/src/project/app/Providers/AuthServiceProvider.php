@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Model\Post;
+use App\Model\User;
+use App\Policies\GeneralPolicy;
+use App\Policies\PrimaryPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
@@ -14,7 +18,8 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        // 'App\Model' => 'App\Policies\ModelPolicy',
+        User::class => GeneralPolicy::class,
+//        Post::class => PrimaryPolicy::class,
     ];
 
     /**
@@ -26,7 +31,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Auth::provider('travlediaryuser', function($app, array $config) {
+        Auth::provider('travlediaryuser', function ($app, array $config) {
             return new TravleDiaryUserProvider($app['hash'], $config['model']);
         });
     }

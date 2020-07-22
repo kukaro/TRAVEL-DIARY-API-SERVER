@@ -12,4 +12,12 @@ class RestRequest implements TravleDiaryRequest
     public $req_param;
     public $req_method;
     public $req_body;
+    public $wheres;
+
+
+    public function __construct()
+    {
+
+    }
+
 }

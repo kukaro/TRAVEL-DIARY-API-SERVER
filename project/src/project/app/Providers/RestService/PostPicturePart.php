@@ -14,17 +14,21 @@ use Illuminate\Support\ServiceProvider;
 class PostPicturePart{
     static function run()
     {
-        app()->bind(PostPictureRestRequest::class, function () {
+        app()->singleton(PostPictureRestRequest::class, function () {
             return new PostPictureRestRequest();
         });
-    
-        app()->bind(PostPictureService::class, function () {
+
+        app()->singleton(RestRequest::class, function () {
+            return app()->make(PostPictureRestRequest::class);
+        });
+
+        app()->singleton(PostPictureService::class, function () {
             return new PostPictureServiceImpl(new PostPictureRepository());
         });
-    
-        app()->bind(PostPictureController::class, function () {
+
+        app()->singleton(PostPictureController::class, function () {
             return new PostPictureController(app()->make(PostPictureService::class), app()->make(PostPictureRestRequest::class));
         });
-    
+
     }
 }
