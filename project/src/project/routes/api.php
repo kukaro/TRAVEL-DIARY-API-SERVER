@@ -22,7 +22,6 @@ use App\Model\Picture;
 //     return $request->user();
 // });
 
-Route::post('/login/hiworks', 'HiworksAuthController@login')->name('api.hiworks.login');
 Route::post('/login', 'JWTAuthController@login')->name('api.jwt.login');
 Route::post('/signup', 'JWTAuthController@signup')->name('api.jwt.signup');
 Route::middleware('auth:api')->get('/user', 'JWTAuthController@user')->name('api.jwt.user');
@@ -75,3 +74,6 @@ Route::get('/test/join', function (Request $request) {
 Route::get('/file/{catchall}', 'FileController@get')->where('catchall', '.*')->name('file\get');
 Route::post('/file', 'FileController@post')->name('file\post');
 Route::delete('/file/{catchall}', 'FileController@delete')->where('catchall', '.*')->name('file\delete');
+
+Route::get('/hiworks/callback','HiworksController@callback')->name('hiworks\callback');
+Route::get('/hiworks','HiworksController@get')->name('hiworks\get');
