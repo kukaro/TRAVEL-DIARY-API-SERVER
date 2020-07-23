@@ -18,13 +18,10 @@ class CommentPart{
             return new CommentRestRequest();
         });
 
-<<<<<<< HEAD
-=======
         app()->singleton(RestRequest::class, function () {
             return app()->make(CommentRestRequest::class);
         });
 
->>>>>>> e3c8c3abded93730156ac298312eddd5411b63da
         app()->singleton(CommentService::class, function () {
             return new CommentServiceImpl(new CommentRepository());
         });

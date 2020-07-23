@@ -18,13 +18,10 @@ class PicturePart{
             return new PictureRestRequest();
         });
 
-<<<<<<< HEAD
-=======
         app()->singleton(RestRequest::class, function () {
             return app()->make(PictureRestRequest::class);
         });
 
->>>>>>> e3c8c3abded93730156ac298312eddd5411b63da
         app()->singleton(PictureService::class, function () {
             return new PictureServiceImpl(new PictureRepository());
         });
