@@ -28,7 +28,7 @@ class RestServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $exception_list = ["file"=>"file"];
+        $exception_list = ["file"=>"file", "login"=>"login"];
         $api = explode("/",request()->path())[1];
         if(!array_key_exists($api,$exception_list)){
             $classname = "App\\Providers\\RestService\\".Name::kebabToPascal($api)."Part";
