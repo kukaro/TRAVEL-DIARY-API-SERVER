@@ -18,6 +18,13 @@ class PostPicturePart{
             return new PostPictureRestRequest();
         });
 
+<<<<<<< HEAD
+=======
+        app()->singleton(RestRequest::class, function () {
+            return app()->make(PostPictureRestRequest::class);
+        });
+
+>>>>>>> e3c8c3abded93730156ac298312eddd5411b63da
         app()->singleton(PostPictureService::class, function () {
             return new PostPictureServiceImpl(new PostPictureRepository());
         });
