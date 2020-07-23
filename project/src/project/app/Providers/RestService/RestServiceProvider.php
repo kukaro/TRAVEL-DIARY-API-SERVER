@@ -14,7 +14,7 @@ class RestServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+
     }
 
     /**
@@ -30,32 +30,6 @@ class RestServiceProvider extends ServiceProvider
         CommentPart::run();
         PostPicturePart::run();
 
-        // $this->app->bind(UserController::class, function () {
-        //     return new UserController($this->app->make(UserService::class));
-        // });
-
-        // $this->app->bind(RestRequest::class, function ($app) {
-        //     return new UserRestRequest();
-        // });
-
-        //BEGIN METHODS INJECTION
-        // $ignore_methods = [
-        //     "middleware" => true,
-        //     "getMiddleware" => true,
-        //     "callAction" => true,
-        //     "__call" => true,
-        //     "__construct" => true
-        // ];
-        // $controller_methods = (new \ReflectionClass(UserController::class))->getMethods();
-        // foreach ($controller_methods as $method) {
-        //     // echo $method;
-        //     $method_name = $method->name;
-        //     if (!array_key_exists($method_name, $ignore_methods)) {
-        //         $this->app->call([$this->app->make(UserController::class), $method_name], [$this->app->make(UserRestRequest::class)]);
-        //     }
-        // }
-        //END METHODS INJECTION
-
         $this->app->resolving(function ($obj, $app) {
             if ($obj instanceof RestRequest) {
                 $obj->req_method = $app->request->method();
@@ -63,7 +37,8 @@ class RestServiceProvider extends ServiceProvider
                 $obj->req_url = $app->request->url();
                 $obj->req_path = $app->request->path();
                 $obj->req_param = [];
-                if($app->request->route()){
+                $obj->wheres = [];
+                if ($app->request->route()) {
                     $obj->req_param = $app->request->route()->parameters();
                 }
                 $obj->req_body = $app->request->input();

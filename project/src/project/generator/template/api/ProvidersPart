@@ -14,17 +14,21 @@ use Illuminate\Support\ServiceProvider;
 class <0>Part{
     static function run()
     {
-        app()->bind(<0>RestRequest::class, function () {
+        app()->singleton(<0>RestRequest::class, function () {
             return new <0>RestRequest();
         });
-    
-        app()->bind(<0>Service::class, function () {
+
+        app()->singleton(RestRequest::class, function () {
+            return app()->make(<0>>RestRequest::class);
+        });
+
+        app()->singleton(<0>Service::class, function () {
             return new <0>ServiceImpl(new <0>Repository());
         });
-    
-        app()->bind(<0>Controller::class, function () {
+
+        app()->singleton(<0>Controller::class, function () {
             return new <0>Controller(app()->make(<0>Service::class), app()->make(<0>RestRequest::class));
         });
-    
+
     }
 }
