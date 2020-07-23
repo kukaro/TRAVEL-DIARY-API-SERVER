@@ -9,12 +9,14 @@ use App\Http\Requests\RestRequests\RestRequest;
 use App\Http\Requests\RestRequests\PostRestRequest;
 use App\Http\Services\Classes\PostServiceImpl;
 use App\Http\Services\Interfaces\PostService;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 class PostPart
 {
     static function run()
     {
+
         app()->singleton(PostRestRequest::class, function () {
             return new PostRestRequest();
         });

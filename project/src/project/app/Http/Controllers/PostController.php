@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App;
 use App\Http\Requests\RestRequests\RestRequest;
 use App\Http\Services\Interfaces\TravleDiaryService;
+use Illuminate\Support\Facades\Route;
 
 class PostController extends TravleDiaryController
 {

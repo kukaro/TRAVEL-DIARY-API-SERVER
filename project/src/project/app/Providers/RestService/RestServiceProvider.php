@@ -3,6 +3,9 @@
 namespace App\Providers\RestService;
 
 use App\Http\Requests\RestRequests\RestRequest;
+use App\Util\Name;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 class RestServiceProvider extends ServiceProvider
@@ -17,18 +20,20 @@ class RestServiceProvider extends ServiceProvider
 
     }
 
+    //TODO : 예외 나중에 config같은데 빼야함
     /**
-     * Bootstrap services.
+     * 클래스를 동적으로 로딩합니다. 그래서 네이밍 룰에 맞지 않을경우 에러가 날 수있습니다.
      *
      * @return void
      */
     public function boot()
     {
-        UserPart::run();
-        PicturePart::run();
-        PostPart::run();
-        CommentPart::run();
-        PostPicturePart::run();
+        $exception_list = ["file"=>"file"];
+        $api = explode("/",request()->path())[1];
+        if(!array_key_exists($api,$exception_list)){
+            $classname = "App\\Providers\\RestService\\".Name::kebabToPascal($api)."Part";
+            $classname::run();
+        }
 
         $this->app->resolving(function ($obj, $app) {
             if ($obj instanceof RestRequest) {
