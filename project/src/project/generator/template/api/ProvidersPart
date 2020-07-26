@@ -19,7 +19,7 @@ class <0>Part{
         });
 
         app()->singleton(RestRequest::class, function () {
-            return app()->make(<0>>RestRequest::class);
+            return app()->make(<0>RestRequest::class);
         });
 
         app()->singleton(<0>Service::class, function () {

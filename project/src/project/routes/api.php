@@ -43,6 +43,9 @@ Route::delete('/picture/{id}', 'PictureController@delete')->name('picture\delete
 Route::get('/post-picture/{id}', 'PostPictureController@get')->name('post\get');
 Route::post('/post-picture', 'PostPictureController@post')->name('post\post');
 
+Route::middleware('auth:api', 'can:general,'.User::class)
+    ->get('/post-comment/post/{id}', 'PostCommentController@getWithPost')->name('postcomment\getWithPost');
+
 Route::middleware('auth:api', 'can:general,'.User::class)->get('/post/user', 'PostController@getWithUser')->name('post\getWithUser');
 Route::middleware('auth:api')->get('/post/{id}', 'PostController@get')->name('post\get');
 Route::middleware('auth:api')->post('/post', 'PostController@post')->name('post\post');
