@@ -21,7 +21,6 @@ class HiworksController extends Controller
 
     public function callback(Request $request)
     {
-        dump($request);
-        return response()->json(['message'=>'true']);
+        return redirect("/#/?auth_code=".$request->query('auth_code'));
     }
 }
