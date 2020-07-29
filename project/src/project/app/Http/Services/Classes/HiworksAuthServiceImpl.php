@@ -13,10 +13,7 @@ class HiworksAuthServiceImpl implements HiworksAuthService
 
     /**
      * Class constructor.
-<<<<<<< HEAD
      * @param Repository $repository
-=======
->>>>>>> 499388279af6a3a2256564b8bd3aef82b527cb8b
      */
     public function __construct(Repository $repository)
     {
