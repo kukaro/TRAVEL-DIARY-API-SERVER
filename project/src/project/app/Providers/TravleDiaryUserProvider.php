@@ -10,6 +10,10 @@ class TravleDiaryUserProvider extends EloquentUserProvider
     public function validateCredentials(UserContract $user, array $credentials)
     {
         $plain = $credentials['password'];
-        return $user->is_hiworks == 0 && $plain == $user->getAuthPassword();
+        if ($user->is_hiworks == 0) {
+            return $plain == $user->getAuthPassword();
+        } else {
+            return $user->is_hiworks == 1 && is_null($plain);
+        }
     }
 }

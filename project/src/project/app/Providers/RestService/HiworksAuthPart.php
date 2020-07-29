@@ -25,6 +25,7 @@ class HiworksAuthPart{
         app()->singleton(HiworksAuthController::class, function () {
             return new HiworksAuthController(app()->make(HiworksAuthService::class), app()->make(HiworksAuthRestRequest::class));
         });
+    }
 
     static function mainRun(){
         app()->singleton(RestRequest::class, function () {

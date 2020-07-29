@@ -54,17 +54,17 @@ class HiworksController extends Controller
         $access_token = $data["access_token"];
         $request->office_no = $data["office_no"];
         $request->user_no = $data["user_no"];
-        $uri = Config::get('hiworks.hiworks_auth_uri').'/user/v2/me';
+        $uri = Config::get('hiworks.hiworks_auth_uri') . '/user/v2/me';
         $data = Http::withHeaders([
             "Authorization" => "Bearer " . $access_token,
             "Content-Type" => "application/json",
         ])->get("$uri");
-        $request->owner_email = $data["user_id"]."@gabia.com";
+        $request->owner_email = $data["user_id"] . "@gabia.com";
         $request->user_id = $data["user_id"];
         $request->user_name = $data["name"];
 
         $data = $this->hiworksAuthService->get($request);
-        if(is_null($data)){
+        if (is_null($data)) {
             $user_request = new UserRestRequest;
             $user_request->email = $request->owner_email;
             $user_request->name = $request->user_name;
@@ -73,6 +73,18 @@ class HiworksController extends Controller
             $this->userService->post($user_request);
             $data = $this->hiworksAuthService->post($request);
         }
-        return view('hiworks', ["data" => json_encode($data)]);
+        if (!$token = Auth::guard('api')->attempt(['email' => $request->owner_email, 'password' => null])) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+        return view('hiworks', ["data" => json_encode(["type" => "hiworks_auth", "data" => $this->respondWithToken($token)])]);
+    }
+
+    protected function respondWithToken($token)
+    {
+        return [
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'expires_in' => Auth::guard('api')->factory()->getTTL() * 60
+        ];
     }
 }
