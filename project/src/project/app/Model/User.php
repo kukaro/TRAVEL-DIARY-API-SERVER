@@ -15,7 +15,7 @@ class User extends Authenticatable implements JWTSubject
     protected $primaryKey = 'email';
     public $incrementing = false;
     protected $keyType = 'string';
-    protected $fillable = ['email', 'name', 'age', 'birth_date', 'password'];
+    protected $fillable = ['email', 'name', 'age', 'birth_date', 'password', 'is_hiworks'];
     const CREATED_AT = 'created_date';
     const UPDATED_AT = 'updated_date';
 

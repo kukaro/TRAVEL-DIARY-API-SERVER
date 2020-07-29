@@ -29,11 +29,15 @@ class RestServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $exception_list = ["file" => "file", "login" => "login", "hiworks" => "hiworks", "signup" => "signup", "" => ""];
+        $exception_list = ["file" => "file",
+            "login" => "login",
+            "signup" => "signup",
+            "" => ""];
         $api = explode("/", request()->path())[1];
         if (!array_key_exists($api, $exception_list)) {
             $classname = "App\\Providers\\RestService\\" . Name::kebabToPascal($api) . "Part";
             $classname::run();
+            $classname::mainRun();
         }
 
         $this->app->resolving(function ($obj, $app) {

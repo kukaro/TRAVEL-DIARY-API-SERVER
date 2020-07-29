@@ -12,17 +12,10 @@ use App\Http\Services\Interfaces\PostService;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
-class PostPart
-{
-    static function run()
-    {
-
+class PostPart{
+    static function run(){
         app()->singleton(PostRestRequest::class, function () {
             return new PostRestRequest();
-        });
-
-        app()->singleton(RestRequest::class, function () {
-            return app()->make(PostRestRequest::class);
         });
 
         app()->singleton(PostService::class, function () {
@@ -32,6 +25,11 @@ class PostPart
         app()->singleton(PostController::class, function () {
             return new PostController(app()->make(PostService::class), app()->make(PostRestRequest::class));
         });
+    }
 
+    static function mainRun(){
+        app()->singleton(RestRequest::class, function () {
+            return app()->make(PostRestRequest::class);
+        });
     }
 }

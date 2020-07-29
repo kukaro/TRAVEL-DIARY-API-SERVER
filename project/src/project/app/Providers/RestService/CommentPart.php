@@ -18,10 +18,6 @@ class CommentPart{
             return new CommentRestRequest();
         });
 
-        app()->singleton(RestRequest::class, function () {
-            return app()->make(CommentRestRequest::class);
-        });
-
         app()->singleton(CommentService::class, function () {
             return new CommentServiceImpl(new CommentRepository());
         });
@@ -29,6 +25,11 @@ class CommentPart{
         app()->singleton(CommentController::class, function () {
             return new CommentController(app()->make(CommentService::class), app()->make(CommentRestRequest::class));
         });
+    }
 
+    static function mainRun(){
+        app()->singleton(RestRequest::class, function () {
+            return app()->make(CommentRestRequest::class);
+        });
     }
 }

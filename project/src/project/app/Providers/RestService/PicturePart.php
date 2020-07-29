@@ -18,10 +18,6 @@ class PicturePart{
             return new PictureRestRequest();
         });
 
-        app()->singleton(RestRequest::class, function () {
-            return app()->make(PictureRestRequest::class);
-        });
-
         app()->singleton(PictureService::class, function () {
             return new PictureServiceImpl(new PictureRepository());
         });
@@ -29,6 +25,11 @@ class PicturePart{
         app()->singleton(PictureController::class, function () {
             return new PictureController(app()->make(PictureService::class), app()->make(PictureRestRequest::class));
         });
+    }
 
+    static function mainRun(){
+        app()->singleton(RestRequest::class, function () {
+            return app()->make(PictureRestRequest::class);
+        });
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Providers;
 
 use Illuminate\Auth\EloquentUserProvider;
@@ -9,6 +10,6 @@ class TravleDiaryUserProvider extends EloquentUserProvider
     public function validateCredentials(UserContract $user, array $credentials)
     {
         $plain = $credentials['password'];
-        return $plain == $user->getAuthPassword();
+        return $user->is_hiworks == 0 && $plain == $user->getAuthPassword();
     }
 }

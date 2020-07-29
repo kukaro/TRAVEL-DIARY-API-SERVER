@@ -18,10 +18,6 @@ class PostCommentPart{
             return new PostCommentRestRequest();
         });
 
-        app()->singleton(RestRequest::class, function () {
-            return app()->make(PostCommentRestRequest::class);
-        });
-
         app()->singleton(PostCommentService::class, function () {
             return new PostCommentServiceImpl(new PostCommentRepository());
         });
@@ -29,6 +25,11 @@ class PostCommentPart{
         app()->singleton(PostCommentController::class, function () {
             return new PostCommentController(app()->make(PostCommentService::class), app()->make(PostCommentRestRequest::class));
         });
+    }
 
+    static function mainRun(){
+        app()->singleton(RestRequest::class, function () {
+            return app()->make(PostCommentRestRequest::class);
+        });
     }
 }

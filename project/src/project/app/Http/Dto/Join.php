@@ -9,7 +9,7 @@ class Join
     private $target_table_name;
     private $target_on_name;
 
-    public function __construct($origin_table_name, $origin_on_name,$target_table_name, $target_on_name)
+    public function __construct($origin_table_name, $origin_on_name, $target_table_name, $target_on_name)
     {
         $this->origin_table_name = $origin_table_name;
         $this->origin_on_name = $origin_on_name;

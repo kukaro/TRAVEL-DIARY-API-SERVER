@@ -12,14 +12,9 @@ use App\Http\Services\Interfaces\UserService;
 use Illuminate\Support\ServiceProvider;
 
 class UserPart{
-    static function run()
-    {
+    static function run(){
         app()->singleton(UserRestRequest::class, function () {
             return new UserRestRequest();
-        });
-
-        app()->singleton(RestRequest::class, function () {
-            return app()->make(UserRestRequest::class);
         });
 
         app()->singleton(UserService::class, function () {
@@ -29,6 +24,11 @@ class UserPart{
         app()->singleton(UserController::class, function () {
             return new UserController(app()->make(UserService::class), app()->make(UserRestRequest::class));
         });
+    }
 
+    static function mainRun(){
+        app()->singleton(RestRequest::class, function () {
+            return app()->make(UserRestRequest::class);
+        });
     }
 }

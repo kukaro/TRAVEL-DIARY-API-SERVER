@@ -9,6 +9,7 @@ class UserDto extends DtoImpl
     private $age;
     private $birth_date;
     private $password;
+    private $is_hiworks;
     private $created_date;
     private $updated_date;
     private $post;
@@ -22,6 +23,7 @@ class UserDto extends DtoImpl
         $age,
         $birth_date,
         $password,
+        $is_hiworks,
         $created_date,
         $updated_date
     ) {
@@ -30,6 +32,7 @@ class UserDto extends DtoImpl
         $this->age = $age;
         $this->birth_date = $birth_date;
         $this->password = $password;
+        $this->is_hiworks = $is_hiworks;
         $this->created_date = $created_date;
         $this->updated_date = $updated_date;
     }

@@ -2,16 +2,13 @@
 
 namespace App\Http\Requests\RestRequests;
 
-class UserRestRequest extends RestRequest
+class HiworksAuthRestRequest extends RestRequest
 {
-    private $email;
-    private $name;
-    private $age;
-    private $birth_date;
-    private $is_hiworks;
-    private $password;
-    private $created_date;
-    private $updated_date;
+    private $user_no;
+    private $owner_email;
+    private $office_no;
+    private $user_id;
+    private $user_name;
 
     /**
      * Class constructor.
@@ -19,6 +16,7 @@ class UserRestRequest extends RestRequest
     public function __construct()
     {
     }
+
     public function __set($name, $value)
     {
         if (property_exists($this, $name)) {

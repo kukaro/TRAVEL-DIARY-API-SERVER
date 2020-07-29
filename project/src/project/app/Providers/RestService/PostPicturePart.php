@@ -12,14 +12,9 @@ use App\Http\Services\Interfaces\PostPictureService;
 use Illuminate\Support\ServiceProvider;
 
 class PostPicturePart{
-    static function run()
-    {
+    static function run(){
         app()->singleton(PostPictureRestRequest::class, function () {
             return new PostPictureRestRequest();
-        });
-
-        app()->singleton(RestRequest::class, function () {
-            return app()->make(PostPictureRestRequest::class);
         });
 
         app()->singleton(PostPictureService::class, function () {
@@ -29,6 +24,11 @@ class PostPicturePart{
         app()->singleton(PostPictureController::class, function () {
             return new PostPictureController(app()->make(PostPictureService::class), app()->make(PostPictureRestRequest::class));
         });
+    }
 
+    static function mainRun(){
+        app()->singleton(RestRequest::class, function () {
+            return app()->make(PostPictureRestRequest::class);
+        });
     }
 }

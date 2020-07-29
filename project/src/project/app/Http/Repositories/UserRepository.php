@@ -4,6 +4,7 @@ namespace App\Http\Repositories;
 use App\Http\Dto\UserDto;
 use App\Http\Requests\RestRequests\RestRequest;
 use App\Model\User;
+use Illuminate\Support\Facades\DB;
 
 class UserRepository implements Repository
 {
@@ -19,6 +20,7 @@ class UserRepository implements Repository
                 intval($data['age']),
                 $data['birth_date'],
                 $data['password'],
+                $data['is_hiworks'],
                 $data['created_date'],
                 $data['updated_date']
             );
@@ -34,8 +36,9 @@ class UserRepository implements Repository
         $data->age = intval($request->age);
         $data->birth_date = $request->birth_date;
         $data->password = $request->password;
+        $data->is_hiworks = $request->is_hiworks;
         $data->save();
-        return $data;
+        return $data->email;
     }
 
     public function update(RestRequest $request)
