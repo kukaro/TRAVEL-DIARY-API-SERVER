@@ -21,6 +21,8 @@ class HiworksAuthRepository implements Repository
                 $data['office_no'],
                 $data['user_id'],
                 $data['user_name'],
+            null,
+            null,
             );
         }
         return $data;
@@ -34,13 +36,29 @@ class HiworksAuthRepository implements Repository
         $data->office_no = $request->office_no;
         $data->user_id = $request->user_id;
         $data->user_name = $request->user_name;
+        $data->access_token = $request->access_token;
+        $data->refresh_token = $request->refresh_token;
         $data->save();
         return $data->user_no;
     }
 
     public function update(RestRequest $request)
     {
-        $data = null;
+        $arr = [
+            'user_no' => $request->user_no,
+            'owner_email' => $request->owner_email,
+            'office_no' => $request->office_no,
+            'user_id' => $request->user_id,
+            'user_name' => $request->user_name,
+            'access_token' => $request->access_token,
+            'refresh_token' => $request->refresh_token,
+        ];
+        foreach ($arr as $key => $value) {
+            if ($value === null) {
+                unset($arr[$key]);
+            }
+        }
+        $data = HiworksAuth::where('user_no', $request->user_no)->update($arr);
         return $data;
     }
 

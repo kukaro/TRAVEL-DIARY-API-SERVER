@@ -10,6 +10,8 @@ class HiworksAuthDto extends DtoImpl
     private $office_no;
     private $user_id;
     private $user_name;
+    private $access_token;
+    private $refresh_token;
 
     /**
      * Class constructor.
@@ -18,13 +20,17 @@ class HiworksAuthDto extends DtoImpl
      * @param $office_no
      * @param $user_id
      * @param $user_name
+     * @param $access_token
+     * @param $refresh_token
      */
     public function __construct(
         $user_no,
         $owner_email,
         $office_no,
         $user_id,
-        $user_name
+        $user_name,
+        $access_token,
+        $refresh_token
     )
     {
         $this->user_no = $user_no;
@@ -32,7 +38,8 @@ class HiworksAuthDto extends DtoImpl
         $this->office_no = $office_no;
         $this->user_id = $user_id;
         $this->user_name = $user_name;
-
+        $this->access_token = $access_token;
+        $this->refresh_token = $refresh_token;
     }
 
     public function __set($name, $value)

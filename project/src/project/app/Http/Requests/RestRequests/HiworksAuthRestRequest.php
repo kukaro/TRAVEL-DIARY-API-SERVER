@@ -10,6 +10,9 @@ class HiworksAuthRestRequest extends RestRequest
     private $office_no;
     private $user_id;
     private $user_name;
+    private $access_token;
+    private $refresh_token;
+
 
     /**
      * Class constructor.

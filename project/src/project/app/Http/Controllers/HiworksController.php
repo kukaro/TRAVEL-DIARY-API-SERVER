@@ -52,6 +52,7 @@ class HiworksController extends Controller
         $request = new HiworksAuthRestRequest;
         $data = $data->json()["data"];
         $access_token = $data["access_token"];
+        $refresh_token = $data["refresh_token"];
         $request->office_no = $data["office_no"];
         $request->user_no = $data["user_no"];
         $uri = Config::get('hiworks.hiworks_auth_uri') . '/user/v2/me';
@@ -62,6 +63,8 @@ class HiworksController extends Controller
         $request->owner_email = $data["user_id"] . "@gabia.com";
         $request->user_id = $data["user_id"];
         $request->user_name = $data["name"];
+        $request->access_token = $access_token;
+        $request->refresh_token= $refresh_token;
 
         $data = $this->hiworksAuthService->get($request);
         if (is_null($data)) {
@@ -72,6 +75,8 @@ class HiworksController extends Controller
             $user_request->password = 0;
             $this->userService->post($user_request);
             $data = $this->hiworksAuthService->post($request);
+        }else{
+            $this->hiworksAuthService->patch($request);
         }
         if (!$token = Auth::guard('api')->attempt(['email' => $request->owner_email, 'password' => null])) {
             return response()->json(['error' => 'Unauthorized'], 401);
