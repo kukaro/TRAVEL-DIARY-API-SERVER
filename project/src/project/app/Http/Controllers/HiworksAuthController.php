@@ -12,13 +12,17 @@ class HiworksAuthController extends TravleDiaryController
 
     /**
      * Class constructor.
+<<<<<<< HEAD
      * @param TravleDiaryService $service
      * @param RestRequest $request
+=======
+>>>>>>> 499388279af6a3a2256564b8bd3aef82b527cb8b
      */
     public function __construct(TravleDiaryService $service, RestRequest $request)
     {
         parent::__construct($service, $request);
     }
+<<<<<<< HEAD
 
     public function get()
     {
@@ -43,4 +47,6 @@ class HiworksAuthController extends TravleDiaryController
         $this->service->delete($this->request);
         return response()->json(['data' => 'SUCCESS'], 200, [], JSON_UNESCAPED_UNICODE);
     }
+=======
+>>>>>>> 499388279af6a3a2256564b8bd3aef82b527cb8b
 }

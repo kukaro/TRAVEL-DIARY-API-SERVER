@@ -4,6 +4,7 @@ namespace App\Http\Dto;
 
 class HiworksAuthDto extends DtoImpl
 {
+<<<<<<< HEAD
     private $user_no;
     private $owner_email;
     private $office_no;
@@ -31,6 +32,15 @@ class HiworksAuthDto extends DtoImpl
         $this->office_no = $office_no;
         $this->user_id = $user_id;
         $this->user_name = $user_name;
+=======
+
+    /**
+     * Class constructor.
+     */
+    public function __construct()
+    {
+        
+>>>>>>> 499388279af6a3a2256564b8bd3aef82b527cb8b
     }
 
     public function __set($name, $value)
