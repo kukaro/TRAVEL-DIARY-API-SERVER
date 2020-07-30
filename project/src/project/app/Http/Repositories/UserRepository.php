@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Repositories;
 
 use App\Http\Dto\UserDto;
@@ -26,6 +27,30 @@ class UserRepository implements Repository
             );
         }
         return $data;
+    }
+
+    public function readByEmailOrName(RestRequest $request)
+    {
+        $ret = [];
+        $datas = User::where('email', 'like', "%" . $request->email . "%")->orWhere('name', 'like', "%" . $request->name . "%")->get();
+        if (count($datas) == 0) {
+            $data = null;
+        } else {
+            foreach ($datas as $data) {
+                $data = $data->getAttributes();
+                $data = new UserDto($data['email'],
+                    $data['name'],
+                    intval($data['age']),
+                    $data['birth_date'],
+                    $data['password'],
+                    $data['is_hiworks'],
+                    $data['created_date'],
+                    $data['updated_date']
+                );
+                array_push($ret, $data);
+            }
+        }
+        return $ret;
     }
 
     public function create(RestRequest $request)
@@ -63,5 +88,41 @@ class UserRepository implements Repository
     {
         $data = User::where('email', $request->email)->delete();
         return $data;
+    }
+
+    public function readLinkedFriend(RestRequest $request)
+    {
+        $ret = [];
+        $datas = User::join('friend', 'friend.friend_email', '=', 'user.email');
+        foreach ($request->wheres as $where) {
+            $datas = $datas->where($where->getColumn(), $where->getOp(), $where->getValue());
+        }
+        $datas = $datas->select('friend.friend_email as email',
+            'name',
+            'age',
+            'birth_date',
+            'password',
+            'is_hiworks',
+            'created_date',
+            'updated_date'
+        )->get();
+        if (count($datas) == 0) {
+            $data = null;
+        } else {
+            foreach ($datas as $data) {
+                $data = $data->getAttributes();
+                $data = new UserDto($data['email'],
+                    $data['name'],
+                    intval($data['age']),
+                    $data['birth_date'],
+                    $data['password'],
+                    $data['is_hiworks'],
+                    $data['created_date'],
+                    $data['updated_date']
+                );
+                array_push($ret, $data);
+            }
+        }
+        return $ret;
     }
 }

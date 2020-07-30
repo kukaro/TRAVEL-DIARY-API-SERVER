@@ -12,9 +12,17 @@ class FriendController extends TravleDiaryController
 
     /**
      * Class constructor.
+     * @param TravleDiaryService $service
+     * @param RestRequest $request
      */
     public function __construct(TravleDiaryService $service, RestRequest $request)
     {
         parent::__construct($service, $request);
+    }
+
+    public function get()
+    {
+        $data = $this->service->get($this->request);
+        return response()->json(['data' => $data], 200, [], JSON_UNESCAPED_UNICODE);
     }
 }

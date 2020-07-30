@@ -28,8 +28,10 @@ Route::middleware('auth:api')->get('/user', 'JWTAuthController@user')->name('api
 Route::group(['middleware' => 'auth:api'], function () {
     Route::get('user', 'JWTAuthController@user')->name('api.jwt.user');
 });
-
+Route::middleware('auth:api', 'can:general,'.User::class)
+    ->get('/user/friend', 'UserController@getLinkedFriend')->name('user\getLinkedFriend');
 Route::get('/user/{email}', 'UserController@get')->name('user\get');
+Route::get('/user/{email}/{name}', 'UserController@getByEmailOrName')->name('user\getByEmailOrName');
 Route::post('/user', 'UserController@post')->name('user\post');
 Route::patch('/user/{email}', 'UserController@patch')->name('user\patch');
 Route::delete('/user/{email}', 'UserController@delete')->name('user\delete');
@@ -50,7 +52,8 @@ Route::middleware('auth:api', 'can:general,'.User::class)
 Route::post('/post-comment', 'PostCommentController@post')->name('postcomment\post');
 
 
-Route::middleware('auth:api', 'can:general,'.User::class)->get('/post/user', 'PostController@getWithUser')->name('post\getWithUser');
+Route::middleware('auth:api', 'can:general,'.User::class)
+    ->get('/post/user', 'PostController@getWithUser')->name('post\getWithUser');
 Route::middleware('auth:api')->get('/post/{id}', 'PostController@get')->name('post\get');
 Route::middleware('auth:api')->post('/post', 'PostController@post')->name('post\post');
 Route::middleware('auth:api')->patch('/post/{id}', 'PostController@patch')->name('post\patch');
@@ -61,6 +64,9 @@ Route::get('/comment/{id}', 'CommentController@get')->name('comment\get');
 Route::post('/comment', 'CommentController@post')->name('comment\post');
 Route::patch('/comment/{id}', 'CommentController@patch')->name('comment\patch');
 Route::delete('/comment/{id}', 'CommentController@delete')->name('comment\delete');
+
+Route::middleware('auth:api', 'can:general,'.User::class)
+    ->get('/friend','FriendController@get')->name('friend\get');
 
 Route::get('/health', function (Request $request) {
     return ['MSG' => 'OK', 'STATUS' => 200];
@@ -84,3 +90,4 @@ Route::delete('/file/{catchall}', 'FileController@delete')->where('catchall', '.
 
 Route::get('/hiworks/callback','HiworksController@callback')->name('hiworks\callback');
 Route::get('/hiworks','HiworksController@get')->name('hiworks\get');
+

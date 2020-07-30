@@ -41,4 +41,14 @@ class UserController extends TravleDiaryController
         $this->service->delete($this->request);
         return response()->json(['data' => 'SUCCESS'], 200, [], JSON_UNESCAPED_UNICODE);
     }
+
+    public function getLinkedFriend(){
+        $data = $this->service->getLinkedFriend($this->request);
+        return response()->json(['data' => $data], 200, [], JSON_UNESCAPED_UNICODE);
+    }
+
+    public function getByEmailOrName(){
+        $data = $this->service->getByEmailOrName($this->request);
+        return response()->json(['data' => $data], 200, [], JSON_UNESCAPED_UNICODE);
+    }
 }

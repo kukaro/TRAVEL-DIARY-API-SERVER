@@ -43,4 +43,16 @@ class UserServiceImpl implements UserService
 
     public function put(RestRequest $request){
     }
+
+    public function getLinkedFriend(RestRequest $request)
+    {
+        $data = $this->repository->readLinkedFriend($request);
+        return $data;
+    }
+
+    public function getByEmailOrName(RestRequest $request)
+    {
+        $data = $this->repository->readByEmailOrName($request);
+        return $data;
+    }
 }
