@@ -9,10 +9,11 @@ use App\Http\Repositories\Repository;
 class FriendServiceImpl implements FriendService
 {
 
-    private $repository;
+    private Repository $repository;
 
     /**
      * Class constructor.
+     * @param Repository $repository
      */
     public function __construct(Repository $repository)
     {

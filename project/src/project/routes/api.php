@@ -67,6 +67,8 @@ Route::delete('/comment/{id}', 'CommentController@delete')->name('comment\delete
 
 Route::middleware('auth:api', 'can:general,'.User::class)
     ->get('/friend','FriendController@get')->name('friend\get');
+Route::middleware('auth:api', 'can:general,'.User::class)
+    ->post('/friend','FriendController@post')->name('friend\post');
 
 Route::get('/health', function (Request $request) {
     return ['MSG' => 'OK', 'STATUS' => 200];
