@@ -42,7 +42,7 @@ class UserRepository implements Repository
                     $data['name'],
                     intval($data['age']),
                     $data['birth_date'],
-                    $data['password'],
+                    '********',
                     $data['is_hiworks'],
                     $data['created_date'],
                     $data['updated_date']
