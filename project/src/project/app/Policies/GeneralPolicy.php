@@ -22,7 +22,7 @@ class GeneralPolicy
     public function general(User $user)
     {
         $request = app()->make(RestRequest::class);
-        array_push($request->wheres, new Where('owner_email', '=', $user->email));
+        array_push($request->wheres, new Where('owner_id', '=', $user->id));
         return true;
     }
 }

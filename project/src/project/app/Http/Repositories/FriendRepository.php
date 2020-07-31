@@ -32,8 +32,8 @@ class FriendRepository implements Repository
             foreach ($datas as $data) {
                 $data = $data->getAttributes();
                 $data = new FriendDto(intval($data['id']),
-                    $data['owner_email'],
-                    $data['friend_email'],
+                    $data['owner_id'],
+                    $data['friend_id'],
                 );
                 array_push($ret, $data);
             }
@@ -46,8 +46,8 @@ class FriendRepository implements Repository
         try {
             DB::beginTransaction();
             $data = new Friend();
-            $data->owner_email = $request->owner_email;
-            $data->friend_email = $request->friend_email;
+            $data->owner_id = $request->owner_id;
+            $data->friend_id = $request->friend_id;
             $data->save();
             $data = DB::select('select last_insert_id() as id')[0];
             DB::commit();

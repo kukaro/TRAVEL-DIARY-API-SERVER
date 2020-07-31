@@ -60,7 +60,12 @@ class HiworksController extends Controller
             "Authorization" => "Bearer " . $access_token,
             "Content-Type" => "application/json",
         ])->get("$uri");
-        $request->owner_email = $data["user_id"] . "@gabia.com";
+        //TODO 여기서 부터 수정해야함
+        //이거 하이웍스 인증이랑 테이블이 안맞음
+        $user_request = new UserRestRequest;
+        $user_request->email = $data["user_id"] . "@gabia.com";
+        $user = $this->userService->get($user_request);
+
         $request->user_id = $data["user_id"];
         $request->user_name = $data["name"];
         $request->access_token = $access_token;

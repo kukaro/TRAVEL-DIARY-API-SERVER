@@ -5,7 +5,7 @@ namespace App\Http\Requests\RestRequests;
 class PostRestRequest extends RestRequest
 {
     private $id;
-    private $owner_email;
+    private $owner_id;
     private $title;
     private $contents;
     private $parents_post_id;

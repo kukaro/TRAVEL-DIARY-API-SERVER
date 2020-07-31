@@ -12,6 +12,8 @@ class CommentController extends TravleDiaryController
 
     /**
      * Class constructor.
+     * @param TravleDiaryService $service
+     * @param RestRequest $request
      */
     public function __construct(TravleDiaryService $service, RestRequest $request)
     {

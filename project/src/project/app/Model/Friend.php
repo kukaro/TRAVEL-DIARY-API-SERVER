@@ -8,6 +8,6 @@ class Friend extends Model
 {
     protected $table = 'friend';
     protected $primaryKey = 'id';
-    protected $fillable = ['id', 'owner_email', 'friend_email'];
+    protected $fillable = ['id', 'owner_id', 'friend_email'];
     public $timestamps = false;
 }

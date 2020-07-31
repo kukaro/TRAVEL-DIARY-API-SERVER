@@ -18,7 +18,7 @@ class PostCommentRepository implements Repository
         } else {
             $data = $data[0]->getAttributes();
             $data = new PostCommentDto(intval($data['id']),
-                $data['owner_email'],
+                $data['owner_id'],
                 $data['post_id'],
                 $data['contents'],
                 $data['parents_comment_id'],
@@ -39,7 +39,7 @@ class PostCommentRepository implements Repository
         }
         $datas = $datas->
         select('postcomment.id as id',
-            'postcomment.owner_email as owner_email',
+            'postcomment.owner_id as owner_id',
             'post_id',
             'postcomment.contents as contents',
             'parents_comment_id',
@@ -52,7 +52,7 @@ class PostCommentRepository implements Repository
             foreach ($datas as $data) {
                 $data = $data->getAttributes();
                 $data = new PostCommentDto(intval($data['id']),
-                    $data['owner_email'],
+                    $data['owner_id'],
                     $data['post_id'],
                     $data['contents'],
                     $data['parents_comment_id'],
@@ -69,7 +69,7 @@ class PostCommentRepository implements Repository
     {
         DB::beginTransaction();
         $data = new PostComment();
-        $data->owner_email = $request->owner_email;
+        $data->owner_id = $request->owner_id;
         $data->post_id = $request->post_id;
         $data->contents = $request->contents;
         $data->parents_comment_id = $request->parents_comment_id;

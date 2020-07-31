@@ -6,7 +6,7 @@ class HiworksAuthRestRequest extends RestRequest
 {
 
     private $user_no;
-    private $owner_email;
+    private $owner_id;
     private $office_no;
     private $user_id;
     private $user_name;

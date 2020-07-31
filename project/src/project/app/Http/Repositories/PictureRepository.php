@@ -17,7 +17,7 @@ class PictureRepository implements Repository
         } else {
             $data = $data[0]->getAttributes();
             $data = new PictureDto(intval($data['id']),
-                $data['owner_email'],
+                $data['owner_id'],
                 $data['location'],
                 $data['path'],
                 $data['created_date'],
@@ -35,7 +35,7 @@ class PictureRepository implements Repository
         } else {
             $data = $data[0]->getAttributes();
             $data = new PictureDto(intval($data['id']),
-                $data['owner_email'],
+                $data['owner_id'],
                 $data['location'],
                 $data['path'],
                 $data['created_date'],
@@ -48,9 +48,9 @@ class PictureRepository implements Repository
     public function readWithUser(RestRequest $request)
     {
         $ret = [];
-        $datas = Picture::join('user', 'user.email', '=', 'picture.owner_email')
+        $datas = Picture::join('user', 'user.email', '=', 'picture.owner_id')
             ->where('email', $request->id)->select('id',
-                'owner_email',
+                'owner_id',
                 'location',
                 'path',
                 'picture.created_date as created_date',
@@ -62,7 +62,7 @@ class PictureRepository implements Repository
             foreach ($datas as $data) {
                 $data = $data->getAttributes();
                 $data = new PictureDto(intval($data['id']),
-                    $data['owner_email'],
+                    $data['owner_id'],
                     $data['location'],
                     $data['path'],
                     $data['created_date'],
@@ -79,7 +79,7 @@ class PictureRepository implements Repository
         DB::beginTransaction();
         $data = new Picture();
         $data->id = $request->id;
-        $data->owner_email = $request->owner_email;
+        $data->owner_id = $request->owner_id;
         $data->location = $request->location;
         $data->path = $request->path;
         $data->save();
@@ -92,7 +92,7 @@ class PictureRepository implements Repository
     {
         $arr = [
             'id' => $request->id,
-            'owner_email' => $request->owner_email,
+            'owner_id' => $request->owner_id,
             'location' => $request->location,
             'path' => $request->path,
             'created_date' => $request->created_date,

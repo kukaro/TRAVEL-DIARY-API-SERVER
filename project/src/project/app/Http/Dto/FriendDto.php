@@ -5,24 +5,24 @@ namespace App\Http\Dto;
 class FriendDto extends DtoImpl
 {
     private int $id;
-    private string $owner_email;
-    private string $friend_email;
+    private string $owner_id;
+    private string $friend_id;
 
     /**
      * Class constructor.
      * @param $id
-     * @param $owner_email
-     * @param $friend_email
+     * @param $owner_id
+     * @param $friend_id
      */
     public function __construct(
         $id,
-        $owner_email,
-        $friend_email
+        $owner_id,
+        $friend_id
     )
     {
         $this->id = $id;
-        $this->owner_email = $owner_email;
-        $this->friend_email = $friend_email;
+        $this->owner_id = $owner_id;
+        $this->friend_id = $friend_id;
     }
 
     public function __set($name, $value)

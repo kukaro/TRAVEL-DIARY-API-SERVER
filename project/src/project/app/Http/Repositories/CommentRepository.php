@@ -15,7 +15,7 @@ class CommentRepository implements Repository
         } else {
             $data = $data[0]->getAttributes();
             $data = new CommentDto(intval($data['id']),
-                $data['owner_email'],
+                $data['owner_id'],
                 $data['contents'],
                 $data['parents_comment_id'],
                 $data['created_date'],
@@ -29,7 +29,7 @@ class CommentRepository implements Repository
     {
         $data = new Comment();
         $data->id = $request->id;
-        $data->owner_email = $request->owner_email;
+        $data->owner_id = $request->owner_id;
         $data->contents = $request->contents;
         $data->parents_comment_id = $request->parents_comment_id;
         $data->save();
@@ -40,7 +40,7 @@ class CommentRepository implements Repository
     {
         $arr = [
             'id' => $request->id,
-            'owner_email' => $request->owner_email,
+            'owner_id' => $request->owner_id,
             'contents' => $request->contents,
             'parents_comment_id' => $request->parents_comment_id,
             'created_date' => $request->created_date,
