@@ -5,7 +5,7 @@ namespace App\Http\Dto;
 class CommentDto extends DtoImpl
 {
     private $id;
-    private $owner_email;
+    private $owner_id;
     private $contents;
     private $parents_comment_id;
     private $created_date;
@@ -16,7 +16,7 @@ class CommentDto extends DtoImpl
      */
     public function __construct(
         $id,
-        $owner_email,
+        $owner_id,
         $contents,
         $parents_comment_id,
         $created_date,
@@ -24,7 +24,7 @@ class CommentDto extends DtoImpl
 
     ) {
         $this->id = $id;
-        $this->owner_email = $owner_email;
+        $this->owner_id = $owner_id;
         $this->contents = $contents;
         $this->parents_comment_id = $parents_comment_id;
         $this->created_date = $created_date;

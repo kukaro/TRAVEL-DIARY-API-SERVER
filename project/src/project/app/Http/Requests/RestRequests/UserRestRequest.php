@@ -4,6 +4,7 @@ namespace App\Http\Requests\RestRequests;
 
 class UserRestRequest extends RestRequest
 {
+    private $id;
     private $email;
     private $name;
     private $age;

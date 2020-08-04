@@ -4,6 +4,7 @@ namespace App\Http\Dto;
 
 class UserDto extends DtoImpl
 {
+    private $id;
     private $email;
     private $name;
     private $age;
@@ -12,12 +13,12 @@ class UserDto extends DtoImpl
     private $is_hiworks;
     private $created_date;
     private $updated_date;
-    private $post;
 
     /**
      * Class constructor.
      */
     public function __construct(
+        $id,
         $email,
         $name,
         $age,
@@ -27,6 +28,7 @@ class UserDto extends DtoImpl
         $created_date,
         $updated_date
     ) {
+        $this->id = $id;
         $this->email = $email;
         $this->name = $name;
         $this->age = $age;

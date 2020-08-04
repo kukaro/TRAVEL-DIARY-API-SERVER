@@ -17,7 +17,7 @@ class PostRepository implements Repository
         } else {
             $data = $data[0]->getAttributes();
             $data = new PostDto(intval($data['id']),
-                $data['owner_email'],
+                $data['owner_id'],
                 $data['title'],
                 $data['contents'],
                 $data['parents_post_id'],
@@ -35,7 +35,7 @@ class PostRepository implements Repository
             ->join('picture', 'picture.id', '=', 'picture_id')
             ->where('picture.id', $request->id)
             ->select('post.id as id',
-                'post.owner_email as owner_email',
+                'post.owner_id as owner_id',
                 'title',
                 'contents',
                 'parents_post_id',
@@ -48,7 +48,7 @@ class PostRepository implements Repository
             foreach ($datas as $data) {
                 $data = $data->getAttributes();
                 $data = new PostDto(intval($data['id']),
-                    $data['owner_email'],
+                    $data['owner_id'],
                     $data['title'],
                     $data['contents'],
                     $data['parents_post_id'],
@@ -66,7 +66,7 @@ class PostRepository implements Repository
         DB::beginTransaction();
         $data = new Post();
         $data->id = $request->id;
-        $data->owner_email = $request->owner_email;
+        $data->owner_id = $request->owner_id;
         $data->title = $request->title;
         $data->contents = $request->contents;
         $data->parents_post_id = $request->parents_post_id;
@@ -80,7 +80,7 @@ class PostRepository implements Repository
     {
         $arr = [
             'id' => $request->id,
-            'owner_email' => $request->owner_email,
+            'owner_id' => $request->owner_id,
             'title' => $request->title,
             'contents' => $request->contents,
             'parents_post_id' => $request->parents_post_id,
@@ -108,13 +108,13 @@ class PostRepository implements Repository
     public function readWithUser(RestRequest $request)
     {
         $ret = [];
-        $datas = Post::join('user', 'user.email', '=', 'post.owner_email');
+        $datas = Post::join('user', 'user.email', '=', 'post.owner_id');
         foreach ($request->wheres as $where) {
             $datas = $datas->where($where->getColumn(), $where->getOp(), $where->getValue());
         }
         $datas = $datas->
         select('id',
-            'owner_email',
+            'owner_id',
             'title',
             'contents',
             'parents_post_id',
@@ -127,7 +127,7 @@ class PostRepository implements Repository
             foreach ($datas as $data) {
                 $data = $data->getAttributes();
                 $data = new PostDto(intval($data['id']),
-                    $data['owner_email'],
+                    $data['owner_id'],
                     $data['title'],
                     $data['contents'],
                     $data['parents_post_id'],

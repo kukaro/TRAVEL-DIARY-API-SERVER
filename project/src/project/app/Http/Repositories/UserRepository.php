@@ -16,7 +16,9 @@ class UserRepository implements Repository
             $data = null;
         } else {
             $data = $data[0]->getAttributes();
-            $data = new UserDto($data['email'],
+            $data = new UserDto(
+                $data['id'],
+                $data['email'],
                 $data['name'],
                 intval($data['age']),
                 $data['birth_date'],
@@ -38,7 +40,9 @@ class UserRepository implements Repository
         } else {
             foreach ($datas as $data) {
                 $data = $data->getAttributes();
-                $data = new UserDto($data['email'],
+                $data = new UserDto(
+                    $data['id'],
+                    $data['email'],
                     $data['name'],
                     intval($data['age']),
                     $data['birth_date'],
@@ -111,7 +115,9 @@ class UserRepository implements Repository
         } else {
             foreach ($datas as $data) {
                 $data = $data->getAttributes();
-                $data = new UserDto($data['email'],
+                $data = new UserDto(
+                    $data['id'],
+                    $data['email'],
                     $data['name'],
                     intval($data['age']),
                     $data['birth_date'],

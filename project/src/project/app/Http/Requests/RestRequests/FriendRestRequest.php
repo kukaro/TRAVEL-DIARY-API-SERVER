@@ -5,8 +5,8 @@ namespace App\Http\Requests\RestRequests;
 class FriendRestRequest extends RestRequest
 {
     private $id;
-    private $owner_email;
-    private $friend_email;
+    private $owner_id;
+    private $friend_id;
 
     /**
      * Class constructor.

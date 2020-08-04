@@ -5,7 +5,7 @@ namespace App\Http\Requests\RestRequests;
 class PictureRestRequest extends RestRequest
 {
     private $id;
-    private $owner_email;
+    private $owner_id;
     private $location;
     private $path;
     private $created_date;
@@ -17,7 +17,7 @@ class PictureRestRequest extends RestRequest
     public function __construct()
     {
     }
-    
+
     public function __set($name, $value)
     {
         if (property_exists($this, $name)) {

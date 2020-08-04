@@ -15,7 +15,7 @@ class Picture extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\Model\User', 'email', 'owner_email');
+        return $this->belongsTo('App\Model\User', 'id', 'owner_id');
     }
 
     public function post()

@@ -5,7 +5,7 @@ namespace App\Http\Dto;
 class PostDto extends DtoImpl
 {
     private $id;
-    private $owner_email;
+    private $owner_id;
     private $title;
     private $contents;
     private $parents_post_id;
@@ -17,7 +17,7 @@ class PostDto extends DtoImpl
      */
     public function __construct(
         $id,
-        $owner_email,
+        $owner_id,
         $title,
         $contents,
         $parents_post_id,
@@ -25,7 +25,7 @@ class PostDto extends DtoImpl
         $updated_date
     ) {
         $this->id = $id;
-        $this->owner_email = $owner_email;
+        $this->owner_id = $owner_id;
         $this->title = $title;
         $this->contents = $contents;
         $this->parents_post_id = $parents_post_id;

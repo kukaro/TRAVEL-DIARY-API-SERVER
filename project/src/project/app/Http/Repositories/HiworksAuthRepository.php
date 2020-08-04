@@ -17,7 +17,7 @@ class HiworksAuthRepository implements Repository
         } else {
             $data = $data[0]->getAttributes();
             $data = new HiworksAuthDto($data['user_no'],
-                $data['owner_email'],
+                $data['owner_id'],
                 $data['office_no'],
                 $data['user_id'],
                 $data['user_name'],
@@ -32,7 +32,7 @@ class HiworksAuthRepository implements Repository
     {
         $data = new HiworksAuth();
         $data->user_no = $request->user_no;
-        $data->owner_email = $request->owner_email;
+        $data->owner_id = $request->owner_id;
         $data->office_no = $request->office_no;
         $data->user_id = $request->user_id;
         $data->user_name = $request->user_name;
@@ -46,7 +46,7 @@ class HiworksAuthRepository implements Repository
     {
         $arr = [
             'user_no' => $request->user_no,
-            'owner_email' => $request->owner_email,
+            'owner_id' => $request->owner_id,
             'office_no' => $request->office_no,
             'user_id' => $request->user_id,
             'user_name' => $request->user_name,
