@@ -5,11 +5,10 @@ namespace App\Http\Controllers;
 
 
 use App\Http\Requests\RestRequests\HiworksAuthRestRequest;
-use App\Http\Requests\RestRequests\RestRequest;
 use App\Http\Requests\RestRequests\UserRestRequest;
 use App\Http\Services\Interfaces\HiworksAuthService;
+use app\http\services\interfaces\HiworksService;
 use App\Http\Services\Interfaces\UserService;
-use App\Model\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
@@ -18,13 +17,16 @@ use Illuminate\Support\Facades\Validator;
 
 class HiworksController extends Controller
 {
+    public HiworksService $service;
     public HiworksAuthService $hiworksAuthService;
     public UserService $userService;
 
     public function __construct(
+        HiworksService $service,
         HiworksAuthService $hiworksAuthService,
         UserService $userService)
     {
+        $this->service = $service;
         $this->hiworksAuthService = $hiworksAuthService;
         $this->userService = $userService;
     }
@@ -38,41 +40,26 @@ class HiworksController extends Controller
 
     public function callback(Request $request)
     {
-        $uri = Config::get('hiworks.hiworks_auth_uri') . '/open/auth/accesstoken';
-        $client_id = Config::get('hiworks.client_id');
-        $client_secret = Config::get('hiworks.client_secret');
-        $auth_code = $request->query('auth_code');
-        $data = Http::asForm()->post("$uri", [
-            "client_id" => $client_id,
-            "client_secret" => $client_secret,
-            "grant_type" => "authorization_code",
-            "auth_code" => $auth_code,
-            "access_type" => "offline"
-        ]);
-        $request = new HiworksAuthRestRequest;
-        $data = $data->json()["data"];
-        $access_token = $data["access_token"];
-        $refresh_token = $data["refresh_token"];
-        $request->office_no = $data["office_no"];
-        $request->user_no = $data["user_no"];
+
+        $token = $this->service->getToken($request)->json()["data"];
+
+        $access_token = $token["access_token"];
+        $refresh_token = $token["refresh_token"];
         $uri = Config::get('hiworks.hiworks_auth_uri') . '/user/v2/me';
-        $data = Http::withHeaders([
-            "Authorization" => "Bearer " . $access_token,
-            "Content-Type" => "application/json",
-        ])->get("$uri");
+        $user = $this->service->getHiworksUser($access_token, $uri)->json();
+
         //TODO 여기서 부터 수정해야함
         //이거 하이웍스 인증이랑 테이블이 안맞음
         $user_request = new UserRestRequest;
-        $user_request->email = $data["user_id"] . "@gabia.com";
+        $user_request->email = $user["user_id"] . "@gabia.com";
         $user = $this->userService->get($user_request);
 
-        $request->user_id = $data["user_id"];
-        $request->user_name = $data["name"];
-        $request->access_token = $access_token;
-        $request->refresh_token= $refresh_token;
+        $hiworks_request = new HiworksAuthRestRequest;
+        $hiworks_request->user_no = $token["user_no"];
 
-        $data = $this->hiworksAuthService->get($request);
-        if (is_null($data)) {
+        $data = $this->hiworksAuthService->get($hiworks_request);
+        dd($data);
+        if (is_null($user)) {
             $user_request = new UserRestRequest;
             $user_request->email = $request->owner_email;
             $user_request->name = $request->user_name;
@@ -80,7 +67,7 @@ class HiworksController extends Controller
             $user_request->password = 0;
             $this->userService->post($user_request);
             $data = $this->hiworksAuthService->post($request);
-        }else{
+        } else {
             $this->hiworksAuthService->patch($request);
         }
         if (!$token = Auth::guard('api')->attempt(['email' => $request->owner_email, 'password' => null])) {
