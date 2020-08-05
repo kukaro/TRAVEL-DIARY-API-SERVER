@@ -24,7 +24,7 @@ class FileController extends Controller
         $type = File::mimeType($path);
 
         $response = Response::make($file, 200);
-        $response->header("Content-Type", $type);
+        $response->header("Content-ErrorType", $type);
 
         return $response;
     }

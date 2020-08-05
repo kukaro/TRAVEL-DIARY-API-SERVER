@@ -1,36 +1,31 @@
 <?php
 
+
 namespace App\Util\DB;
+
 
 class ErrorType implements \JsonSerializable
 {
-    private string $error_type;
-    private int $error;
-    private int $sql_state;
-    private int $status;
+    public static ErrorType $DUP;
+    public static ErrorType $UND;
+    public static ErrorType $STOP;
 
-    public function __construct(int $error, int $sql_state)
+    private string $message;
+
+    public static function init()
     {
-        $this->sql_state = $sql_state;
-        $this->error = $error;
-        switch ($error . ':' . $sql_state) {
-            case '1062:23000':
-                $this->error_type =  Type::$DUP;
-                $this->status = 500;
-                break;
-            default:
-                $this->error_type =  Type::$UND;
-                $this->status = 500;
-        }
+        ErrorType::$DUP = new ErrorType("duplicate");
+        ErrorType::$UND = new ErrorType("undefined");
+        ErrorType::$STOP = new ErrorType("stop");
     }
 
-    public function getStatus()
+    private function __construct(string $message)
     {
-        return $this->status;
+        $this->message = $message;
     }
 
     public function jsonSerialize()
     {
-        return get_object_vars($this);
+        return ["type" => $this->message];
     }
 }

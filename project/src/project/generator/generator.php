@@ -17,7 +17,7 @@ $type = new Type($argv[2]);
 $name = $argv[3];
 $name[0] = strtoupper($name[0]);
 $DEBUG = false;
-echo "Mode:$mode, Type:$type, Name:$name\n";
+echo "Mode:$mode, ErrorType:$type, Name:$name\n";
 
 /**
  * 구분자 현재는 한개를 쓰지만 나중에 추가할 수 있고 구조화 될 수 있음.

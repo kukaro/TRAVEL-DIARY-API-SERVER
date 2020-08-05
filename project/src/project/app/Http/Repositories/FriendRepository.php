@@ -5,10 +5,6 @@ namespace App\Http\Repositories;
 use App\Http\Dto\FriendDto;
 use App\Http\Requests\RestRequests\RestRequest;
 use App\Model\Friend;
-use App\Model\Post;
-use App\Util\DB\ErrorType;
-use Illuminate\Support\Facades\DB;
-use Mockery\Exception;
 
 class FriendRepository implements Repository
 {
@@ -43,19 +39,12 @@ class FriendRepository implements Repository
 
     public function create(RestRequest $request)
     {
-        try {
-            DB::beginTransaction();
-            $data = new Friend();
-            $data->owner_id = $request->owner_id;
-            $data->friend_id = $request->friend_id;
-            $data->save();
-            $data = DB::select('select last_insert_id() as id')[0];
-            DB::commit();
-            return $data;
-        } catch (\Illuminate\Database\QueryException $e) {
-            return new ErrorType($e->getPrevious()->errorInfo[1],
-                $e->getPrevious()->errorInfo[0]);
-        }
+        $data = new Friend();
+        $data->owner_id = $request->owner_id;
+        $data->friend_id = $request->friend_id;
+        $data->save();
+        $data = $data->id;
+        return $data;
     }
 
     public function update(RestRequest $request)
