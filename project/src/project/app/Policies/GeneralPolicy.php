@@ -25,4 +25,11 @@ class GeneralPolicy
         array_push($request->wheres, new Where('owner_id', '=', $user->id));
         return true;
     }
+
+    public function general_post(User $user)
+    {
+        $request = app()->make(RestRequest::class);
+        array_push($request->wheres, new Where('post.owner_id', '=', $user->id));
+        return true;
+    }
 }

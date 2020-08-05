@@ -30,13 +30,16 @@ Route::group(['middleware' => 'auth:api'], function () {
 });
 Route::middleware('auth:api', 'can:general,'.User::class)
     ->get('/user/friend', 'UserController@getLinkedFriend')->name('user\getLinkedFriend');
+Route::middleware('auth:api')
+    ->get('/user/post-comment/post/{id}', 'UserController@getByPostComment')->name('user\getByPostComment');
 Route::get('/user/{email}', 'UserController@get')->name('user\get');
 Route::get('/user/{email}/{name}', 'UserController@getByEmailOrName')->name('user\getByEmailOrName');
 Route::post('/user', 'UserController@post')->name('user\post');
 Route::patch('/user/{email}', 'UserController@patch')->name('user\patch');
 Route::delete('/user/{email}', 'UserController@delete')->name('user\delete');
 
-Route::get('/picture/user/{id}', 'PictureController@getWithUser')->name('picture\getWithUser');
+Route::middleware('auth:api', 'can:general,'.User::class)
+    ->get('/picture/user/{id}', 'PictureController@getWithUser')->name('picture\getWithUser');
 Route::get('/picture/{id}', 'PictureController@get')->name('picture\get');
 Route::post('/picture', 'PictureController@post')->name('picture\post');
 Route::patch('/picture/{id}', 'PictureController@patch')->name('picture\patch');

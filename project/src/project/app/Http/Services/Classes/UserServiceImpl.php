@@ -55,4 +55,10 @@ class UserServiceImpl implements UserService
         $data = $this->repository->readByEmailOrName($request);
         return $data;
     }
+
+
+    public function getByPostComment(RestRequest $request){
+        $data = $this->repository->readByPostComment($request);
+        return $data;
+    }
 }

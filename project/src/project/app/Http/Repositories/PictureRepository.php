@@ -48,8 +48,8 @@ class PictureRepository implements Repository
     public function readWithUser(RestRequest $request)
     {
         $ret = [];
-        $datas = Picture::join('user', 'user.email', '=', 'picture.owner_id')
-            ->where('email', $request->id)->select('id',
+        $datas = Picture::join('user', 'user.id', '=', 'picture.owner_id')
+            ->select('picture.id as id',
                 'owner_id',
                 'location',
                 'path',

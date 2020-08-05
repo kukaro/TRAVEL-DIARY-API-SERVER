@@ -100,11 +100,12 @@ class UserRepository implements Repository
     public function readLinkedFriend(RestRequest $request)
     {
         $ret = [];
-        $datas = User::join('friend', 'friend.friend_email', '=', 'user.email');
+        $datas = User::join('friend', 'friend.friend_id', '=', 'user.id');
         foreach ($request->wheres as $where) {
             $datas = $datas->where($where->getColumn(), $where->getOp(), $where->getValue());
         }
-        $datas = $datas->select('friend.friend_email as email',
+        $datas = $datas->select('friend.friend_id as id',
+            'email',
             'name',
             'age',
             'birth_date',
@@ -113,6 +114,50 @@ class UserRepository implements Repository
             'created_date',
             'updated_date'
         )->get();
+        if (count($datas) == 0) {
+            $data = null;
+        } else {
+            foreach ($datas as $data) {
+                $data = $data->getAttributes();
+                $data = new UserDto(
+                    $data['id'],
+                    $data['email'],
+                    $data['name'],
+                    intval($data['age']),
+                    $data['birth_date'],
+                    $data['password'],
+                    $data['is_hiworks'],
+                    $data['created_date'],
+                    $data['updated_date']
+                );
+                array_push($ret, $data);
+            }
+        }
+        return $ret;
+    }
+
+    public function readByPostcomment(RestRequest $request)
+    {
+        $ret = [];
+        $data = User::join('post', 'post.owner_id', '=', 'user.id')->where('post.id', $request->id)->get();
+        if (count($data) != 1) {
+            //TODO : Error 던지세요. 권한 없습니다.
+        }
+
+        $datas = User::join('postcomment', 'postcomment.owner_id', '=', 'user.id')
+            ->where('post_id', $request->id);
+
+        $datas = $datas->select('user.id as id',
+            'email',
+            'name',
+            'age',
+            'birth_date',
+            'password',
+            'is_hiworks',
+            'user.created_date as created_date',
+            'user.updated_date as updated_date'
+        )->distinct('id')
+            ->get();
         if (count($datas) == 0) {
             $data = null;
         } else {
