@@ -26,13 +26,11 @@ class PostPictureRepositoryImpl implements PostPictureRepository
 
     public function create(RestRequest $request)
     {
-        DB::beginTransaction();
         $data = new PostPicture();
         $data->picture_id = $request->picture_id;
         $data->post_id = $request->post_id;
         $data->save();
-        $data = DB::select('select last_insert_id() as id')[0];
-        DB::commit();
+        $data = $data->id;
         return $data;
     }
 

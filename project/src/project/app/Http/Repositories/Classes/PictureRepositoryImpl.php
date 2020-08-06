@@ -80,15 +80,13 @@ class PictureRepositoryImpl implements PictureRepository
 
     public function create(RestRequest $request)
     {
-        DB::beginTransaction();
         $data = new Picture();
         $data->id = $request->id;
         $data->owner_id = $request->owner_id;
         $data->location = $request->location;
         $data->path = $request->path;
         $data->save();
-        $data = DB::select('select last_insert_id() as id')[0];
-        DB::commit();
+        $data = $data->id;
         return $data;
     }
 

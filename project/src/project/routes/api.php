@@ -15,11 +15,6 @@ use App\Model\User;
 |
  */
 
-// Route::get('/user', function (Request $request) {
-//     dump($request);
-//     return $request->user();
-// });
-
 Route::post('/login', 'JWTAuthController@login')->name('api.jwt.login');
 Route::post('/signup', 'JWTAuthController@signup')->name('api.jwt.signup');
 Route::middleware('auth:api')->get('/user', 'JWTAuthController@user')->name('api.jwt.user');
@@ -60,11 +55,6 @@ Route::middleware('auth:api')->post('/post', 'PostController@post')->name('post\
 Route::middleware('auth:api')->patch('/post/{id}', 'PostController@patch')->name('post\patch');
 Route::middleware('auth:api')->delete('/post/{id}', 'PostController@delete')->name('post\delete');
 Route::get('/post/picture/{id}', 'PostController@getWithPicture')->name('post\getWithPicture');
-
-Route::get('/comment/{id}', 'CommentController@get')->name('comment\get');
-Route::post('/comment', 'CommentController@post')->name('comment\post');
-Route::patch('/comment/{id}', 'CommentController@patch')->name('comment\patch');
-Route::delete('/comment/{id}', 'CommentController@delete')->name('comment\delete');
 
 Route::middleware('auth:api', 'can:general,'.User::class)
     ->get('/friend','FriendController@get')->name('friend\get');

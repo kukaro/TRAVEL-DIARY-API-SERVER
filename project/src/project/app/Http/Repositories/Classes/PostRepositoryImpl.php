@@ -64,7 +64,6 @@ class PostRepositoryImpl implements PostRepository
 
     public function create(RestRequest $request)
     {
-        DB::beginTransaction();
         $data = new Post();
         $data->id = $request->id;
         $data->owner_id = $request->owner_id;
@@ -72,8 +71,7 @@ class PostRepositoryImpl implements PostRepository
         $data->contents = $request->contents;
         $data->parents_post_id = $request->parents_post_id;
         $data->save();
-        $data = DB::select('select last_insert_id() as id')[0];
-        DB::commit();
+        $data = $data->id;
         return $data;
     }
 

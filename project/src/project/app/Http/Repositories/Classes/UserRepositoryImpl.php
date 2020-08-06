@@ -60,7 +60,6 @@ class UserRepositoryImpl implements UserRepository
 
     public function create(RestRequest $request)
     {
-        DB::beginTransaction();
         $data = new User();
         $data->email = $request->email;
         $data->name = $request->name;
@@ -69,8 +68,7 @@ class UserRepositoryImpl implements UserRepository
         $data->password = $request->password;
         $data->is_hiworks = $request->is_hiworks;
         $data->save();
-        $data = DB::select('select last_insert_id() as id')[0];
-        DB::commit();
+        $data = $data->id;
         return $data;
     }
 

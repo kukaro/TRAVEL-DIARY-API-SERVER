@@ -67,15 +67,13 @@ class PostCommentRepositoryImpl implements PostCommentRepository
 
     public function create(RestRequest $request)
     {
-        DB::beginTransaction();
         $data = new PostComment();
         $data->owner_id = $request->owner_id;
         $data->post_id = $request->post_id;
         $data->contents = $request->contents;
         $data->parents_comment_id = $request->parents_comment_id;
         $data->save();
-        $data = DB::select('select last_insert_id() as id')[0];
-        DB::commit();
+        $data = $data->id;
         return $data;
     }
 
