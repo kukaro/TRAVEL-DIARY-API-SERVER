@@ -4,20 +4,23 @@ namespace App\Http\Controllers;
 
 use App;
 use App\Http\Requests\RestRequests\RestRequest;
-use App\Http\Services\Interfaces\TravleDiaryService;
-use Illuminate\Routing\Controller as BaseController;
+use App\Http\Services\Interfaces\FileService;
+use App\Http\Services\Interfaces\PictureService;
 
-class PictureController extends TravleDiaryController
+class PictureController extends Controller
 {
+    private PictureService $service;
+    private FileService $fileService;
+    private RestRequest $request;
 
-    /**
-     * Class constructor.
-     * @param TravleDiaryService $service
-     * @param RestRequest $request
-     */
-    public function __construct(TravleDiaryService $service, RestRequest $request)
+    public function __construct(
+        PictureService $service,
+        FileService $fileService,
+        RestRequest $request)
     {
-        parent::__construct($service, $request);
+        $this->service = $service;
+        $this->fileService = $fileService;
+        $this->request = $request;
     }
 
     public function get()
@@ -34,7 +37,9 @@ class PictureController extends TravleDiaryController
 
     public function post()
     {
+//        dd($this->request);
         $data = $this->service->post($this->request);
+        $this->fileService->post($this->request);
         return response()->json(['data' => $data], 200, [], JSON_UNESCAPED_UNICODE);
     }
 

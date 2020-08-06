@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\RestRequests;
 
-use App\Http\Requests\TravleDiaryRequest;
+use Illuminate\Http\Request;
 
-class RestRequest implements TravleDiaryRequest
+class RestRequest
 {
     public $req_url;
     public $req_path;
@@ -12,6 +12,7 @@ class RestRequest implements TravleDiaryRequest
     public $req_param;
     public $req_method;
     public $req_body;
+    public $req_file;
     public $wheres;
 
 
