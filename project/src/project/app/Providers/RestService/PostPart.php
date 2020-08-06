@@ -4,7 +4,7 @@ namespace App\Providers\RestService;
 
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\PostController;
-use App\Http\Repositories\PostRepository;
+use App\Http\Repositories\Classes\PostRepositoryImpl;
 use App\Http\Requests\RestRequests\RestRequest;
 use App\Http\Requests\RestRequests\PostRestRequest;
 use App\Http\Services\Classes\PostServiceImpl;
@@ -19,7 +19,7 @@ class PostPart{
         });
 
         app()->singleton(PostService::class, function () {
-            return new PostServiceImpl(new PostRepository());
+            return new PostServiceImpl(new PostRepositoryImpl());
         });
 
         app()->singleton(PostController::class, function () {

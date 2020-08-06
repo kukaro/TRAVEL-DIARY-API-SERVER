@@ -4,7 +4,7 @@ namespace App\Providers\RestService;
 
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\HiworksAuthController;
-use App\Http\Repositories\HiworksAuthRepository;
+use App\Http\Repositories\Classes\HiworksAuthRepositoryImpl;
 use App\Http\Requests\RestRequests\RestRequest;
 use App\Http\Requests\RestRequests\HiworksAuthRestRequest;
 use App\Http\Services\Classes\HiworksAuthServiceImpl;
@@ -19,7 +19,7 @@ class HiworksAuthPart{
         });
 
         app()->singleton(HiworksAuthService::class, function () {
-            return new HiworksAuthServiceImpl(new HiworksAuthRepository());
+            return new HiworksAuthServiceImpl(new HiworksAuthRepositoryImpl());
         });
 
         app()->singleton(HiworksAuthController::class, function () {

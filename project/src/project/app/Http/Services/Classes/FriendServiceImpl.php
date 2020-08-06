@@ -4,18 +4,18 @@ namespace App\Http\Services\Classes;
 
 use App\Http\Requests\RestRequests\RestRequest;
 use App\Http\Services\Interfaces\FriendService;
-use App\Http\Repositories\Repository;
+use App\Http\Repositories\Interfaces\FriendRepository;
 
 class FriendServiceImpl implements FriendService
 {
 
-    private Repository $repository;
+    private FriendRepository $repository;
 
     /**
      * Class constructor.
-     * @param Repository $repository
+     * @param FriendRepository $repository
      */
-    public function __construct(Repository $repository)
+    public function __construct(FriendRepository $repository)
     {
         $this->repository = $repository;
     }

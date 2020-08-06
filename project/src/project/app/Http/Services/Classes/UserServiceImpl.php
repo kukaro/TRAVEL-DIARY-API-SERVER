@@ -4,17 +4,18 @@ namespace App\Http\Services\Classes;
 
 use App\Http\Requests\RestRequests\RestRequest;
 use App\Http\Services\Interfaces\UserService;
-use App\Http\Repositories\Repository;
+use App\Http\Repositories\Interfaces\UserRepository;
 
 class UserServiceImpl implements UserService
 {
 
-    private $repository;
+    private UserRepository $repository;
 
     /**
      * Class constructor.
+     * @param UserRepository $repository
      */
-    public function __construct(Repository $repository)
+    public function __construct(UserRepository $repository)
     {
         $this->repository = $repository;
     }

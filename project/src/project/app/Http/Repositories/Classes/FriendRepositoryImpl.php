@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Repositories;
+namespace App\Http\Repositories\Classes;
 
 use App\Http\Dto\FriendDto;
+use App\Http\Repositories\Interfaces\FriendRepository;
 use App\Http\Requests\RestRequests\RestRequest;
 use App\Model\Friend;
 
-class FriendRepository implements Repository
+class FriendRepositoryImpl implements FriendRepository
 {
     public function read(RestRequest $request)
     {

@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Repositories;
+namespace App\Http\Repositories\Classes;
 
 use App\Http\Dto\PostCommentDto;
+use App\Http\Repositories\Interfaces\PostCommentRepository;
 use App\Http\Requests\RestRequests\RestRequest;
 use App\Model\PostComment;
 use Illuminate\Support\Facades\DB;
-use function Couchbase\defaultDecoder;
 
-class PostCommentRepository implements Repository
+class PostCommentRepositoryImpl implements PostCommentRepository
 {
     public function read(RestRequest $request)
     {

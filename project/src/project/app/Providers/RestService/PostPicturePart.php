@@ -4,7 +4,7 @@ namespace App\Providers\RestService;
 
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\PostPictureController;
-use App\Http\Repositories\PostPictureRepository;
+use App\Http\Repositories\Classes\PostPictureRepositoryImpl;
 use App\Http\Requests\RestRequests\RestRequest;
 use App\Http\Requests\RestRequests\PostPictureRestRequest;
 use App\Http\Services\Classes\PostPictureServiceImpl;
@@ -18,7 +18,7 @@ class PostPicturePart{
         });
 
         app()->singleton(PostPictureService::class, function () {
-            return new PostPictureServiceImpl(new PostPictureRepository());
+            return new PostPictureServiceImpl(new PostPictureRepositoryImpl());
         });
 
         app()->singleton(PostPictureController::class, function () {

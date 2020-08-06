@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Repositories;
+namespace App\Http\Repositories\Classes;
 
 use App\Http\Dto\PictureDto;
+use App\Http\Repositories\Interfaces\PictureRepository;
 use App\Http\Requests\RestRequests\RestRequest;
 use App\Model\Picture;
 use Illuminate\Support\Facades\DB;
 
-class PictureRepository implements Repository
+class PictureRepositoryImpl implements PictureRepository
 {
     public function read(RestRequest $request)
     {

@@ -4,18 +4,18 @@ namespace App\Http\Services\Classes;
 
 use App\Http\Requests\RestRequests\RestRequest;
 use App\Http\Services\Interfaces\HiworksAuthService;
-use App\Http\Repositories\Repository;
+use App\Http\Repositories\Interfaces\HiworksAuthRepository;
 
 class HiworksAuthServiceImpl implements HiworksAuthService
 {
 
-    private $repository;
+    private HiworksAuthRepository $repository;
 
     /**
      * Class constructor.
-     * @param Repository $repository
+     * @param HiworksAuthRepository $repository
      */
-    public function __construct(Repository $repository)
+    public function __construct(HiworksAuthRepository $repository)
     {
         $this->repository = $repository;
     }
