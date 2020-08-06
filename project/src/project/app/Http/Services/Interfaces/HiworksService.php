@@ -1,14 +1,13 @@
 <?php
 
+namespace App\Http\Services\Interfaces;
 
-namespace app\http\services\interfaces;
-
-
-use Illuminate\Http\Request;
 use Illuminate\Http\Client\Response;
+use Illuminate\Http\Request;
 
 interface HiworksService
 {
-    public function getToken(Request $request) : Response;
-    public function getHiworksUser($access_token, $uri);
+    public function getToken(Request $request): Response;
+
+    public function getHiworksUser($access_token, $uri): Response;
 }

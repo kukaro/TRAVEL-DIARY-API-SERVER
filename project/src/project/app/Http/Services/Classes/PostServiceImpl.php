@@ -4,18 +4,18 @@ namespace App\Http\Services\Classes;
 
 use App\Http\Requests\RestRequests\RestRequest;
 use App\Http\Services\Interfaces\PostService;
-use App\Http\Repositories\Repository;
+use App\Http\Repositories\Interfaces\PostRepository;
 
 class PostServiceImpl implements PostService
 {
 
-    private Repository $repository;
+    private PostRepository $repository;
 
     /**
      * Class constructor.
-     * @param Repository $repository
+     * @param PostRepository $repository
      */
-    public function __construct(Repository $repository)
+    public function __construct(PostRepository $repository)
     {
         $this->repository = $repository;
     }

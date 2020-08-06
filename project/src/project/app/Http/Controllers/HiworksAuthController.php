@@ -4,20 +4,17 @@ namespace App\Http\Controllers;
 
 use App;
 use App\Http\Requests\RestRequests\RestRequest;
-use App\Http\Services\Interfaces\TravleDiaryService;
-use Illuminate\Routing\Controller as BaseController;
+use App\Http\Services\Interfaces\HiworksAuthService;
 
-class HiworksAuthController extends TravleDiaryController
+class HiworksAuthController extends Controller
 {
+    private HiworksAuthService $service;
+    private RestRequest $request;
 
-    /**
-     * Class constructor.
-     * @param TravleDiaryService $service
-     * @param RestRequest $request
-     */
-    public function __construct(TravleDiaryService $service, RestRequest $request)
+    public function __construct(HiworksAuthService $service, RestRequest $request)
     {
-        parent::__construct($service, $request);
+        $this->service = $service;
+        $this->request = $request;
     }
 
     public function get()

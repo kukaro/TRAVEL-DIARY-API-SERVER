@@ -2,19 +2,32 @@
 
 namespace App\Http\Dto;
 
-class PictureDto extends DtoImpl
+class PictureDto implements Dto
 {
-    private $id;
-    private $owner_id;
-    private $location;
-    private $path;
-    private $created_date;
-    private $updated_date;
+    private int $id;
+    private int $owner_id;
+    private string $location;
+    private string $path;
+    private string $created_date;
+    private string $updated_date;
 
     /**
-     * Class constructor.
+     * PictureDto constructor.
+     * @param int $id
+     * @param int $owner_id
+     * @param string $location
+     * @param string $path
+     * @param string $created_date
+     * @param string $updated_date
      */
-    public function __construct($id, $owner_id, $location, $path, $created_date, $updated_date)
+    public function __construct(
+        int $id,
+        int $owner_id,
+        string $location,
+        string $path,
+        string $created_date,
+        string $updated_date
+    )
     {
         $this->id = $id;
         $this->owner_id = $owner_id;

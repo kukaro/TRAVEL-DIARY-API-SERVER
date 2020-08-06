@@ -4,17 +4,18 @@ namespace App\Http\Services\Classes;
 
 use App\Http\Requests\RestRequests\RestRequest;
 use App\Http\Services\Interfaces\PostCommentService;
-use App\Http\Repositories\Repository;
+use App\Http\Repositories\Interfaces\PostCommentRepository;
 
 class PostCommentServiceImpl implements PostCommentService
 {
 
-    private $repository;
+    private PostCommentRepository $repository;
 
     /**
      * Class constructor.
+     * @param PostCommentRepository $repository
      */
-    public function __construct(Repository $repository)
+    public function __construct(PostCommentRepository $repository)
     {
         $this->repository = $repository;
     }

@@ -2,28 +2,37 @@
 
 namespace App\Http\Dto;
 
-class PostDto extends DtoImpl
+class PostDto implements Dto
 {
-    private $id;
-    private $owner_id;
-    private $title;
-    private $contents;
-    private $parents_post_id;
-    private $created_date;
-    private $updated_date;
+    private int $id;
+    private int $owner_id;
+    private string $title;
+    private string $contents;
+    private ?int $parents_post_id;
+    private string $created_date;
+    private string $updated_date;
+
 
     /**
-     * Class constructor.
+     * PostDto constructor.
+     * @param int $id
+     * @param int $owner_id
+     * @param string $title
+     * @param string $contents
+     * @param int|null $parents_post_id
+     * @param string $created_date
+     * @param string $updated_date
      */
     public function __construct(
-        $id,
-        $owner_id,
-        $title,
-        $contents,
-        $parents_post_id,
-        $created_date,
-        $updated_date
-    ) {
+        int $id,
+        int $owner_id,
+        string $title,
+        string $contents,
+        ?int $parents_post_id,
+        string $created_date,
+        string $updated_date
+    )
+    {
         $this->id = $id;
         $this->owner_id = $owner_id;
         $this->title = $title;

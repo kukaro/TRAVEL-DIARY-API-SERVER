@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Repositories;
+namespace App\Http\Repositories\Classes;
 
 use App\Http\Dto\UserDto;
+use App\Http\Repositories\Interfaces\UserRepository;
 use App\Http\Requests\RestRequests\RestRequest;
 use App\Model\User;
 use Illuminate\Support\Facades\DB;
 
-class UserRepository implements Repository
+class UserRepositoryImpl implements UserRepository
 {
     public function read(RestRequest $request)
     {
@@ -59,7 +60,6 @@ class UserRepository implements Repository
 
     public function create(RestRequest $request)
     {
-        DB::beginTransaction();
         $data = new User();
         $data->email = $request->email;
         $data->name = $request->name;
@@ -68,8 +68,7 @@ class UserRepository implements Repository
         $data->password = $request->password;
         $data->is_hiworks = $request->is_hiworks;
         $data->save();
-        $data = DB::select('select last_insert_id() as id')[0];
-        DB::commit();
+        $data = $data->id;
         return $data;
     }
 

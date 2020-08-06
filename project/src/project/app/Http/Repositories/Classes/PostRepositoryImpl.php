@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Repositories;
+namespace App\Http\Repositories\Classes;
 
 use App\Http\Dto\PostDto;
+use App\Http\Repositories\Interfaces\PostRepository;
 use App\Http\Requests\RestRequests\RestRequest;
 use App\Model\Post;
 use Illuminate\Support\Facades\DB;
 
-class PostRepository implements Repository
+class PostRepositoryImpl implements PostRepository
 {
     public function read(RestRequest $request)
     {
@@ -63,7 +64,6 @@ class PostRepository implements Repository
 
     public function create(RestRequest $request)
     {
-        DB::beginTransaction();
         $data = new Post();
         $data->id = $request->id;
         $data->owner_id = $request->owner_id;
@@ -71,8 +71,7 @@ class PostRepository implements Repository
         $data->contents = $request->contents;
         $data->parents_post_id = $request->parents_post_id;
         $data->save();
-        $data = DB::select('select last_insert_id() as id')[0];
-        DB::commit();
+        $data = $data->id;
         return $data;
     }
 

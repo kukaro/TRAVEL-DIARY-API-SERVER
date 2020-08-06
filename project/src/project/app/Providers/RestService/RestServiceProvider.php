@@ -4,6 +4,7 @@ namespace App\Providers\RestService;
 
 use App\Http\Requests\RestRequests\RestRequest;
 use App\Util\Name;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
@@ -29,10 +30,7 @@ class RestServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $exception_list = ["file" => "file",
-            "login" => "login",
-            "signup" => "signup",
-            "" => ""];
+        $exception_list = Config::get('provider.exception_list');
         $api = explode("/", request()->path())[1];
         if (!array_key_exists($api, $exception_list)) {
             $classname = "App\\Providers\\RestService\\" . Name::kebabToPascal($api) . "Part";
@@ -47,6 +45,7 @@ class RestServiceProvider extends ServiceProvider
                 $obj->req_url = $app->request->url();
                 $obj->req_path = $app->request->path();
                 $obj->req_param = [];
+                $obj->req_file = $app->request->file;
                 $obj->wheres = [];
                 if ($app->request->route()) {
                     $obj->req_param = $app->request->route()->parameters();

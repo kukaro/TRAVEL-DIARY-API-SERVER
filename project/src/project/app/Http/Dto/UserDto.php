@@ -2,31 +2,40 @@
 
 namespace App\Http\Dto;
 
-class UserDto extends DtoImpl
+class UserDto implements Dto
 {
-    private $id;
-    private $email;
-    private $name;
-    private $age;
-    private $birth_date;
-    private $password;
-    private $is_hiworks;
-    private $created_date;
-    private $updated_date;
+    private int $id;
+    private string $email;
+    private string $name;
+    private ?int $age;
+    private ?string $birth_date;
+    private string $password;
+    private bool $is_hiworks;
+    private string $created_date;
+    private string $updated_date;
 
     /**
-     * Class constructor.
+     * UserDto constructor.
+     * @param int $id
+     * @param string $email
+     * @param string $name
+     * @param int|null $age
+     * @param string|null $birth_date
+     * @param string $password
+     * @param bool $is_hiworks
+     * @param string $created_date
+     * @param string $updated_date
      */
     public function __construct(
-        $id,
-        $email,
-        $name,
-        $age,
-        $birth_date,
-        $password,
-        $is_hiworks,
-        $created_date,
-        $updated_date
+        int $id,
+        string $email,
+        string $name,
+        ?int $age,
+        ?string $birth_date,
+        string $password,
+        bool $is_hiworks,
+        string $created_date,
+        string $updated_date
     ) {
         $this->id = $id;
         $this->email = $email;

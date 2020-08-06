@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Repositories;
+namespace App\Http\Repositories\Classes;
 
 use App\Http\Dto\PictureDto;
+use App\Http\Repositories\Interfaces\PictureRepository;
 use App\Http\Requests\RestRequests\RestRequest;
 use App\Model\Picture;
 use Illuminate\Support\Facades\DB;
 
-class PictureRepository implements Repository
+class PictureRepositoryImpl implements PictureRepository
 {
     public function read(RestRequest $request)
     {
@@ -48,14 +49,17 @@ class PictureRepository implements Repository
     public function readWithUser(RestRequest $request)
     {
         $ret = [];
-        $datas = Picture::join('user', 'user.id', '=', 'picture.owner_id')
-            ->select('picture.id as id',
-                'owner_id',
-                'location',
-                'path',
-                'picture.created_date as created_date',
-                'picture.updated_date as updated_date'
-            )->get();
+        $datas = Picture::join('user', 'user.id', '=', 'picture.owner_id');
+        foreach ($request->wheres as $where) {
+            $datas = $datas->where($where->getColumn(), $where->getOp(), $where->getValue());
+        };
+        $datas = $datas->select('picture.id as id',
+            'owner_id',
+            'location',
+            'path',
+            'picture.created_date as created_date',
+            'picture.updated_date as updated_date'
+        )->get();
         if (count($datas) == 0) {
             $data = null;
         } else {
@@ -76,15 +80,13 @@ class PictureRepository implements Repository
 
     public function create(RestRequest $request)
     {
-        DB::beginTransaction();
         $data = new Picture();
         $data->id = $request->id;
         $data->owner_id = $request->owner_id;
         $data->location = $request->location;
         $data->path = $request->path;
         $data->save();
-        $data = DB::select('select last_insert_id() as id')[0];
-        DB::commit();
+        $data = $data->id;
         return $data;
     }
 

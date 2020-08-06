@@ -2,22 +2,22 @@
 
 namespace App\Http\Dto;
 
-class FriendDto extends DtoImpl
+class FriendDto implements Dto
 {
     private int $id;
     private string $owner_id;
     private string $friend_id;
 
     /**
-     * Class constructor.
-     * @param $id
-     * @param $owner_id
-     * @param $friend_id
+     * FriendDto constructor.
+     * @param int $id
+     * @param string $owner_id
+     * @param string $friend_id
      */
     public function __construct(
-        $id,
-        $owner_id,
-        $friend_id
+        int $id,
+        string $owner_id,
+        string $friend_id
     )
     {
         $this->id = $id;

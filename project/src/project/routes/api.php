@@ -1,10 +1,8 @@
 <?php
 
-use App\Model\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Model\User;
-use App\Model\Picture;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,11 +14,6 @@ use App\Model\Picture;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
  */
-
-// Route::get('/user', function (Request $request) {
-//     dump($request);
-//     return $request->user();
-// });
 
 Route::post('/login', 'JWTAuthController@login')->name('api.jwt.login');
 Route::post('/signup', 'JWTAuthController@signup')->name('api.jwt.signup');
@@ -63,11 +56,6 @@ Route::middleware('auth:api')->patch('/post/{id}', 'PostController@patch')->name
 Route::middleware('auth:api')->delete('/post/{id}', 'PostController@delete')->name('post\delete');
 Route::get('/post/picture/{id}', 'PostController@getWithPicture')->name('post\getWithPicture');
 
-Route::get('/comment/{id}', 'CommentController@get')->name('comment\get');
-Route::post('/comment', 'CommentController@post')->name('comment\post');
-Route::patch('/comment/{id}', 'CommentController@patch')->name('comment\patch');
-Route::delete('/comment/{id}', 'CommentController@delete')->name('comment\delete');
-
 Route::middleware('auth:api', 'can:general,'.User::class)
     ->get('/friend','FriendController@get')->name('friend\get');
 Route::middleware('auth:api', 'can:general,'.User::class)
@@ -80,12 +68,6 @@ Route::get('/health', function (Request $request) {
 Route::get('/test/join', function (Request $request) {
     $data = User::join('picture', 'user.email', '=', 'picture.owner_email')
         ->where('email', 'dudu@dudu.du')->get();
-    dump($data);
-    // dump($data->getAttributes());
-    // $data = User::find(['dudu@dudu.du'])[0]->picture();
-    // dump($data);
-    // $data = User::where('email','dudu@dudu.du')->picture();
-    // dump($data[0]->getAttributes());
     return ['MSG' => 'OK', 'STATUS' => 200];
 });
 

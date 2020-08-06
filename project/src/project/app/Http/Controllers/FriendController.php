@@ -4,21 +4,18 @@ namespace App\Http\Controllers;
 
 use App;
 use App\Http\Requests\RestRequests\RestRequest;
-use App\Http\Services\Interfaces\TravleDiaryService;
-use App\Util\DB\ErrorType;
-use Illuminate\Routing\Controller as BaseController;
+use App\Http\Services\Interfaces\FriendService;
 
-class FriendController extends TravleDiaryController
+
+class FriendController extends Controller
 {
+    private FriendService $service;
+    private RestRequest $request;
 
-    /**
-     * Class constructor.
-     * @param TravleDiaryService $service
-     * @param RestRequest $request
-     */
-    public function __construct(TravleDiaryService $service, RestRequest $request)
+    public function __construct(FriendService $service, RestRequest $request)
     {
-        parent::__construct($service, $request);
+        $this->service = $service;
+        $this->request = $request;
     }
 
     public function get()
@@ -30,10 +27,6 @@ class FriendController extends TravleDiaryController
     public function post()
     {
         $data = $this->service->post($this->request);
-        if($data instanceof ErrorType){
-            return response()->json(['data' => $data], $data->getStatus(), [], JSON_UNESCAPED_UNICODE);
-        }else{
-            return response()->json(['data' => $data], 200, [], JSON_UNESCAPED_UNICODE);
-        }
+        return response()->json(['data' => $data], 200, [], JSON_UNESCAPED_UNICODE);
     }
 }

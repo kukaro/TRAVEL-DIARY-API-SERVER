@@ -32,7 +32,7 @@ class HiworksServiceImpl implements HiworksService
     {
         return Http::withHeaders([
             "Authorization" => "Bearer " . $access_token,
-            "Content-ErrorType" => "application/json",
+            "Content-Type" => "application/json",
         ])->get("$uri");
     }
 }

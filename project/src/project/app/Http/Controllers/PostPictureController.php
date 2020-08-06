@@ -4,20 +4,18 @@ namespace App\Http\Controllers;
 
 use App;
 use App\Http\Requests\RestRequests\RestRequest;
-use App\Http\Services\Interfaces\TravleDiaryService;
-use Illuminate\Routing\Controller as BaseController;
+use App\Http\Services\Interfaces\PostPictureService;
 
-class PostPictureController extends TravleDiaryController
+class PostPictureController extends Controller
 {
 
-    /**
-     * Class constructor.
-     * @param TravleDiaryService $service
-     * @param RestRequest $request
-     */
-    public function __construct(TravleDiaryService $service, RestRequest $request)
+    private PostPictureService $service;
+    private RestRequest $request;
+
+    public function __construct(PostPictureService $service, RestRequest $request)
     {
-        parent::__construct($service, $request);
+        $this->service = $service;
+        $this->request = $request;
     }
 
     public function get()

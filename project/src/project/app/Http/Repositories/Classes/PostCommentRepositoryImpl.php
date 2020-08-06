@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Repositories;
+namespace App\Http\Repositories\Classes;
 
 use App\Http\Dto\PostCommentDto;
+use App\Http\Repositories\Interfaces\PostCommentRepository;
 use App\Http\Requests\RestRequests\RestRequest;
 use App\Model\PostComment;
 use Illuminate\Support\Facades\DB;
-use function Couchbase\defaultDecoder;
 
-class PostCommentRepository implements Repository
+class PostCommentRepositoryImpl implements PostCommentRepository
 {
     public function read(RestRequest $request)
     {
@@ -67,15 +67,13 @@ class PostCommentRepository implements Repository
 
     public function create(RestRequest $request)
     {
-        DB::beginTransaction();
         $data = new PostComment();
         $data->owner_id = $request->owner_id;
         $data->post_id = $request->post_id;
         $data->contents = $request->contents;
         $data->parents_comment_id = $request->parents_comment_id;
         $data->save();
-        $data = DB::select('select last_insert_id() as id')[0];
-        DB::commit();
+        $data = $data->id;
         return $data;
     }
 
