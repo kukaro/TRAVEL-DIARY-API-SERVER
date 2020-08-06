@@ -2,6 +2,7 @@
 
 namespace App\Providers\RestService;
 
+use App\Http\Services\Interfaces\FileService;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\PictureController;
 use App\Http\Repositories\Classes\PictureRepositoryImpl;
@@ -14,6 +15,8 @@ use Illuminate\Support\ServiceProvider;
 class PicturePart{
     static function run()
     {
+        FilePart::run();
+
         app()->singleton(PictureRestRequest::class, function () {
             return new PictureRestRequest();
         });
@@ -23,7 +26,11 @@ class PicturePart{
         });
 
         app()->singleton(PictureController::class, function () {
-            return new PictureController(app()->make(PictureService::class), app()->make(PictureRestRequest::class));
+            return new PictureController(
+                app()->make(PictureService::class),
+                app()->make(FileService::class),
+                app()->make(PictureRestRequest::class)
+            );
         });
     }
 

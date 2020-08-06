@@ -4,16 +4,22 @@ namespace App\Http\Controllers;
 
 use App;
 use App\Http\Requests\RestRequests\RestRequest;
+use App\Http\Services\Interfaces\FileService;
 use App\Http\Services\Interfaces\PictureService;
 
 class PictureController extends Controller
 {
     private PictureService $service;
+    private FileService $fileService;
     private RestRequest $request;
 
-    public function __construct(PictureService $service, RestRequest $request)
+    public function __construct(
+        PictureService $service,
+        FileService $fileService,
+        RestRequest $request)
     {
         $this->service = $service;
+        $this->fileService = $fileService;
         $this->request = $request;
     }
 
