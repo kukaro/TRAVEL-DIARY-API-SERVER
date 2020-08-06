@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App;
 use App\Http\Requests\RestRequests\RestRequest;
 use App\Http\Services\Interfaces\FriendService;
-use App\Util\DB\ErrorType;
 
 
 class FriendController extends Controller
@@ -28,10 +27,6 @@ class FriendController extends Controller
     public function post()
     {
         $data = $this->service->post($this->request);
-        if($data instanceof ErrorType){
-            return response()->json(['data' => $data], $data->getStatus(), [], JSON_UNESCAPED_UNICODE);
-        }else{
-            return response()->json(['data' => $data], 200, [], JSON_UNESCAPED_UNICODE);
-        }
+        return response()->json(['data' => $data], 200, [], JSON_UNESCAPED_UNICODE);
     }
 }

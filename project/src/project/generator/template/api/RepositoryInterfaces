@@ -1,0 +1,12 @@
+<?php
+namespace App\Http\Repositories\Classes;
+
+use App\Http\Dto\<0>Dto;
+use App\Http\Repositories\Interfaces\<0>Repository;
+use App\Http\Requests\RestRequests\RestRequest;
+use App\Model\<0>;
+
+class <0>RepositoryImpl implements <0>Repository
+{
+    
+}

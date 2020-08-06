@@ -15,10 +15,15 @@ class ApiConfig
             "name"=>"<0>Dto.php",
             "template_path" => "template/api/Dto",
         ],
-        "Repository" => [
-            "path"=>"../app/Http/Repositories",
+        "RepositoryClasses" => [
+            "path"=>"../app/Http/Repositories/Classes",
             "name"=>"<0>Repository.php",
-            "template_path" => "template/api/Repository",
+            "template_path" => "template/api/RepositoryClasses",
+        ],
+        "RepositoryInterfaces" => [
+            "path"=>"../app/Http/Repositories/Interfaces",
+            "name"=>"<0>RepositoryImpl.php",
+            "template_path" => "template/api/RepositoryInterfaces",
         ],
         "RestRequest" => [
             "path"=>"../app/Http/Requests/RestRequests",
