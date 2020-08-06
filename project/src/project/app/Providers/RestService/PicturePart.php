@@ -3,16 +3,15 @@
 namespace App\Providers\RestService;
 
 use App\Http\Services\Interfaces\FileService;
-use Illuminate\Foundation\Application;
 use App\Http\Controllers\PictureController;
 use App\Http\Repositories\Classes\PictureRepositoryImpl;
 use App\Http\Requests\RestRequests\RestRequest;
 use App\Http\Requests\RestRequests\PictureRestRequest;
 use App\Http\Services\Classes\PictureServiceImpl;
 use App\Http\Services\Interfaces\PictureService;
-use Illuminate\Support\ServiceProvider;
 
-class PicturePart{
+class PicturePart
+{
     static function run()
     {
         FilePart::run();
@@ -34,7 +33,8 @@ class PicturePart{
         });
     }
 
-    static function mainRun(){
+    static function mainRun()
+    {
         app()->singleton(RestRequest::class, function () {
             return app()->make(PictureRestRequest::class);
         });

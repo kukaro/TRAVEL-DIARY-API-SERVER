@@ -45,6 +45,7 @@ class RestServiceProvider extends ServiceProvider
                 $obj->req_url = $app->request->url();
                 $obj->req_path = $app->request->path();
                 $obj->req_param = [];
+                $obj->req_file = $app->request->file;
                 $obj->wheres = [];
                 if ($app->request->route()) {
                     $obj->req_param = $app->request->route()->parameters();
