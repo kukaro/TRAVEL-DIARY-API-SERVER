@@ -2,7 +2,7 @@
 
 namespace App\Http\Dto;
 
-class HiworksAuthDto extends DtoImpl
+class HiworksAuthDto implements Dto
 {
 
     private $user_no;

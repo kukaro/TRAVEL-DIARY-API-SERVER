@@ -2,7 +2,7 @@
 
 namespace App\Http\Dto;
 
-class PictureDto extends DtoImpl
+class PictureDto implements Dto
 {
     private $id;
     private $owner_id;

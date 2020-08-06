@@ -2,7 +2,7 @@
 
 namespace App\Http\Dto;
 
-class PostPictureDto extends DtoImpl
+class PostPictureDto implements Dto
 {
     /**
      * @var int

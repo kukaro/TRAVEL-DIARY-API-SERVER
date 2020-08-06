@@ -8,7 +8,6 @@ class ErrorTypeBuilder
 {
     static public function get(QueryException $e)
     {
-        dump($e->getCode());
         if (is_null($e->getPrevious()->errorInfo)) {
             switch ($e->getCode()){
                 case 1002:

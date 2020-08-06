@@ -2,7 +2,7 @@
 
 namespace App\Http\Dto;
 
-class PostDto extends DtoImpl
+class PostDto implements Dto
 {
     private $id;
     private $owner_id;

@@ -2,7 +2,7 @@
 
 namespace App\Http\Dto;
 
-class FriendDto extends DtoImpl
+class FriendDto implements Dto
 {
     private int $id;
     private string $owner_id;
