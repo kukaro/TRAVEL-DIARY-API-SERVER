@@ -49,14 +49,17 @@ class PictureRepositoryImpl implements PictureRepository
     public function readWithUser(RestRequest $request)
     {
         $ret = [];
-        $datas = Picture::join('user', 'user.id', '=', 'picture.owner_id')
-            ->select('picture.id as id',
-                'owner_id',
-                'location',
-                'path',
-                'picture.created_date as created_date',
-                'picture.updated_date as updated_date'
-            )->get();
+        $datas = Picture::join('user', 'user.id', '=', 'picture.owner_id');
+        foreach ($request->wheres as $where) {
+            $datas = $datas->where($where->getColumn(), $where->getOp(), $where->getValue());
+        };
+        $datas = $datas->select('picture.id as id',
+            'owner_id',
+            'location',
+            'path',
+            'picture.created_date as created_date',
+            'picture.updated_date as updated_date'
+        )->get();
         if (count($datas) == 0) {
             $data = null;
         } else {
