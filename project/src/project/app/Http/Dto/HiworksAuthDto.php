@@ -5,32 +5,32 @@ namespace App\Http\Dto;
 class HiworksAuthDto implements Dto
 {
 
-    private $user_no;
-    private $owner_id;
-    private $office_no;
-    private $user_id;
-    private $user_name;
-    private $access_token;
-    private $refresh_token;
+    private int $user_no;
+    private int $owner_id;
+    private int $office_no;
+    private string $user_id;
+    private string $user_name;
+    private string $access_token;
+    private string $refresh_token;
 
     /**
-     * Class constructor.
-     * @param $user_no
-     * @param $owner_id
-     * @param $office_no
-     * @param $user_id
-     * @param $user_name
-     * @param $access_token
-     * @param $refresh_token
+     * HiworksAuthDto constructor.
+     * @param int $user_no
+     * @param int $owner_id
+     * @param int $office_no
+     * @param string $user_id
+     * @param string $user_name
+     * @param string $access_token
+     * @param string $refresh_token
      */
     public function __construct(
-        $user_no,
-        $owner_id,
-        $office_no,
-        $user_id,
-        $user_name,
-        $access_token,
-        $refresh_token
+        int $user_no,
+        int $owner_id,
+        int $office_no,
+        string $user_id,
+        string $user_name,
+        string $access_token,
+        string $refresh_token
     )
     {
         $this->user_no = $user_no;

@@ -4,25 +4,32 @@ namespace App\Http\Dto;
 
 class PostCommentDto implements Dto
 {
-    private $id;
-    private $owner_id;
-    private $post_id;
-    private $contents;
-    private $parents_comment_id;
-    private $created_date;
-    private $updated_date;
+    private int $id;
+    private int $owner_id;
+    private int $post_id;
+    private string $contents;
+    private ?int $parents_comment_id;
+    private string $created_date;
+    private string $updated_date;
 
     /**
-     * Class constructor.
+     * PostCommentDto constructor.
+     * @param int $id
+     * @param int $owner_id
+     * @param int $post_id
+     * @param string $contents
+     * @param int|null $parents_comment_id
+     * @param string $created_date
+     * @param string $updated_date
      */
     public function __construct(
-        $id,
-        $owner_id,
-        $post_id,
-        $contents,
-        $parents_comment_id,
-        $created_date,
-        $updated_date
+        int $id,
+        int $owner_id,
+        int $post_id,
+        string $contents,
+        ?int $parents_comment_id,
+        string $created_date,
+        string $updated_date
     )
     {
         $this->id = $id;
