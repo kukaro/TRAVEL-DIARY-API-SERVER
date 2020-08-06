@@ -7,8 +7,16 @@ use App\Http\Requests\RestRequests\RestRequest;
 interface PostService
 {
     public function get(RestRequest $request);
+
+    public function getWithPicture(RestRequest $request);
+
     public function post(RestRequest $request);
-    public function delete(RestRequest $request);
-    public function put(RestRequest $request);
+
     public function patch(RestRequest $request);
+
+    public function delete(RestRequest $request);
+
+    public function put(RestRequest $request);
+
+    public function getWithUser(RestRequest $request);
 }
