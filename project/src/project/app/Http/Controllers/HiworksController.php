@@ -4,7 +4,6 @@
 namespace App\Http\Controllers;
 
 
-use App\Http\Dto\DtoImpl;
 use App\Http\Requests\RestRequests\HiworksAuthRestRequest;
 use App\Http\Requests\RestRequests\UserRestRequest;
 use App\Http\Services\Interfaces\HiworksAuthService;

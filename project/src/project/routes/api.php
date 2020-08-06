@@ -1,10 +1,8 @@
 <?php
 
-use App\Model\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Model\User;
-use App\Model\Picture;
 
 /*
 |--------------------------------------------------------------------------
@@ -80,12 +78,6 @@ Route::get('/health', function (Request $request) {
 Route::get('/test/join', function (Request $request) {
     $data = User::join('picture', 'user.email', '=', 'picture.owner_email')
         ->where('email', 'dudu@dudu.du')->get();
-    dump($data);
-    // dump($data->getAttributes());
-    // $data = User::find(['dudu@dudu.du'])[0]->picture();
-    // dump($data);
-    // $data = User::where('email','dudu@dudu.du')->picture();
-    // dump($data[0]->getAttributes());
     return ['MSG' => 'OK', 'STATUS' => 200];
 });
 
