@@ -6,15 +6,17 @@ use App;
 use App\Http\Requests\RestRequests\RestRequest;
 use App\Http\Services\Interfaces\FriendService;
 use App\Util\DB\ErrorType;
-use Illuminate\Routing\Controller as BaseController;
 
 
 class FriendController extends Controller
 {
+    private FriendService $service;
+    private RestRequest $request;
 
     public function __construct(FriendService $service, RestRequest $request)
     {
-        parent::__construct($service, $request);
+        $this->service = $service;
+        $this->request = $request;
     }
 
     public function get()

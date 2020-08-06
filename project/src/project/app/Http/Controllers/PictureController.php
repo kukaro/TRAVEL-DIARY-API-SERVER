@@ -5,15 +5,16 @@ namespace App\Http\Controllers;
 use App;
 use App\Http\Requests\RestRequests\RestRequest;
 use App\Http\Services\Interfaces\PictureService;
-use Illuminate\Routing\Controller as BaseController;
 
 class PictureController extends Controller
 {
-
+    private PictureService $service;
+    private RestRequest $request;
 
     public function __construct(PictureService $service, RestRequest $request)
     {
-        parent::__construct($service, $request);
+        $this->service = $service;
+        $this->request = $request;
     }
 
     public function get()

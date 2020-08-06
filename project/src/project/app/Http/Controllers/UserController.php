@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App;
 use App\Http\Requests\RestRequests\RestRequest;
 use App\Http\Services\Interfaces\UserService;
-use Illuminate\Routing\Controller as BaseController;
 
 class UserController extends Controller
 {

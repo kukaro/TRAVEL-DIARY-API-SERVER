@@ -4,16 +4,17 @@ namespace App\Http\Controllers;
 
 use App;
 use App\Http\Requests\RestRequests\RestRequest;
-use App\Http\Services\Interfaces\PostService;
-use Illuminate\Routing\Controller as BaseController;
+use App\Http\Services\Interfaces\PostCommentService;
 
 class PostCommentController extends Controller
 {
+    private PostCommentService $service;
+    private RestRequest $request;
 
-
-    public function __construct(PostService $service, RestRequest $request)
+    public function __construct(PostCommentService $service, RestRequest $request)
     {
-        parent::__construct($service, $request);
+        $this->service = $service;
+        $this->request = $request;
     }
 
     public function get()

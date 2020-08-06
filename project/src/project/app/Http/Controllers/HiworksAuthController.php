@@ -8,10 +8,13 @@ use App\Http\Services\Interfaces\HiworksAuthService;
 
 class HiworksAuthController extends Controller
 {
+    private HiworksAuthService $service;
+    private RestRequest $request;
 
     public function __construct(HiworksAuthService $service, RestRequest $request)
     {
-        parent::__construct($service, $request);
+        $this->service = $service;
+        $this->request = $request;
     }
 
     public function get()

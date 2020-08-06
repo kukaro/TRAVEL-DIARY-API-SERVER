@@ -5,14 +5,16 @@ namespace App\Http\Controllers;
 use App;
 use App\Http\Requests\RestRequests\RestRequest;
 use App\Http\Services\Interfaces\PostService;
-use Illuminate\Support\Facades\Route;
 
 class PostController extends Controller
 {
+    private PostService $service;
+    private RestRequest $request;
 
     public function __construct(PostService $service, RestRequest $request)
     {
-        parent::__construct($service, $request);
+        $this->service = $service;
+        $this->request = $request;
     }
 
     public function get()
