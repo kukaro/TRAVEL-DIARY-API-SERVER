@@ -4,7 +4,7 @@ namespace App\Providers\RestService;
 
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\PostCommentController;
-use App\Http\Repositories\PostCommentRepository;
+use App\Http\Repositories\Classes\PostCommentRepositoryImpl;
 use App\Http\Requests\RestRequests\RestRequest;
 use App\Http\Requests\RestRequests\PostCommentRestRequest;
 use App\Http\Services\Classes\PostCommentServiceImpl;
@@ -19,7 +19,7 @@ class PostCommentPart{
         });
 
         app()->singleton(PostCommentService::class, function () {
-            return new PostCommentServiceImpl(new PostCommentRepository());
+            return new PostCommentServiceImpl(new PostCommentRepositoryImpl());
         });
 
         app()->singleton(PostCommentController::class, function () {

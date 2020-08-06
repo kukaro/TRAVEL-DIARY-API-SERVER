@@ -4,7 +4,7 @@ namespace App\Providers\RestService;
 
 use App\Http\Controllers\HiworksAuthController;
 use App\Http\Controllers\HiworksController;
-use App\Http\Repositories\HiworksAuthRepository;
+use App\Http\Repositories\Classes\HiworksAuthRepositoryImpl;
 use App\Http\Requests\RestRequests\HiworksAuthRestRequest;
 use App\Http\Requests\RestRequests\RestRequest;
 use App\Http\Services\Classes\HiworksAuthServiceImpl;

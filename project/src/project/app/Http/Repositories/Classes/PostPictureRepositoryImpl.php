@@ -1,12 +1,13 @@
 <?php
-namespace App\Http\Repositories;
+namespace App\Http\Repositories\Classes;
 
 use App\Http\Dto\PostPictureDto;
+use App\Http\Repositories\Interfaces\PostPictureRepository;
 use App\Http\Requests\RestRequests\RestRequest;
 use App\Model\PostPicture;
 use Illuminate\Support\Facades\DB;
 
-class PostPictureRepository implements Repository
+class PostPictureRepositoryImpl implements PostPictureRepository
 {
     public function read(RestRequest $request)
     {

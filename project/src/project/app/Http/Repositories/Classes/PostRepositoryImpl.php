@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Repositories;
+namespace App\Http\Repositories\Classes;
 
 use App\Http\Dto\PostDto;
+use App\Http\Repositories\Interfaces\PostRepository;
 use App\Http\Requests\RestRequests\RestRequest;
 use App\Model\Post;
 use Illuminate\Support\Facades\DB;
 
-class PostRepository implements Repository
+class PostRepositoryImpl implements PostRepository
 {
     public function read(RestRequest $request)
     {

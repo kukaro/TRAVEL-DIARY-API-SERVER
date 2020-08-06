@@ -1,13 +1,12 @@
 <?php
-namespace App\Http\Repositories;
+namespace App\Http\Repositories\Classes;
 
 use App\Http\Dto\HiworksAuthDto;
+use App\Http\Repositories\Interfaces\HiworksAuthRepository;
 use App\Http\Requests\RestRequests\RestRequest;
 use App\Model\HiworksAuth;
-use App\Model\Post;
-use Illuminate\Support\Facades\DB;
 
-class HiworksAuthRepository implements Repository
+class HiworksAuthRepositoryImpl implements HiworksAuthRepository
 {
     public function read(RestRequest $request)
     {

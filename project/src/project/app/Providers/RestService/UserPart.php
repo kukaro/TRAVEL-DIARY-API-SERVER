@@ -4,7 +4,7 @@ namespace App\Providers\RestService;
 
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\UserController;
-use App\Http\Repositories\UserRepository;
+use App\Http\Repositories\Classes\UserRepositoryImpl;
 use App\Http\Requests\RestRequests\RestRequest;
 use App\Http\Requests\RestRequests\UserRestRequest;
 use App\Http\Services\Classes\UserServiceImpl;
@@ -18,7 +18,7 @@ class UserPart{
         });
 
         app()->singleton(UserService::class, function () {
-            return new UserServiceImpl(new UserRepository());
+            return new UserServiceImpl(new UserRepositoryImpl());
         });
 
         app()->singleton(UserController::class, function () {

@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Repositories;
+namespace App\Http\Repositories\Classes;
 
 use App\Http\Dto\UserDto;
+use App\Http\Repositories\Interfaces\UserRepository;
 use App\Http\Requests\RestRequests\RestRequest;
 use App\Model\User;
 use Illuminate\Support\Facades\DB;
 
-class UserRepository implements Repository
+class UserRepositoryImpl implements UserRepository
 {
     public function read(RestRequest $request)
     {

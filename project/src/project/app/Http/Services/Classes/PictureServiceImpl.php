@@ -4,18 +4,18 @@ namespace App\Http\Services\Classes;
 
 use App\Http\Requests\RestRequests\RestRequest;
 use App\Http\Services\Interfaces\PictureService;
-use App\Http\Repositories\Repository;
+use App\Http\Repositories\Interfaces\PictureRepository;
 
 class PictureServiceImpl implements PictureService
 {
 
-    private $repository;
+    private PictureRepository $repository;
 
     /**
      * Class constructor.
-     * @param Repository $repository
+     * @param PictureRepository $repository
      */
-    public function __construct(Repository $repository)
+    public function __construct(PictureRepository $repository)
     {
         $this->repository = $repository;
     }
