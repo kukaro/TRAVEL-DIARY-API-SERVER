@@ -9,8 +9,8 @@ class PostRestRequest extends RestRequest
     private string $title;
     private string $contents;
     private ?int $parents_post_id;
-    private string $created_date;
-    private string $updated_date;
+    private ?string $created_date = null;
+    private ?string $updated_date = null;
 
     /**
      * Class constructor.

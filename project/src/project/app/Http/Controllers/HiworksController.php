@@ -57,7 +57,7 @@ class HiworksController extends Controller
             $user_request->name = $hiworks_user["name"];
             $user_request->is_hiworks = true;
             $user_request->password = 0;
-            $owner_id = $this->userService->post($user_request)->id;
+            $owner_id = $this->userService->post($user_request);
 
             $hiworks_auth_request = new HiworksAuthRestRequest;
             $hiworks_auth_request->user_no = $hiworks_user["no"];
