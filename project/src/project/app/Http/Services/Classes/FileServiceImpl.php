@@ -4,41 +4,29 @@
 namespace App\Http\Services\Classes;
 
 
+use App\Http\Repositories\Interfaces\FileRepository;
 use App\Http\Requests\RestRequests\RestRequest;
 use App\Http\Services\Interfaces\FileService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Response;
 
 class FileServiceImpl implements FileService
 {
+    private FileRepository $repository;
+
+    public function __construct(FileRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
     public function get(Request $request)
     {
         $path = $request->route()->catchall;
-        $path = storage_path("app/$path");
-        if (!File::exists($path)) {
-            abort(404);
-        }
-        $file = File::get($path);
-        $type = File::mimeType($path);
-
-        $response = Response::make($file, 200);
-        $response->header("Content-Type", $type);
-
-        return $response;
+        return $this->repository->get($path);
     }
 
     public function post(RestRequest $request)
     {
-        $file_path = $request->path;
-        $file_part_path = explode("/", $file_path);
-        $file_path = '';
-        for ($i = 0; $i < count($file_part_path) - 1; $i++) {
-            $file_path .= "/" . $file_part_path[$i];
-        }
-        $file_name = $file_part_path[count($file_part_path) - 1];
-        $file = $request->req_file;
-        $file->storeAs($file_path, $file_name);
+        $this->repository->post($request->path, $request->req_file);
 
         return response()->json([
             'MSG' => 'SUCCESS',
@@ -49,13 +37,7 @@ class FileServiceImpl implements FileService
     public function delete(Request $request)
     {
         $path = $request->route()->catchall;
-        $path = storage_path("app/$path");
-
-        if (!File::exists($path)) {
-            abort(404);
-        }
-
-        File::delete($path);
+        $this->repository->delete($path);
 
         return response()->json([
             'MSG' => 'SUCCESS',
