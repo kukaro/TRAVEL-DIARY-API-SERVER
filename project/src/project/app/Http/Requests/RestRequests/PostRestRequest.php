@@ -4,13 +4,13 @@ namespace App\Http\Requests\RestRequests;
 
 class PostRestRequest extends RestRequest
 {
-    private $id;
-    private $owner_id;
-    private $title;
-    private $contents;
-    private $parents_post_id;
-    private $created_date;
-    private $updated_date;
+    private int $id;
+    private int $owner_id;
+    private string $title;
+    private string $contents;
+    private int $parents_post_id;
+    private string $created_date;
+    private string $updated_date;
 
     /**
      * Class constructor.

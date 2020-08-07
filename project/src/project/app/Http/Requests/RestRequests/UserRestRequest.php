@@ -4,15 +4,15 @@ namespace App\Http\Requests\RestRequests;
 
 class UserRestRequest extends RestRequest
 {
-    private $id;
-    private $email;
-    private $name;
-    private $age;
-    private $birth_date;
-    private $is_hiworks;
-    private $password;
-    private $created_date;
-    private $updated_date;
+    private int $id;
+    private string $email;
+    private string $name;
+    private int $age;
+    private string $birth_date;
+    private bool $is_hiworks;
+    private string $password;
+    private string $created_date;
+    private string $updated_date;
 
     /**
      * Class constructor.

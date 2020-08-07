@@ -4,12 +4,12 @@ namespace App\Http\Requests\RestRequests;
 
 class PictureRestRequest extends RestRequest
 {
-    private $id;
-    private $owner_id;
-    private $location;
-    private $path;
-    private $created_date;
-    private $updated_date;
+    private int $id;
+    private int $owner_id;
+    private string $location;
+    private string $path;
+    private string $created_date;
+    private string $updated_date;
 
     /**
      * Class constructor.

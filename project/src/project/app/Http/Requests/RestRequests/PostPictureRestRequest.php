@@ -4,18 +4,9 @@ namespace App\Http\Requests\RestRequests;
 
 class PostPictureRestRequest extends RestRequest
 {
-    /**
-     * @var int
-     */
-    private $id;
-    /**
-     * @var int
-     */
-    private $post_id;
-    /**
-     * @var int
-     */
-    private $picture_id;
+    private int $id;
+    private int $post_id;
+    private int $picture_id;
 
     public function __construct(){}
 

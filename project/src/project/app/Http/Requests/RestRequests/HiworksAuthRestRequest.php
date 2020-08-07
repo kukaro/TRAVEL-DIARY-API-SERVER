@@ -5,13 +5,13 @@ namespace App\Http\Requests\RestRequests;
 class HiworksAuthRestRequest extends RestRequest
 {
 
-    private $user_no;
-    private $owner_id;
-    private $office_no;
-    private $user_id;
-    private $user_name;
-    private $access_token;
-    private $refresh_token;
+    private int $user_no;
+    private int $owner_id;
+    private int $office_no;
+    private string $user_id;
+    private string $user_name;
+    private string $access_token;
+    private string $refresh_token;
 
 
     /**

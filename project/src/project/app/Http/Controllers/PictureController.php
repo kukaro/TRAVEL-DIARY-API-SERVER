@@ -37,7 +37,6 @@ class PictureController extends Controller
 
     public function post()
     {
-//        dd($this->request);
         $data = $this->service->post($this->request);
         $this->fileService->post($this->request);
         return response()->json(['data' => $data], 200, [], JSON_UNESCAPED_UNICODE);
