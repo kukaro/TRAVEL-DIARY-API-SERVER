@@ -4,9 +4,9 @@ namespace App\Http\Requests\RestRequests;
 
 class FriendRestRequest extends RestRequest
 {
-    private int $id;
-    private int $owner_id;
-    private int $friend_id;
+    private ?int $id;
+    private ?int $owner_id;
+    private ?int $friend_id;
 
     /**
      * Class constructor.
@@ -30,5 +30,12 @@ class FriendRestRequest extends RestRequest
     public function jsonSerialize()
     {
         return get_object_vars($this);
+    }
+
+    public function rules()
+    {
+        return [
+
+        ];
     }
 }

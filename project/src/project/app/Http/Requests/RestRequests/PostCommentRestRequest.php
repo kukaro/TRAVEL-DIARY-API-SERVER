@@ -4,13 +4,13 @@ namespace App\Http\Requests\RestRequests;
 
 class PostCommentRestRequest extends RestRequest
 {
-    private int $id;
-    private int $owner_id;
-    private int $post_id;
-    private string $contents;
-    private int $parents_comment_id;
-    private string $created_date;
-    private string $updated_date;
+    private ?int $id;
+    private ?int $owner_id;
+    private ?int $post_id;
+    private ?string $contents;
+    private ?int $parents_comment_id;
+    private ?string $created_date;
+    private ?string $updated_date;
 
     /**
      * Class constructor.
@@ -34,5 +34,11 @@ class PostCommentRestRequest extends RestRequest
     public function jsonSerialize()
     {
         return get_object_vars($this);
+    }
+
+    public function rules(){
+        return [
+
+        ];
     }
 }

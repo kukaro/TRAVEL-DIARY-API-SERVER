@@ -65,7 +65,6 @@ class PostRepositoryImpl implements PostRepository
     public function create(RestRequest $request)
     {
         $data = new Post();
-        $data->id = $request->id;
         $data->owner_id = $request->owner_id;
         $data->title = $request->title;
         $data->contents = $request->contents;

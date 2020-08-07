@@ -4,9 +4,9 @@ namespace App\Http\Requests\RestRequests;
 
 class PostPictureRestRequest extends RestRequest
 {
-    private int $id;
-    private int $post_id;
-    private int $picture_id;
+    private ?int $id;
+    private ?int $post_id;
+    private ?int $picture_id;
 
     public function __construct(){}
 
@@ -25,5 +25,11 @@ class PostPictureRestRequest extends RestRequest
     public function jsonSerialize()
     {
         return get_object_vars($this);
+    }
+
+    public function rules(){
+        return [
+
+        ];
     }
 }

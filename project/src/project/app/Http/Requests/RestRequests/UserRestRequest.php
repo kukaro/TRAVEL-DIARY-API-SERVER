@@ -36,4 +36,10 @@ class UserRestRequest extends RestRequest
     {
         return get_object_vars($this);
     }
+
+    public function rules(){
+        return [
+
+        ];
+    }
 }

@@ -4,7 +4,7 @@ namespace App\Util\DB;
 
 use Illuminate\Database\QueryException;
 
-class ErrorTypeBuilder
+class ErrorTypeFactory
 {
     static public function get(QueryException $e)
     {

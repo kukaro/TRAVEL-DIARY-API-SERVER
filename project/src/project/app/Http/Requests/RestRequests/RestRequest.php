@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests\RestRequests;
 
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Http\Request;
 
-class RestRequest extends Request
+abstract class RestRequest extends FormRequest
 {
     public string $req_url;
     public string $req_path;
@@ -21,5 +21,4 @@ class RestRequest extends Request
     {
 
     }
-
 }

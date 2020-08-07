@@ -81,7 +81,6 @@ class PictureRepositoryImpl implements PictureRepository
     public function create(RestRequest $request)
     {
         $data = new Picture();
-        $data->id = $request->id;
         $data->owner_id = $request->owner_id;
         $data->location = $request->location;
         $data->path = $request->path;

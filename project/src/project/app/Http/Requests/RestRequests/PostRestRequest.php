@@ -8,7 +8,7 @@ class PostRestRequest extends RestRequest
     private int $owner_id;
     private string $title;
     private string $contents;
-    private int $parents_post_id;
+    private ?int $parents_post_id;
     private string $created_date;
     private string $updated_date;
 
@@ -34,5 +34,12 @@ class PostRestRequest extends RestRequest
     public function jsonSerialize()
     {
         return get_object_vars($this);
+    }
+
+    public function rules(){
+        return [
+//            "title" => "required",
+//            "contents"=>"required",
+        ];
     }
 }
