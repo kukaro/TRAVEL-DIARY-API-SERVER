@@ -36,9 +36,28 @@ class PostCommentRestRequest extends RestRequest
         return get_object_vars($this);
     }
 
-    public function rules(){
-        return [
+    public function rules()
+    {
+        switch ($this->req_method) {
+            case "POST":
+                return [
+                    "owner_id" => "required",
+                    "post_id" => "required",
+                    "contents" => "required",
+                ];
+            default:
+                return [
 
+                ];
+        }
+    }
+
+    public function messages()
+    {
+        return [
+            "owner_id.required" => "required",
+            "post_id.required" => "required",
+            "contents.required" => "required",
         ];
     }
 }

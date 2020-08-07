@@ -7,8 +7,8 @@ class UserRestRequest extends RestRequest
     private int $id;
     private string $email;
     private string $name;
-    private ?int $age = null;
-    private ?string $birth_date = null;
+    private int $age;
+    private string $birth_date;
     private bool $is_hiworks;
     private string $password;
     private string $created_date;
@@ -20,7 +20,6 @@ class UserRestRequest extends RestRequest
     public function __construct()
     {
     }
-
     public function __set($name, $value)
     {
         if (property_exists($this, $name)) {
@@ -40,8 +39,26 @@ class UserRestRequest extends RestRequest
 
     public function rules()
     {
-        return [
+        switch ($this->req_method) {
+            case "POST":
+                return [
+                    "email" => "required",
+                    "name" => "required",
+                    "password" => "required",
+                ];
+            default:
+                return [
 
+                ];
+        }
+    }
+
+    public function messages()
+    {
+        return [
+            "email.required" => "required",
+            "name.required" => "required",
+            "password.required" => "required",
         ];
     }
 }

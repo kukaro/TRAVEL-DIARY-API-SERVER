@@ -44,11 +44,6 @@ class HiworksAuthRepositoryImpl implements HiworksAuthRepository
     public function update(RestRequest $request)
     {
         $arr = [
-            'user_no' => $request->user_no,
-            'owner_id' => $request->owner_id,
-            'office_no' => $request->office_no,
-            'user_id' => $request->user_id,
-            'user_name' => $request->user_name,
             'access_token' => $request->access_token,
             'refresh_token' => $request->refresh_token,
         ];

@@ -34,8 +34,24 @@ class FriendRestRequest extends RestRequest
 
     public function rules()
     {
-        return [
+        switch ($this->req_method) {
+            case "POST":
+                return [
+                    "owner_id" => "required",
+                    "friend_id" => "required",
+                ];
+            default:
+                return [
 
+                ];
+        }
+    }
+
+    public function messages()
+    {
+        return [
+            "owner_id.required" => "required",
+            "friend_id.required" => "required",
         ];
     }
 }

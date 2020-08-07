@@ -4,13 +4,13 @@ namespace App\Http\Requests\RestRequests;
 
 class PostRestRequest extends RestRequest
 {
-    private int $id;
-    private int $owner_id;
-    private string $title;
-    private string $contents;
+    private ?int $id;
+    private ?int $owner_id;
+    private ?string $title;
+    private ?string $contents;
     private ?int $parents_post_id;
-    private ?string $created_date = null;
-    private ?string $updated_date = null;
+    private ?string $created_date;
+    private ?string $updated_date;
 
     /**
      * Class constructor.
@@ -36,10 +36,28 @@ class PostRestRequest extends RestRequest
         return get_object_vars($this);
     }
 
-    public function rules(){
+    public function rules()
+    {
+        switch ($this->req_method) {
+            case "POST":
+                return [
+                    "owner_id" => "required",
+                    "title" => "required",
+                    "contents" => "required",
+                ];
+            default:
+                return [
+
+                ];
+        }
+    }
+
+    public function messages()
+    {
         return [
-//            "title" => "required",
-//            "contents"=>"required",
+            'owner_id.required' => 'required',
+            'title.required' => 'required',
+            'contents.required' => 'required',
         ];
     }
 }

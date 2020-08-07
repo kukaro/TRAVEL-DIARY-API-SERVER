@@ -35,9 +35,28 @@ class PictureRestRequest extends RestRequest
         return get_object_vars($this);
     }
 
-    public function rules(){
-        return [
+    public function rules()
+    {
+        switch ($this->req_method) {
+            case "POST":
+                return [
+                    "owner_id" => "required",
+                    "location" => "required",
+                    "path" => "required",
+                ];
+            default:
+                return [
 
+                ];
+        }
+    }
+
+    public function messages()
+    {
+        return [
+            "owner_id.required" => "required",
+            "location.required" => "required",
+            "path.required" => "required",
         ];
     }
 }
