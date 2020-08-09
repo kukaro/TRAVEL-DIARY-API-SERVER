@@ -74,7 +74,7 @@ class PostCommentRepositoryImpl implements PostCommentRepository
         $data->parents_comment_id = $request->parents_comment_id;
         $data->save();
         $data = $data->id;
-        return $data;
+        return ["id" => $data];
     }
 
     public function update(RestRequest $request)
