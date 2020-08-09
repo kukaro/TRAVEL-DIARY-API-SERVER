@@ -6,17 +6,28 @@ use App\Http\Requests\RestRequests\RestRequest;
 
 interface PostService
 {
-    public function get(RestRequest $request);
+    public function get(int $id);
 
-    public function getWithPicture(RestRequest $request);
+    public function getWithPicture(int $id);
 
-    public function post(RestRequest $request);
+    public function post(
+        int $owner_id,
+        string $title,
+        string $contents,
+        ?int $parents_post_id
+    );
 
-    public function patch(RestRequest $request);
+    public function patch(
+        int $id,
+        int $owner_id,
+        string $title,
+        string $contents,
+        ?int $parents_post_id,
+        ?string $created_date,
+        ?string $updated_date
+    );
 
-    public function delete(RestRequest $request);
+    public function delete(int $id);
 
-    public function put(RestRequest $request);
-
-    public function getWithUser(RestRequest $request);
+    public function getWithUser(array $wheres);
 }

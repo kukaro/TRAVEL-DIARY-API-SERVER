@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App;
+use App\Http\Dto\PostDto;
 use App\Http\Requests\RestRequests\RestRequest;
 use App\Http\Services\Interfaces\PostCommentService;
 

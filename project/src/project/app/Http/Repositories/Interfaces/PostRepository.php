@@ -6,15 +6,28 @@ use App\Http\Requests\RestRequests\RestRequest;
 
 interface PostRepository
 {
-    public function read(RestRequest $request);
+    public function read(int $id);
 
-    public function readWithPicture(RestRequest $request);
+    public function readWithPicture(int $id);
 
-    public function create(RestRequest $request);
+    public function create(
+        int $owner_id,
+        string $title,
+        string $contents,
+        ?int $parents_post_id
+    );
 
-    public function update(RestRequest $request);
+    public function update(
+        int $id,
+        int $owner_id,
+        string $title,
+        string $contents,
+        ?int $parents_post_id,
+        ?string $created_date,
+        ?string $updated_date
+    );
 
-    public function delete(RestRequest $request);
+    public function delete(int $id);
 
-    public function readWithUser(RestRequest $request);
+    public function readWithUser(array $wheres);
 }
