@@ -58,15 +58,24 @@ class UserRepositoryImpl implements UserRepository
         return $ret;
     }
 
-    public function create(RestRequest $request)
+    public function create(
+        string $email,
+        string $name,
+        ?int $age,
+        ?string $birth_date,
+        string $password,
+        bool $is_hiworks,
+        ?string $created_date,
+        ?string $updated_date
+    )
     {
         $data = new User();
-        $data->email = $request->email;
-        $data->name = $request->name;
-        $data->age = intval($request->age);
-        $data->birth_date = $request->birth_date;
-        $data->password = $request->password;
-        $data->is_hiworks = $request->is_hiworks;
+        $data->email = $email;
+        $data->name = $name;
+        $data->age = intval($age);
+        $data->birth_date = $birth_date;
+        $data->password = $password;
+        $data->is_hiworks = $is_hiworks;
         $data->save();
         $data = $data->id;
         return $data;

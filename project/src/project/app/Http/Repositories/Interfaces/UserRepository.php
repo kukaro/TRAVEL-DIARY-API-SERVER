@@ -10,7 +10,16 @@ interface UserRepository
 
     public function readByEmailOrName(RestRequest $request);
 
-    public function create(RestRequest $request);
+    public function create(
+        string $email,
+        string $name,
+        ?int $age,
+        ?string $birth_date,
+        string $password,
+        bool $is_hiworks,
+        ?string $created_date,
+        ?string $updated_date
+    );
 
     public function update(RestRequest $request);
 

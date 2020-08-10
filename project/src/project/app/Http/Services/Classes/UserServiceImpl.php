@@ -26,23 +26,40 @@ class UserServiceImpl implements UserService
         return $data;
     }
 
-    public function post(RestRequest $request)
+    public function post(
+        string $email,
+        string $name,
+        ?int $age,
+        ?string $birth_date,
+        string $password,
+        bool $is_hiworks,
+        ?string $created_date,
+        ?string $updated_date
+    )
     {
-        $data = $this->repository->create($request);
+        $data = $this->repository->create(
+            $email,
+            $name,
+            $age,
+            $birth_date,
+            $password,
+            $is_hiworks,
+            $created_date,
+            $updated_date
+        );
         return $data;
     }
 
-    public function patch(RestRequest $request){
+    public function patch(RestRequest $request)
+    {
         $data = $this->repository->update($request);
         return $data;
     }
 
-    public function delete(RestRequest $request){
+    public function delete(RestRequest $request)
+    {
         $data = $this->repository->delete($request);
         return $data;
-    }
-
-    public function put(RestRequest $request){
     }
 
     public function getLinkedFriend(RestRequest $request)
@@ -58,7 +75,8 @@ class UserServiceImpl implements UserService
     }
 
 
-    public function getByPostComment(RestRequest $request){
+    public function getByPostComment(RestRequest $request)
+    {
         $data = $this->repository->readByPostComment($request);
         return $data;
     }

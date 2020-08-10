@@ -25,7 +25,16 @@ class UserController extends Controller
 
     public function post()
     {
-        $this->service->post($this->request);
+        $this->service->post(
+            $this->request->email,
+            $this->request->name,
+            $this->request->age,
+            $this->request->birth_date,
+            $this->request->password,
+            $this->request->is_hiworks,
+            $this->request->created_date,
+            $this->request->updated_date
+        );
         return response()->json(['data' => 'SUCCESS'], 200, [], JSON_UNESCAPED_UNICODE);
     }
 
