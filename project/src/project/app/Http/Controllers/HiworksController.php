@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Exceptions\HiworksAuthenticateFailException;
 use App\Exceptions\LoginFailException;
 use App\Exceptions\TokenRequestIsInvalidRequest;
 use App\Http\Services\Interfaces\HiworksAuthService;
@@ -69,6 +70,9 @@ class HiworksController extends Controller
             $token["access_token"],
             Config::get('hiworks.hiworks_auth_uri') . '/user/v2/me'
         )->json();
+        if($hiworks_user["code"]=="ERR"){
+            throw new HiworksAuthenticateFailException();
+        }
 
         $user = $this->userService->get($hiworks_user["user_id"] . "@gabia.com");
 

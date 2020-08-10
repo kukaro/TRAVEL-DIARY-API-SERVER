@@ -34,7 +34,7 @@ class HiworksServiceImpl implements HiworksService
         $client_id = Config::get('hiworks.client_id');
         $client_secret = Config::get('hiworks.client_secret');
 
-        return Http::asForm()->post("$uri/1", [
+        return Http::asForm()->post("$uri", [
             "client_id" => $client_id,
             "client_secret" => $client_secret,
             "grant_type" => "authorization_code",
