@@ -2,9 +2,6 @@
 
 namespace App\Exceptions;
 
-use App\Util\DB\ErrorType;
-use App\Util\DB\ErrorTypeFactory;
-use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 
@@ -53,11 +50,6 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
-        if($exception instanceof QueryException){
-            $err = ErrorTypeFactory::get($exception);
-            return response($err, 500);
-        }else{
-            return parent::render($request, $exception);
-        }
+        return parent::render($request, $exception);
     }
 }

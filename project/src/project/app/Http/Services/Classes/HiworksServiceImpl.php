@@ -8,7 +8,6 @@ use App\Http\Repositories\Interfaces\HiworksAuthRepository;
 use App\Http\Repositories\Interfaces\UserRepository;
 use App\Http\Services\Interfaces\HiworksService;
 use Illuminate\Http\Client\Response;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
