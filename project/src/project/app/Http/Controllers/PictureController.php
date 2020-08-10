@@ -25,32 +25,43 @@ class PictureController extends Controller
 
     public function get()
     {
-        $data = $this->service->get($this->request);
+        $data = $this->service->get($this->request->id);
         return response()->json(['data' => $data], 200, [], JSON_UNESCAPED_UNICODE);
     }
 
     public function getWithUser()
     {
-        $data = $this->service->getWithUser($this->request);
+        $data = $this->service->getWithUser($this->request->wheres);
         return response()->json(['data' => $data], 200, [], JSON_UNESCAPED_UNICODE);
     }
 
     public function post()
     {
-        $data = $this->service->post($this->request);
+        $data = $this->service->post(
+            $this->request->owner_id,
+            $this->request->location,
+            $this->request->path
+        );
         $this->fileService->post($this->request);
         return response()->json(['data' => $data], 200, [], JSON_UNESCAPED_UNICODE);
     }
 
     public function patch()
     {
-        $this->service->patch($this->request);
+        $this->service->patch(
+            $this->request->id,
+            $this->request->owner_id,
+            $this->request->location,
+            $this->request->path,
+            $this->request->created_date,
+            $this->request->updated_date
+        );
         return response()->json(['data' => 'SUCCESS'], 200, [], JSON_UNESCAPED_UNICODE);
     }
 
     public function delete()
     {
-        $this->service->delete($this->request);
+        $this->service->delete($this->request->id);
         return response()->json(['data' => 'SUCCESS'], 200, [], JSON_UNESCAPED_UNICODE);
     }
 }

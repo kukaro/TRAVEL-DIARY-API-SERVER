@@ -2,19 +2,27 @@
 
 namespace App\Http\Services\Interfaces;
 
-use App\Http\Requests\RestRequests\RestRequest;
-
 interface PictureService
 {
-    public function get(RestRequest $request);
+    public function get(int $id);
 
-    public function post(RestRequest $request);
+    public function getWithUser(array $wheres);
 
-    public function patch(RestRequest $request);
+    public function post(
+        int $owner_id,
+        string $location,
+        string $path
+    );
 
-    public function delete(RestRequest $request);
+    public function patch(
+        int $id,
+        int $owner_id,
+        ?string $location,
+        ?string $path,
+        ?string $created_date,
+        ?string $updated_date
+    );
 
-    public function put(RestRequest $request);
+    public function delete(int $id);
 
-    public function getWithUser(RestRequest $request);
 }

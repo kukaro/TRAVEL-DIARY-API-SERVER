@@ -10,9 +10,9 @@ use Illuminate\Support\Facades\DB;
 
 class PictureRepositoryImpl implements PictureRepository
 {
-    public function read(RestRequest $request)
+    public function read(int $id)
     {
-        $data = Picture::where('id', $request->id)->get();
+        $data = Picture::where('id', $id)->get();
         if (count($data) == 0) {
             $data = null;
         } else {
@@ -28,29 +28,11 @@ class PictureRepositoryImpl implements PictureRepository
         return $data;
     }
 
-    public function readWithPicture(RestRequest $request)
-    {
-        $data = Picture::where('id', $request->id)->get();
-        if (count($data) == 0) {
-            $data = null;
-        } else {
-            $data = $data[0]->getAttributes();
-            $data = new PictureDto(intval($data['id']),
-                $data['owner_id'],
-                $data['location'],
-                $data['path'],
-                $data['created_date'],
-                $data['updated_date']
-            );
-        }
-        return $data;
-    }
-
-    public function readWithUser(RestRequest $request)
+    public function readWithUser(array $wheres)
     {
         $ret = [];
         $datas = Picture::join('user', 'user.id', '=', 'picture.owner_id');
-        foreach ($request->wheres as $where) {
+        foreach ($wheres as $where) {
             $datas = $datas->where($where->getColumn(), $where->getOp(), $where->getValue());
         };
         $datas = $datas->select('picture.id as id',
@@ -78,39 +60,50 @@ class PictureRepositoryImpl implements PictureRepository
         return $ret;
     }
 
-    public function create(RestRequest $request)
+    public function create(
+        int $owner_id,
+        string $location,
+        string $path
+    )
     {
         $data = new Picture();
-        $data->owner_id = $request->owner_id;
-        $data->location = $request->location;
-        $data->path = $request->path;
+        $data->owner_id = $owner_id;
+        $data->location = $location;
+        $data->path = $path;
         $data->save();
         $data = $data->id;
         return $data;
     }
 
-    public function update(RestRequest $request)
+    public function update(
+        int $id,
+        int $owner_id,
+        ?string $location,
+        ?string $path,
+        ?string $created_date,
+        ?string $updated_date
+    )
     {
         $arr = [
-            'id' => $request->id,
-            'owner_id' => $request->owner_id,
-            'location' => $request->location,
-            'path' => $request->path,
-            'created_date' => $request->created_date,
-            'updated_date' => $request->updated_date,
+            'id' => $id,
+            'owner_id' => $owner_id,
+            'location' => $location,
+            'path' => $path,
+            'created_date' => $created_date,
+            'updated_date' => $updated_date,
         ];
         foreach ($arr as $key => $value) {
             if ($value === null) {
                 unset($arr[$key]);
             }
         }
-        $data = Picture::where('id', $request->id)->update($arr);
+        $data = Picture::where('id', $id)->update($arr);
         return $data;
     }
 
-    public function delete(RestRequest $request)
+    public function delete(int $id)
     {
-        $data = Picture::where('id', $request->id)->delete();
+        $data = Picture::where('id', $id)->delete();
         return $data;
     }
 }

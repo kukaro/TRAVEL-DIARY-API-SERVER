@@ -2,7 +2,6 @@
 
 namespace App\Http\Services\Classes;
 
-use App\Http\Requests\RestRequests\RestRequest;
 use App\Http\Services\Interfaces\PictureService;
 use App\Http\Repositories\Interfaces\PictureRepository;
 
@@ -20,36 +19,55 @@ class PictureServiceImpl implements PictureService
         $this->repository = $repository;
     }
 
-    public function get(RestRequest $request)
+    public function get(int $id)
     {
-        $data = $this->repository->read($request);
+        $data = $this->repository->read($id);
         return $data;
     }
 
-    public function post(RestRequest $request)
+    public function getWithUser(array $wheres)
     {
-        $data = $this->repository->create($request);
+        $data = $this->repository->readWithUser($wheres);
         return $data;
     }
 
-    public function patch(RestRequest $request){
-        $data = $this->repository->update($request);
+    public function post(
+        int $owner_id,
+        string $location,
+        string $path
+    )
+    {
+        $data = $this->repository->create(
+            $owner_id,
+            $location,
+            $path
+        );
         return $data;
     }
 
-    public function delete(RestRequest $request){
-        $data = $this->repository->delete($request);
+    public function patch(
+        int $id,
+        int $owner_id,
+        ?string $location,
+        ?string $path,
+        ?string $created_date,
+        ?string $updated_date
+    )
+    {
+        $data = $this->repository->update(
+            $id,
+            $owner_id,
+            $location,
+            $path,
+            $created_date,
+            $updated_date
+        );
         return $data;
     }
 
-    public function put(RestRequest $request){
-        $data = null;
+    public function delete(int $id)
+    {
+        $data = $this->repository->delete($id);
         return $data;
     }
-
-    public function getWithUser(RestRequest $request){
-        $data = $this->repository->readWithUser($request);
-        return $data;
-    }
-
 }

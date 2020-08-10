@@ -6,15 +6,24 @@ use App\Http\Requests\RestRequests\RestRequest;
 
 interface PictureRepository
 {
-    public function read(RestRequest $request);
+    public function read(int $id);
 
-    public function readWithPicture(RestRequest $request);
+    public function readWithUser(array $wheres);
 
-    public function readWithUser(RestRequest $request);
+    public function create(
+        int $owner_id,
+        string $location,
+        string $path
+    );
 
-    public function create(RestRequest $request);
+    public function update(
+        int $id,
+        int $owner_id,
+        ?string $location,
+        ?string $path,
+        ?string $created_date,
+        ?string $updated_date
+    );
 
-    public function update(RestRequest $request);
-
-    public function delete(RestRequest $request);
+    public function delete(int $id);
 }
