@@ -20,25 +20,16 @@ class PostPictureController extends Controller
 
     public function get()
     {
-        $data = $this->service->get($this->request);
+        $data = $this->service->get($this->request->id);
         return response()->json(['data' => $data], 200, [], JSON_UNESCAPED_UNICODE);
     }
 
     public function post()
     {
-        $data = $this->service->post($this->request);
+        $data = $this->service->post(
+            $this->request->picture_id,
+            $this->request->post_id
+        );
         return response()->json(['data' => $data], 200, [], JSON_UNESCAPED_UNICODE);
-    }
-
-    public function patch()
-    {
-        $this->service->patch($this->request);
-        return response()->json(['data' => 'SUCCESS'], 200, [], JSON_UNESCAPED_UNICODE);
-    }
-
-    public function delete()
-    {
-        $this->service->delete($this->request);
-        return response()->json(['data' => 'SUCCESS'], 200, [], JSON_UNESCAPED_UNICODE);
     }
 }

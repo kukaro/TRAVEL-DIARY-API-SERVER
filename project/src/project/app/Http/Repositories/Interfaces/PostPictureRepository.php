@@ -2,15 +2,12 @@
 
 namespace App\Http\Repositories\Interfaces;
 
-use App\Http\Requests\RestRequests\RestRequest;
-
 interface PostPictureRepository
 {
-    public function read(RestRequest $request);
+    public function read(int $id);
 
-    public function create(RestRequest $request);
-
-    public function update(RestRequest $request);
-
-    public function delete(RestRequest $request);
+    public function create(
+        int $picture_id,
+        int $post_id
+    );
 }

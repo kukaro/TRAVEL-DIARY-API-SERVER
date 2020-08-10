@@ -3,15 +3,13 @@ namespace App\Http\Repositories\Classes;
 
 use App\Http\Dto\PostPictureDto;
 use App\Http\Repositories\Interfaces\PostPictureRepository;
-use App\Http\Requests\RestRequests\RestRequest;
 use App\Model\PostPicture;
-use Illuminate\Support\Facades\DB;
 
 class PostPictureRepositoryImpl implements PostPictureRepository
 {
-    public function read(RestRequest $request)
+    public function read(int $id)
     {
-        $data = PostPicture::where('id', $request->id)->get();
+        $data = PostPicture::where('id', $id)->get();
         if (count($data) == 0) {
             $data = null;
         } else {
@@ -24,25 +22,16 @@ class PostPictureRepositoryImpl implements PostPictureRepository
         return $data;
     }
 
-    public function create(RestRequest $request)
+    public function create(
+        int $picture_id,
+        int $post_id
+    )
     {
         $data = new PostPicture();
-        $data->picture_id = $request->picture_id;
-        $data->post_id = $request->post_id;
+        $data->picture_id = $picture_id;
+        $data->post_id = $post_id;
         $data->save();
         $data = $data->id;
-        return $data;
-    }
-
-    public function update(RestRequest $request)
-    {
-        $data = null;
-        return $data;
-    }
-
-    public function delete(RestRequest $request)
-    {
-        $data = null;
         return $data;
     }
 }

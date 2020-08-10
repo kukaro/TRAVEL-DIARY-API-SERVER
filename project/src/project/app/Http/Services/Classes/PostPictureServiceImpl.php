@@ -20,30 +20,21 @@ class PostPictureServiceImpl implements PostPictureService
         $this->repository = $repository;
     }
 
-    public function get(RestRequest $request)
+    public function get(int $id)
     {
-        $data = $this->repository->read($request);
+        $data = $this->repository->read($id);
         return $data;
     }
 
-    public function post(RestRequest $request)
+    public function post(
+        int $picture_id,
+        int $post_id
+    )
     {
-        $data = $this->repository->create($request);
-        return $data;
-    }
-
-    public function patch(RestRequest $request){
-        $data = $this->repository->update($request);
-        return $data;
-    }
-
-    public function delete(RestRequest $request){
-        $data = $this->repository->delete($request);
-        return $data;
-    }
-
-    public function put(RestRequest $request){
-        $data = null;
+        $data = $this->repository->create(
+            $picture_id,
+            $post_id
+        );
         return $data;
     }
 }
