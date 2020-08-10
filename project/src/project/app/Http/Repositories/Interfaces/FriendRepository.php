@@ -6,11 +6,10 @@ use App\Http\Requests\RestRequests\RestRequest;
 
 interface FriendRepository
 {
-    public function read(RestRequest $request);
+    public function read(array $wheres);
 
-    public function create(RestRequest $request);
-
-    public function update(RestRequest $request);
-
-    public function delete(RestRequest $request);
+    public function create(
+        int $owner_id,
+        int $friend_id
+    );
 }

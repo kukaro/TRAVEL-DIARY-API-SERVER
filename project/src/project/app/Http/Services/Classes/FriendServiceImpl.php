@@ -20,30 +20,21 @@ class FriendServiceImpl implements FriendService
         $this->repository = $repository;
     }
 
-    public function get(RestRequest $request)
+    public function get(array $wheres)
     {
-        $data = $this->repository->read($request);
+        $data = $this->repository->read($wheres);
         return $data;
     }
 
-    public function post(RestRequest $request)
+    public function post(
+        int $owner_id,
+        int $friend_id
+    )
     {
-        $data = $this->repository->create($request);
-        return $data;
-    }
-
-    public function patch(RestRequest $request){
-        $data = $this->repository->update($request);
-        return $data;
-    }
-
-    public function delete(RestRequest $request){
-        $data = $this->repository->delete($request);
-        return $data;
-    }
-
-    public function put(RestRequest $request){
-        $data = null;
+        $data = $this->repository->create(
+            $owner_id,
+            $friend_id
+        );
         return $data;
     }
 }

@@ -9,12 +9,12 @@ use App\Model\Friend;
 
 class FriendRepositoryImpl implements FriendRepository
 {
-    public function read(RestRequest $request)
+    public function read(array $wheres)
     {
         $ret = [];
         $datas = Friend::class;
         $is_init = false;
-        foreach ($request->wheres as $where) {
+        foreach ($wheres as $where) {
             if ($is_init) {
                 $datas = $datas->where($where->getColumn(), $where->getOp(), $where->getValue());
             } else {
@@ -38,25 +38,17 @@ class FriendRepositoryImpl implements FriendRepository
         return $ret;
     }
 
-    public function create(RestRequest $request)
+    public function create(
+        int $owner_id,
+        int $friend_id
+    )
     {
         $data = new Friend();
-        $data->owner_id = $request->owner_id;
-        $data->friend_id = $request->friend_id;
+        $data->owner_id = $owner_id;
+        $data->friend_id = $friend_id;
         $data->save();
         $data = $data->id;
         return $data;
     }
 
-    public function update(RestRequest $request)
-    {
-        $data = null;
-        return $data;
-    }
-
-    public function delete(RestRequest $request)
-    {
-        $data = null;
-        return $data;
-    }
 }

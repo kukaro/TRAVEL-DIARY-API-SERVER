@@ -20,13 +20,16 @@ class FriendController extends Controller
 
     public function get()
     {
-        $data = $this->service->get($this->request);
+        $data = $this->service->get($this->request->wheres);
         return response()->json(['data' => $data], 200, [], JSON_UNESCAPED_UNICODE);
     }
 
     public function post()
     {
-        $data = $this->service->post($this->request);
+        $data = $this->service->post(
+            $this->request->owner_id,
+            $this->request->friend_id
+        );
         return response()->json(['data' => $data], 200, [], JSON_UNESCAPED_UNICODE);
     }
 }

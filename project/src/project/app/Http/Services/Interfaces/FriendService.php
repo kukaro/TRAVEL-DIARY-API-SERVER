@@ -6,13 +6,10 @@ use App\Http\Requests\RestRequests\RestRequest;
 
 interface FriendService
 {
-    public function get(RestRequest $request);
+    public function get(array $wheres);
 
-    public function post(RestRequest $request);
-
-    public function patch(RestRequest $request);
-
-    public function delete(RestRequest $request);
-
-    public function put(RestRequest $request);
+    public function post(
+        int $owner_id,
+        int $friend_id
+    );
 }
