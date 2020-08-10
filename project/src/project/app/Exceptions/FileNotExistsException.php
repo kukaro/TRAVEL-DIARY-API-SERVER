@@ -3,7 +3,6 @@
 
 namespace App\Exceptions;
 
-use App\Util\DB\ErrorType;
 use App\Util\ExceptionMessage;
 use Exception;
 

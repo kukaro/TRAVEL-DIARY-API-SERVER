@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Exception;
+namespace App\Exceptions;
 
 
 use App\Util\ExceptionMessage;
@@ -11,7 +11,7 @@ use Exception;
  * 토큰데이터를 받지 못했을 때 일어나는 예외입니다.
  * @package App\Exception
  */
-class TokeRequestIsInvalidRequest extends Exception
+class TokenRequestIsInvalidRequest extends Exception
 {
 
     /**

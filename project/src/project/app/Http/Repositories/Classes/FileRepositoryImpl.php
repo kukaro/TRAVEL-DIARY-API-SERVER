@@ -15,7 +15,7 @@ class FileRepositoryImpl implements FileRepository
     /**
      * @param string $path
      * @return \Illuminate\Http\Response
-     * @throws FileNotExistsException xception
+     * @throws FileNotExistsException exception
      */
     public function get(string $path){
         $path = storage_path("app/$path");

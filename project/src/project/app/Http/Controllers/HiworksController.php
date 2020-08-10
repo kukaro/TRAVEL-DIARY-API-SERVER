@@ -4,8 +4,8 @@
 namespace App\Http\Controllers;
 
 
-use App\Exception\LoginFailException;
-use App\Exception\TokeRequestIsInvalidRequest;
+use App\Exceptions\LoginFailException;
+use App\Exceptions\TokenRequestIsInvalidRequest;
 use App\Http\Services\Interfaces\HiworksAuthService;
 use app\http\services\interfaces\HiworksService;
 use App\Http\Services\Interfaces\UserService;
@@ -55,14 +55,13 @@ class HiworksController extends Controller
      * hiworks 인증의 토큰을 제작합니다.
      * @param Request $request
      * @return Application|Factory|View
-     * @throws LoginFailException
-     * @throws TokeRequestIsInvalidRequest
+     * @throws LoginFailException|TokenRequestIsInvalidRequest
      */
     public function callback(Request $request)
     {
         $token_request = $this->service->getToken($request->query('auth_code'));
         if(!$token_request->json()){
-            throw new TokeRequestIsInvalidRequest();
+            throw new TokenRequestIsInvalidRequest();
         }
         $token = $token_request->json()["data"];
 
