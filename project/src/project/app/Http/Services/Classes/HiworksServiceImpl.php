@@ -4,14 +4,29 @@
 namespace App\Http\Services\Classes;
 
 
+use App\Http\Repositories\Interfaces\HiworksAuthRepository;
+use App\Http\Repositories\Interfaces\UserRepository;
 use App\Http\Services\Interfaces\HiworksService;
 use Illuminate\Http\Client\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 
 class HiworksServiceImpl implements HiworksService
 {
+    private UserRepository $userRepository;
+    private HiworksAuthRepository $hiworksAuthRepository;
+
+    public function __construct(
+        UserRepository $userRepository,
+        HiworksAuthRepository $hiworksAuthRepository
+    )
+    {
+        $this->userRepository = $userRepository;
+        $this->hiworksAuthRepository = $hiworksAuthRepository;
+    }
 
     public function getToken(Request $request): Response
     {
@@ -34,5 +49,49 @@ class HiworksServiceImpl implements HiworksService
             "Authorization" => "Bearer " . $access_token,
             "Content-Type" => "application/json",
         ])->get("$uri");
+    }
+
+    public function callback(
+        array $token,
+        array $hiworks_user,
+        $user
+    ): ?string
+    {
+        DB::beginTransaction();
+        $access_token = $token["access_token"];
+        $refresh_token = $token["refresh_token"];
+        if (is_null($user)) {
+            $owner_id = $this->userRepository->create(
+                $hiworks_user["user_id"] . "@gabia.com",
+                $hiworks_user["name"],
+                null,
+                null,
+                0,
+                true,
+                null,
+                null
+            );
+            $this->hiworksAuthRepository->create($hiworks_user["no"],
+                $owner_id,
+                $token["office_no"],
+                $hiworks_user["user_id"],
+                $hiworks_user["name"],
+                $access_token,
+                $refresh_token
+            );
+        } else {
+            $this->hiworksAuthRepository->update(
+                $hiworks_user["no"],
+                $access_token,
+                $refresh_token
+            );
+        }
+        DB::commit();
+        //TODO : 수정 해야함, 에러를 던지도록 해야함
+        //TODO : 비밀번호랑 아이디 검증 하는거 수정해봐야함
+        if (!$token = Auth::guard('api')->attempt(['email' => $hiworks_user["user_id"] . "@gabia.com", 'password' => null])) {
+            return null;
+        }
+        return $token;
     }
 }

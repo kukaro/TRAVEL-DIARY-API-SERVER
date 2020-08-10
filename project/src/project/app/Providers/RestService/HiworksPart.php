@@ -5,6 +5,7 @@ namespace App\Providers\RestService;
 use App\Http\Controllers\HiworksAuthController;
 use App\Http\Controllers\HiworksController;
 use App\Http\Repositories\Classes\HiworksAuthRepositoryImpl;
+use App\Http\Repositories\Classes\UserRepositoryImpl;
 use App\Http\Requests\RestRequests\HiworksAuthRestRequest;
 use App\Http\Requests\RestRequests\RestRequest;
 use App\Http\Services\Classes\HiworksAuthServiceImpl;
@@ -19,8 +20,12 @@ class HiworksPart
     {
         HiworksAuthPart::run();
         UserPart::run();
+
         app()->singleton(HiworksService::class, function () {
-            return new HiworksServiceImpl();
+            return new HiworksServiceImpl(
+                new UserRepositoryImpl(),
+                new HiworksAuthRepositoryImpl()
+            );
         });
     }
 

@@ -6,6 +6,7 @@ use App\Http\Repositories\Interfaces\FileRepository;
 use App\Http\Services\Interfaces\PictureService;
 use App\Http\Repositories\Interfaces\PictureRepository;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\DB;
 
 class PictureServiceImpl implements PictureService
 {
@@ -46,12 +47,17 @@ class PictureServiceImpl implements PictureService
         UploadedFile $file
     )
     {
+        DB::beginTransaction();
         $data = $this->repository->create(
             $owner_id,
             $location,
             $path
         );
-        $this->fileRepository->post($path, $file);
+        $this->fileRepository->post(
+            $path,
+            $file
+        );
+        DB::commit();
         return $data;
     }
 
