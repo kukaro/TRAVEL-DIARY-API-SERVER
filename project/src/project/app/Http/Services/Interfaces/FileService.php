@@ -2,14 +2,13 @@
 
 namespace App\Http\Services\Interfaces;
 
-use App\Http\Requests\RestRequests\RestRequest;
-use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 
 interface FileService
 {
-    public function get(Request $request);
+    public function get(string $path);
 
-    public function post(RestRequest $request);
+    public function post(string $path, UploadedFile $file);
 
-    public function delete(Request $request);
+    public function delete(string $path);
 }
