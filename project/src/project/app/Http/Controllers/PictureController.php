@@ -40,9 +40,9 @@ class PictureController extends Controller
         $data = $this->service->post(
             $this->request->owner_id,
             $this->request->location,
-            $this->request->path
+            $this->request->path,
+            $this->request->req_file,
         );
-        $this->fileService->post($this->request);
         return response()->json(['data' => $data], 200, [], JSON_UNESCAPED_UNICODE);
     }
 

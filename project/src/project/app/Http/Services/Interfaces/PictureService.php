@@ -2,6 +2,8 @@
 
 namespace App\Http\Services\Interfaces;
 
+use Illuminate\Http\UploadedFile;
+
 interface PictureService
 {
     public function get(int $id);
@@ -11,7 +13,8 @@ interface PictureService
     public function post(
         int $owner_id,
         string $location,
-        string $path
+        string $path,
+        UploadedFile $file
     );
 
     public function patch(

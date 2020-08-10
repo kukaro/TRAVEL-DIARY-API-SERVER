@@ -2,6 +2,7 @@
 
 namespace App\Providers\RestService;
 
+use App\Http\Repositories\Classes\FileRepositoryImpl;
 use App\Http\Services\Interfaces\FileService;
 use App\Http\Controllers\PictureController;
 use App\Http\Repositories\Classes\PictureRepositoryImpl;
@@ -21,7 +22,10 @@ class PicturePart
         });
 
         app()->singleton(PictureService::class, function () {
-            return new PictureServiceImpl(new PictureRepositoryImpl());
+            return new PictureServiceImpl(
+                new PictureRepositoryImpl(),
+                new FileRepositoryImpl()
+            );
         });
 
         app()->singleton(PictureController::class, function () {

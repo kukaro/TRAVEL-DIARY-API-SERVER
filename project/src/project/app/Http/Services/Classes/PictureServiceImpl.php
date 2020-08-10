@@ -2,21 +2,29 @@
 
 namespace App\Http\Services\Classes;
 
+use App\Http\Repositories\Interfaces\FileRepository;
 use App\Http\Services\Interfaces\PictureService;
 use App\Http\Repositories\Interfaces\PictureRepository;
+use Illuminate\Http\UploadedFile;
 
 class PictureServiceImpl implements PictureService
 {
 
     private PictureRepository $repository;
+    private FileRepository $fileRepository;
 
     /**
      * Class constructor.
      * @param PictureRepository $repository
+     * @param FileRepository $fileRepository
      */
-    public function __construct(PictureRepository $repository)
+    public function __construct(
+        PictureRepository $repository,
+        FileRepository $fileRepository
+    )
     {
         $this->repository = $repository;
+        $this->fileRepository = $fileRepository;
     }
 
     public function get(int $id)
@@ -34,7 +42,8 @@ class PictureServiceImpl implements PictureService
     public function post(
         int $owner_id,
         string $location,
-        string $path
+        string $path,
+        UploadedFile $file
     )
     {
         $data = $this->repository->create(
@@ -42,6 +51,7 @@ class PictureServiceImpl implements PictureService
             $location,
             $path
         );
+        $this->fileRepository->post($path, $file);
         return $data;
     }
 
