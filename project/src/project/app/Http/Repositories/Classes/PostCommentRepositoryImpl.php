@@ -10,9 +10,9 @@ use Illuminate\Support\Facades\DB;
 
 class PostCommentRepositoryImpl implements PostCommentRepository
 {
-    public function read(RestRequest $request)
+    public function read($id)
     {
-        $data = PostComment::where('id', $request->id)->get();
+        $data = PostComment::where('id', $id)->get();
         if (count($data) == 0) {
             $data = null;
         } else {
@@ -29,12 +29,15 @@ class PostCommentRepositoryImpl implements PostCommentRepository
         return $data;
     }
 
-    public function readWithPost(RestRequest $request)
+    public function readWithPost(
+        int $id,
+        array $wheres
+    )
     {
         $ret = [];
         $datas = PostComment::join('post', 'post.id', '=', 'postcomment.post_id')
-            ->where('post.id', $request->id);
-        foreach ($request->wheres as $where) {
+            ->where('post.id', $id);
+        foreach ($wheres as $where) {
             $datas = $datas->where('post.' . $where->getColumn(), $where->getOp(), $where->getValue());
         }
         $datas = $datas->
@@ -65,27 +68,20 @@ class PostCommentRepositoryImpl implements PostCommentRepository
         return $ret;
     }
 
-    public function create(RestRequest $request)
+    public function create(
+        int $owner_id,
+        int $post_id,
+        string $contents,
+        ?int $parents_comment_id
+    )
     {
         $data = new PostComment();
-        $data->owner_id = $request->owner_id;
-        $data->post_id = $request->post_id;
-        $data->contents = $request->contents;
-        $data->parents_comment_id = $request->parents_comment_id;
+        $data->owner_id = $owner_id;
+        $data->post_id = $post_id;
+        $data->contents = $contents;
+        $data->parents_comment_id = $parents_comment_id;
         $data->save();
         $data = $data->id;
         return ["id" => $data];
-    }
-
-    public function update(RestRequest $request)
-    {
-        $data = null;
-        return $data;
-    }
-
-    public function delete(RestRequest $request)
-    {
-        $data = null;
-        return $data;
     }
 }

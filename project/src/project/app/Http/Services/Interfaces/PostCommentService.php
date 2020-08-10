@@ -6,15 +6,17 @@ use App\Http\Requests\RestRequests\RestRequest;
 
 interface PostCommentService
 {
-    public function get(RestRequest $request);
+    public function get(int $id);
 
-    public function getWithPost(RestRequest $request);
+    public function getWithPost(
+        int $id,
+        array $wheres
+    );
 
-    public function post(RestRequest $request);
-
-    public function patch(RestRequest $request);
-
-    public function delete(RestRequest $request);
-
-    public function put(RestRequest $request);
+    public function post(
+        int $owner_id,
+        int $post_id,
+        string $contents,
+        ?int $parents_comment_id
+    );
 }

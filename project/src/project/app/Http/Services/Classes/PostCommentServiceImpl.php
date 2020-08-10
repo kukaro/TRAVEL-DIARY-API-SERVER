@@ -20,36 +20,34 @@ class PostCommentServiceImpl implements PostCommentService
         $this->repository = $repository;
     }
 
-    public function get(RestRequest $request)
+    public function get(int $id)
     {
-        $data = $this->repository->read($request);
+        $data = $this->repository->read($id);
         return $data;
     }
 
-    public function getWithPost(RestRequest $request)
+    public function getWithPost(
+        int $id,
+        array $wheres
+    )
     {
-        $data = $this->repository->readWithPost($request);
+        $data = $this->repository->readWithPost($id, $wheres);
         return $data;
     }
 
-    public function post(RestRequest $request)
+    public function post(
+        int $owner_id,
+        int $post_id,
+        string $contents,
+        ?int $parents_comment_id
+    )
     {
-        $data = $this->repository->create($request);
-        return $data;
-    }
-
-    public function patch(RestRequest $request){
-        $data = $this->repository->update($request);
-        return $data;
-    }
-
-    public function delete(RestRequest $request){
-        $data = $this->repository->delete($request);
-        return $data;
-    }
-
-    public function put(RestRequest $request){
-        $data = null;
+        $data = $this->repository->create(
+            $owner_id,
+            $post_id,
+            $contents,
+            $parents_comment_id
+        );
         return $data;
     }
 }
