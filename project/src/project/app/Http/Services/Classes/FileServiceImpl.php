@@ -31,7 +31,6 @@ class FileServiceImpl implements FileService
         ], 200);
     }
 
-    //TODO : 나중에 파일 없을떄는 다른 메세지랑 코드 나가게 수정해야함
     public function delete(string $path)
     {
         $this->repository->delete($path);

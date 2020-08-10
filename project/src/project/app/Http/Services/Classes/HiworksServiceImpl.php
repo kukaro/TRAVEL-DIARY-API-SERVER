@@ -28,13 +28,13 @@ class HiworksServiceImpl implements HiworksService
         $this->hiworksAuthRepository = $hiworksAuthRepository;
     }
 
-    public function getToken(Request $request): Response
+    public function getToken(string $auth_code): Response
     {
         $uri = Config::get('hiworks.hiworks_auth_uri') . '/open/auth/accesstoken';
         $client_id = Config::get('hiworks.client_id');
         $client_secret = Config::get('hiworks.client_secret');
-        $auth_code = $request->query('auth_code');
-        return Http::asForm()->post("$uri", [
+
+        return Http::asForm()->post("$uri/1", [
             "client_id" => $client_id,
             "client_secret" => $client_secret,
             "grant_type" => "authorization_code",
@@ -87,8 +87,6 @@ class HiworksServiceImpl implements HiworksService
             );
         }
         DB::commit();
-        //TODO : 수정 해야함, 에러를 던지도록 해야함
-        //TODO : 비밀번호랑 아이디 검증 하는거 수정해봐야함
         if (!$token = Auth::guard('api')->attempt(['email' => $hiworks_user["user_id"] . "@gabia.com", 'password' => null])) {
             return null;
         }

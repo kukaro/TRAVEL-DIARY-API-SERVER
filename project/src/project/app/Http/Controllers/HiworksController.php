@@ -4,9 +4,15 @@
 namespace App\Http\Controllers;
 
 
+use App\Exception\LoginFailException;
+use App\Exception\TokeRequestIsInvalidRequest;
 use App\Http\Services\Interfaces\HiworksAuthService;
 use app\http\services\interfaces\HiworksService;
 use App\Http\Services\Interfaces\UserService;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\Client\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
@@ -18,6 +24,12 @@ class HiworksController extends Controller
     public HiworksAuthService $hiworksAuthService;
     public UserService $userService;
 
+    /**
+     * HiworksController constructor.
+     * @param HiworksService $service
+     * @param HiworksAuthService $hiworksAuthService
+     * @param UserService $userService
+     */
     public function __construct(
         HiworksService $service,
         HiworksAuthService $hiworksAuthService,
@@ -28,6 +40,10 @@ class HiworksController extends Controller
         $this->userService = $userService;
     }
 
+    /**
+     * @param Request $request
+     * @return Response
+     */
     public function get(Request $request)
     {
         $uri = Config::get('hiworks.hiworks_auth_uri') . '/open/auth/authform';
@@ -35,9 +51,19 @@ class HiworksController extends Controller
         return Http::get("$uri?client_id=$client_id&access_type=offline");
     }
 
+    /**
+     * hiworks 인증의 토큰을 제작합니다.
+     * @param Request $request
+     * @return Application|Factory|View
+     * @throws LoginFailException
+     * @throws TokeRequestIsInvalidRequest
+     */
     public function callback(Request $request)
     {
-        $token_request = $this->service->getToken($request);
+        $token_request = $this->service->getToken($request->query('auth_code'));
+        if(!$token_request->json()){
+            throw new TokeRequestIsInvalidRequest();
+        }
         $token = $token_request->json()["data"];
 
         $hiworks_user = $this->service->getHiworksUser(
@@ -55,10 +81,15 @@ class HiworksController extends Controller
         if ($token) {
             return view('hiworks', ["data" => json_encode(["type" => "hiworks_auth", "data" => $this->respondWithToken($token)])]);
         } else {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            throw new LoginFailException($hiworks_user["user_id"] . "@gabia.com");
         }
     }
 
+    /**
+     * 최종적으로 front에 전송될 토큰을 제작합니다.
+     * @param $token
+     * @return array
+     */
     protected function respondWithToken($token)
     {
         return [

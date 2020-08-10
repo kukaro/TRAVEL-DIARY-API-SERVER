@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 interface HiworksService
 {
-    public function getToken(Request $request): Response;
+    public function getToken(string $auth_code): Response;
 
     public function getHiworksUser($access_token, $uri): Response;
 
