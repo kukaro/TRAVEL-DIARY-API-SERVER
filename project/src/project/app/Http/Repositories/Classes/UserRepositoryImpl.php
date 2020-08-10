@@ -10,9 +10,9 @@ use Illuminate\Support\Facades\DB;
 
 class UserRepositoryImpl implements UserRepository
 {
-    public function read(RestRequest $request)
+    public function read(string $email)
     {
-        $data = User::where('email', $request->email)->get();
+        $data = User::where('email', $email)->get();
         if (count($data) == 0) {
             $data = null;
         } else {
@@ -32,10 +32,13 @@ class UserRepositoryImpl implements UserRepository
         return $data;
     }
 
-    public function readByEmailOrName(RestRequest $request)
+    public function readByEmailOrName(
+        string $email,
+        string $name
+    )
     {
         $ret = [];
-        $datas = User::where('email', 'like', "%" . $request->email . "%")->orWhere('name', 'like', "%" . $request->name . "%")->get();
+        $datas = User::where('email', 'like', "%" . $email . "%")->orWhere('name', 'like', "%" . $name . "%")->get();
         if (count($datas) == 0) {
             $data = null;
         } else {
@@ -81,35 +84,41 @@ class UserRepositoryImpl implements UserRepository
         return $data;
     }
 
-    public function update(RestRequest $request)
+    public function update(
+        ?string $email,
+        ?string $name,
+        ?int $age,
+        ?string $birth_date,
+        ?string $password
+    )
     {
         $arr = [
-            'email' => $request->email,
-            'name' => $request->name,
-            'age' => intval($request->age),
-            'birth_date' => $request->birth_date,
-            'password' => $request->password,
+            'email' => $email,
+            'name' => $name,
+            'age' => intval($age),
+            'birth_date' => $birth_date,
+            'password' => $password,
         ];
         foreach ($arr as $key => $value) {
             if ($value === null) {
                 unset($arr[$key]);
             }
         }
-        $data = User::where('email', $request->email)->update($arr);
+        $data = User::where('email', $email)->update($arr);
         return $data;
     }
 
-    public function delete(RestRequest $request)
+    public function delete(string $email)
     {
-        $data = User::where('email', $request->email)->delete();
+        $data = User::where('email', $email)->delete();
         return $data;
     }
 
-    public function readLinkedFriend(RestRequest $request)
+    public function readLinkedFriend(array $wheres)
     {
         $ret = [];
         $datas = User::join('friend', 'friend.friend_id', '=', 'user.id');
-        foreach ($request->wheres as $where) {
+        foreach ($wheres as $where) {
             $datas = $datas->where($where->getColumn(), $where->getOp(), $where->getValue());
         }
         $datas = $datas->select('friend.friend_id as id',
@@ -144,16 +153,19 @@ class UserRepositoryImpl implements UserRepository
         return $ret;
     }
 
-    public function readByPostcomment(RestRequest $request)
+    public function readByPostcomment(
+        int $id
+    )
     {
         $ret = [];
-        $data = User::join('post', 'post.owner_id', '=', 'user.id')->where('post.id', $request->id)->get();
+        $data = User::join('post', 'post.owner_id', '=', 'user.id')
+            ->where('post.id', $id)->get();
         if (count($data) != 1) {
             //TODO : Error 던지세요. 권한 없습니다.
         }
 
         $datas = User::join('postcomment', 'postcomment.owner_id', '=', 'user.id')
-            ->where('post_id', $request->id);
+            ->where('post_id', $id);
 
         $datas = $datas->select('user.id as id',
             'email',

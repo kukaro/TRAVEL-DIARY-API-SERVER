@@ -6,9 +6,12 @@ use App\Http\Requests\RestRequests\RestRequest;
 
 interface UserRepository
 {
-    public function read(RestRequest $request);
+    public function read(string $email);
 
-    public function readByEmailOrName(RestRequest $request);
+    public function readByEmailOrName(
+        string $email,
+        string $name
+    );
 
     public function create(
         string $email,
@@ -21,11 +24,17 @@ interface UserRepository
         ?string $updated_date
     );
 
-    public function update(RestRequest $request);
+    public function update(
+        ?string $email,
+        ?string $name,
+        ?int $age,
+        ?string $birth_date,
+        ?string $password
+    );
 
-    public function delete(RestRequest $request);
+    public function delete(string $email);
 
-    public function readLinkedFriend(RestRequest $request);
+    public function readLinkedFriend(array $wheres);
 
-    public function readByPostcomment(RestRequest $request);
+    public function readByPostcomment(int $id);
 }

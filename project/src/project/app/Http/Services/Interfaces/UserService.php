@@ -6,7 +6,7 @@ use App\Http\Requests\RestRequests\RestRequest;
 
 interface UserService
 {
-    public function get(RestRequest $request);
+    public function get(string $email);
 
     public function post(
         string $email,
@@ -19,13 +19,22 @@ interface UserService
         ?string $updated_date
     );
 
-    public function patch(RestRequest $request);
+    public function getByEmailOrName(
+        string $email,
+        string $name
+    );
 
-    public function delete(RestRequest $request);
+    public function patch(
+        ?string $email,
+        ?string $name,
+        ?int $age,
+        ?string $birth_date,
+        ?string $password
+    );
 
-    public function getLinkedFriend(RestRequest $request);
+    public function delete(string $email);
 
-    public function getByEmailOrName(RestRequest $request);
+    public function getLinkedFriend(array $wheres);
 
-    public function getByPostComment(RestRequest $request);
+    public function getByPostComment(int $id);
 }

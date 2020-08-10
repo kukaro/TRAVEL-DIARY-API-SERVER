@@ -19,7 +19,16 @@ class UserController extends Controller
 
     public function get()
     {
-        $data = $this->service->get($this->request);
+        $data = $this->service->get($this->request->email);
+        return response()->json(['data' => $data], 200, [], JSON_UNESCAPED_UNICODE);
+    }
+
+    public function getByEmailOrName()
+    {
+        $data = $this->service->getByEmailOrName(
+            $this->request->email,
+            $this->request->name
+        );
         return response()->json(['data' => $data], 200, [], JSON_UNESCAPED_UNICODE);
     }
 
@@ -40,31 +49,31 @@ class UserController extends Controller
 
     public function patch()
     {
-        $this->service->patch($this->request);
+        $this->service->patch(
+            $this->request->email,
+            $this->request->name,
+            $this->request->age,
+            $this->request->birth_date,
+            $this->request->password
+        );
         return response()->json(['data' => 'SUCCESS'], 200, [], JSON_UNESCAPED_UNICODE);
     }
 
     public function delete()
     {
-        $this->service->delete($this->request);
+        $this->service->delete($this->request->email);
         return response()->json(['data' => 'SUCCESS'], 200, [], JSON_UNESCAPED_UNICODE);
     }
 
     public function getLinkedFriend()
     {
-        $data = $this->service->getLinkedFriend($this->request);
-        return response()->json(['data' => $data], 200, [], JSON_UNESCAPED_UNICODE);
-    }
-
-    public function getByEmailOrName()
-    {
-        $data = $this->service->getByEmailOrName($this->request);
+        $data = $this->service->getLinkedFriend($this->request->wheres);
         return response()->json(['data' => $data], 200, [], JSON_UNESCAPED_UNICODE);
     }
 
     public function getByPostComment()
     {
-        $data = $this->service->getByPostComment($this->request);
+        $data = $this->service->getByPostComment($this->request->id);
         return response()->json(['data' => $data], 200, [], JSON_UNESCAPED_UNICODE);
     }
 }

@@ -20,9 +20,21 @@ class UserServiceImpl implements UserService
         $this->repository = $repository;
     }
 
-    public function get(RestRequest $request)
+    public function get(string $email)
     {
-        $data = $this->repository->read($request);
+        $data = $this->repository->read($email);
+        return $data;
+    }
+
+    public function getByEmailOrName(
+        string $email,
+        string $name
+    )
+    {
+        $data = $this->repository->readByEmailOrName(
+            $email,
+            $name
+        );
         return $data;
     }
 
@@ -50,34 +62,39 @@ class UserServiceImpl implements UserService
         return $data;
     }
 
-    public function patch(RestRequest $request)
+    public function patch(
+        ?string $email,
+        ?string $name,
+        ?int $age,
+        ?string $birth_date,
+        ?string $password
+    )
     {
-        $data = $this->repository->update($request);
+        $data = $this->repository->update(
+            $email,
+            $name,
+            $age,
+            $birth_date,
+            $password
+        );
         return $data;
     }
 
-    public function delete(RestRequest $request)
+    public function delete(string $email)
     {
-        $data = $this->repository->delete($request);
+        $data = $this->repository->delete($email);
         return $data;
     }
 
-    public function getLinkedFriend(RestRequest $request)
+    public function getLinkedFriend(array $wheres)
     {
-        $data = $this->repository->readLinkedFriend($request);
+        $data = $this->repository->readLinkedFriend($wheres);
         return $data;
     }
 
-    public function getByEmailOrName(RestRequest $request)
+    public function getByPostComment(int $id)
     {
-        $data = $this->repository->readByEmailOrName($request);
-        return $data;
-    }
-
-
-    public function getByPostComment(RestRequest $request)
-    {
-        $data = $this->repository->readByPostComment($request);
+        $data = $this->repository->readByPostComment($id);
         return $data;
     }
 }

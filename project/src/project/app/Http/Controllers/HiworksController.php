@@ -47,9 +47,7 @@ class HiworksController extends Controller
         $uri = Config::get('hiworks.hiworks_auth_uri') . '/user/v2/me';
         $hiworks_user = $this->service->getHiworksUser($access_token, $uri)->json();
 
-        $user_request = new UserRestRequest;
-        $user_request->email = $hiworks_user["user_id"] . "@gabia.com";
-        $user = $this->userService->get($user_request);
+        $user = $this->userService->get($hiworks_user["user_id"] . "@gabia.com");
 
         if (is_null($user)) {
             $owner_id = $this->userService->post(
