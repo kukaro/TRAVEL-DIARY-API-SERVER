@@ -16,7 +16,8 @@ class PictureController extends Controller
     public function __construct(
         PictureService $service,
         FileService $fileService,
-        RestRequest $request)
+        RestRequest $request
+    )
     {
         $this->service = $service;
         $this->fileService = $fileService;

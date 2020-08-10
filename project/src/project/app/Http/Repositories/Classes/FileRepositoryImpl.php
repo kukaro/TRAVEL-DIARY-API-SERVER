@@ -4,6 +4,7 @@
 namespace App\Http\Repositories\Classes;
 
 
+use App\Exceptions\FileNotExistsException;
 use App\Http\Repositories\Interfaces\FileRepository;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\File;
@@ -11,10 +12,15 @@ use Illuminate\Support\Facades\Response;
 
 class FileRepositoryImpl implements FileRepository
 {
+    /**
+     * @param string $path
+     * @return \Illuminate\Http\Response
+     * @throws FileNotExistsException xception
+     */
     public function get(string $path){
         $path = storage_path("app/$path");
         if (!File::exists($path)) {
-            abort(404);
+            throw new FileNotExistsException($path);
         }
         $file = File::get($path);
         $type = File::mimeType($path);
@@ -40,11 +46,16 @@ class FileRepositoryImpl implements FileRepository
         ], 200);
     }
 
+    /**
+     * @param string $path
+     * @return \Illuminate\Http\JsonResponse
+     * @throws FileNotExistsException
+     */
     public function delete(string $path){
         $path = storage_path("app/$path");
 
         if (!File::exists($path)) {
-            abort(404);
+            throw new FileNotExistsException($path);
         }
 
         File::delete($path);
