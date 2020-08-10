@@ -59,25 +59,24 @@ class HiworksController extends Controller
             $user_request->password = 0;
             $owner_id = $this->userService->post($user_request)->id;
 
-            $hiworks_auth_request = new HiworksAuthRestRequest;
-            $hiworks_auth_request->user_no = $hiworks_user["no"];
-            $hiworks_auth_request->owner_id = $owner_id;
-            $hiworks_auth_request->office_no = $token["office_no"];
-            $hiworks_auth_request->user_id = $hiworks_user["user_id"];
-            $hiworks_auth_request->user_name = $hiworks_user["name"];
-            $hiworks_auth_request->access_token = $access_token;
-            $hiworks_auth_request->refresh_token = $refresh_token;
-            $this->hiworksAuthService->post($hiworks_auth_request);
+            $this->hiworksAuthService->post($hiworks_user["no"],
+                $owner_id,
+                $token["office_no"],
+                $hiworks_user["user_id"],
+                $hiworks_user["name"],
+                $access_token,
+                $refresh_token
+            );
         } else {
-            $hiworks_auth_request = new HiworksAuthRestRequest;
-            $hiworks_auth_request->user_no = $hiworks_user["no"];
-            $hiworks_auth_request->access_token = $access_token;
-            $hiworks_auth_request->refresh_token = $refresh_token;
-            $this->hiworksAuthService->patch($hiworks_auth_request);
+            $this->hiworksAuthService->patch(
+                $hiworks_user["no"],
+                $access_token,
+                $refresh_token
+            );
         }
         //TODO : 수정 해야함, 에러를 던지도록 해야함
         //TODO : 비밀번호랑 아이디 검증 하는거 수정해봐야함
-        if (!$token = Auth::guard('api')->attempt(['email' => $hiworks_user["user_id"] . "@gabia.com" , 'password' => null])) {
+        if (!$token = Auth::guard('api')->attempt(['email' => $hiworks_user["user_id"] . "@gabia.com", 'password' => null])) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
         return view('hiworks', ["data" => json_encode(["type" => "hiworks_auth", "data" => $this->respondWithToken($token)])]);

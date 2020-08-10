@@ -4,15 +4,15 @@ namespace App\Http\Requests\RestRequests;
 
 class UserRestRequest extends RestRequest
 {
-    private int $id;
-    private string $email;
-    private string $name;
-    private int $age;
-    private string $birth_date;
-    private bool $is_hiworks;
-    private string $password;
-    private string $created_date;
-    private string $updated_date;
+    private ?int $id = null;
+    private ?string $email = null;
+    private ?string $name = null;
+    private ?int $age = null;
+    private ?string $birth_date = null;
+    private ?bool $is_hiworks = false;
+    private ?string $password = "0";
+    private ?string $created_date = null;
+    private ?string $updated_date = null;
 
     /**
      * Class constructor.
@@ -20,6 +20,7 @@ class UserRestRequest extends RestRequest
     public function __construct()
     {
     }
+
     public function __set($name, $value)
     {
         if (property_exists($this, $name)) {

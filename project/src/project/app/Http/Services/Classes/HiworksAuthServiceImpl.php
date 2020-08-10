@@ -20,30 +20,46 @@ class HiworksAuthServiceImpl implements HiworksAuthService
         $this->repository = $repository;
     }
 
-    public function get(RestRequest $request)
+    public function get(int $user_no)
     {
-        $data = $this->repository->read($request);
+        $data = $this->repository->read($user_no);
         return $data;
     }
 
-    public function post(RestRequest $request)
+    public function post(
+        int $user_no,
+        int $owner_id,
+        int $office_no,
+        string $user_id,
+        string $user_name,
+        string $access_token,
+        string $refresh_token
+    )
     {
-        $data = $this->repository->create($request);
+        $data = $this->repository->create(
+            $user_no,
+            $owner_id,
+            $office_no,
+            $user_id,
+            $user_name,
+            $access_token,
+            $refresh_token
+        );
         return $data;
     }
 
-    public function patch(RestRequest $request){
-        $data = $this->repository->update($request);
+    public function patch(
+        int $user_no,
+        string $access_token,
+        string $refresh_token
+    )
+    {
+        $data = $this->repository->update(
+            $user_no,
+            $access_token,
+            $refresh_token
+        );
         return $data;
     }
 
-    public function delete(RestRequest $request){
-        $data = $this->repository->delete($request);
-        return $data;
-    }
-
-    public function put(RestRequest $request){
-        $data = null;
-        return $data;
-    }
 }

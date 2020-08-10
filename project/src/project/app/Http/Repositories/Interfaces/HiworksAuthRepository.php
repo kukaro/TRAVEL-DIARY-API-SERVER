@@ -6,11 +6,21 @@ use App\Http\Requests\RestRequests\RestRequest;
 
 interface HiworksAuthRepository
 {
-    public function read(RestRequest $request);
+    public function read(int $user_no);
 
-    public function create(RestRequest $request);
+    public function create(
+        int $user_no,
+        int $owner_id,
+        int $office_no,
+        string $user_id,
+        string $user_name,
+        string $access_token,
+        string $refresh_token
+    );
 
-    public function update(RestRequest $request);
-
-    public function delete(RestRequest $request);
+    public function update(
+        int $user_no,
+        string $access_token,
+        string $refresh_token
+    );
 }
