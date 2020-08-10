@@ -5,8 +5,6 @@ namespace App\Providers\RestService;
 use App\Http\Requests\RestRequests\RestRequest;
 use App\Util\Name;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 class RestServiceProvider extends ServiceProvider

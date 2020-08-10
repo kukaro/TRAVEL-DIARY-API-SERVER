@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Util\DB\ErrorType;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -24,6 +23,5 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        ErrorType::init();
     }
 }
