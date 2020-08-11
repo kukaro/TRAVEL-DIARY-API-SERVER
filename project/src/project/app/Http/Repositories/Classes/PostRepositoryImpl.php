@@ -4,9 +4,7 @@ namespace App\Http\Repositories\Classes;
 
 use App\Http\Dto\PostDto;
 use App\Http\Repositories\Interfaces\PostRepository;
-use App\Http\Requests\RestRequests\RestRequest;
 use App\Model\Post;
-use Illuminate\Support\Facades\DB;
 
 class PostRepositoryImpl implements PostRepository
 {
@@ -113,9 +111,6 @@ class PostRepositoryImpl implements PostRepository
         return $data;
     }
 
-    /*
-     * TODO : POST와 USER를 JOIN을 하긴했는데 POST에 USER정보를 넣어야할지 말아야할지 솔직히 고민이다. 나중에 엄청 중요해질거 같으니까 일단은 POSTDTO에는 USERDTO를 않넣고(개념상은 필요없음)진행하자.
-     */
     public function readWithUser(array $wheres)
     {
         $ret = [];

@@ -31,8 +31,7 @@ class GeneralPolicy
      */
     public function general(User $user)
     {
-        $request = app()->make(RestRequest::class);
-        array_push($request->wheres, new Where('owner_id', '=', $user->id));
+        array_push($this->request->wheres, new Where('owner_id', '=', $user->id));
         return true;
     }
 
@@ -44,8 +43,7 @@ class GeneralPolicy
      */
     public function general_post(User $user)
     {
-        $request = app()->make(RestRequest::class);
-        array_push($request->wheres, new Where('post.owner_id', '=', $user->id));
+        array_push($this->request->wheres, new Where('post.owner_id', '=', $user->id));
         return true;
     }
 }
