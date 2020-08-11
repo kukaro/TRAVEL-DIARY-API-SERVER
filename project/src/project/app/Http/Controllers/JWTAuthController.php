@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\LoginFailException;
+use App\Exceptions\SignupFailException;
 use App\Model\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,14 +19,11 @@ class JWTAuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json([
-                'status' => 'error',
-                'messages' => $validator->messages()
-            ], 200);
+            new LoginFailException($request->email);
         }
 
         if (!$token = Auth::guard('api')->attempt(['email' => $request->email, 'password' => $request->password])) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            new LoginFailException($request->email);
         }
 
         return $this->respondWithToken($token);
@@ -40,15 +39,11 @@ class JWTAuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json([
-                'status' => 'error',
-                'messages' => $validator->messages()
-            ], 200);
+            new SignupFailException($request->email);
         }
 
         $user = new User;
         $user->fill($request->all());
-        //TODO : 원래는 여기서 패스워드 암호화 해야합니다.
         $user->password = $request->password;
         $user->save();
 

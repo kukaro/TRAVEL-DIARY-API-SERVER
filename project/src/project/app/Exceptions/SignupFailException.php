@@ -7,11 +7,11 @@ use App\Util\ExceptionMessage;
 use Exception;
 
 /**
- * 로그인이 실패했을 경우의 예외 처리입니다.
+ * 회원가입이 실패했을 경우의 예외 처리입니다.
  * 메세지는 401을 반환합니다.
  * @package App\Exception
  */
-class LoginFailException extends Exception
+class SignupFailException extends Exception
 {
     private ?string $email;
 
@@ -29,7 +29,7 @@ class LoginFailException extends Exception
     {
         return response()->json(new ExceptionMessage(
             ["email" => $this->email],
-            "login fail"
+            "signup fail"
         ), 401);
     }
 }

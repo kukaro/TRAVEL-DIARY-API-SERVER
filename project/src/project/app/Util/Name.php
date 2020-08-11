@@ -4,7 +4,7 @@ namespace App\Util;
 
 class Name
 {
-    static function kebabToPascal($str){
+    static function kebabToPascal(string $str){
         $ret="";
         $arr = str_split($str);
         $check = false;
