@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\LoginFailException;
 use App\Exceptions\SignupFailException;
+use App\Http\Requests\RestRequests\RestRequest;
+use App\Http\Services\Interfaces\UserService;
 use App\Model\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,6 +13,13 @@ use Illuminate\Support\Facades\Validator;
 
 class JWTAuthController extends Controller
 {
+    private UserService $userService;
+
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
+
     public function login(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -42,10 +51,17 @@ class JWTAuthController extends Controller
             new SignupFailException($request->email);
         }
 
-        $user = new User;
-        $user->fill($request->all());
-        $user->password = $request->password;
-        $user->save();
+        $user = $request->all();
+        $this->userService->post(
+            $user["email"],
+            $user["name"],
+            null,
+            null,
+            $user["password"],
+            0,
+            null,
+            null
+        );
 
         return response()->json([
             'status' => 'success',

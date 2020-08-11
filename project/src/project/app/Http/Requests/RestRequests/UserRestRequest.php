@@ -43,9 +43,9 @@ class UserRestRequest extends RestRequest
         switch ($this->req_method) {
             case "POST":
                 return [
-                    "email" => "required",
-                    "name" => "required",
-                    "password" => "required",
+                    "email" => "required|email|max:255|unique:user",
+                    "name" => "required|string|max:255",
+                    "password" => "required|string|min:1|max:255|confirmed",
                 ];
             default:
                 return [

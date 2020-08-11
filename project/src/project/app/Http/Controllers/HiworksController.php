@@ -57,11 +57,12 @@ class HiworksController extends Controller
      * @param Request $request
      * @return Application|Factory|View
      * @throws LoginFailException|TokenRequestIsInvalidRequest
+     * @throws HiworksAuthenticateFailException
      */
     public function callback(Request $request)
     {
         $token_request = $this->service->getToken($request->query('auth_code'));
-        if(!$token_request->json()){
+        if (!$token_request->json()) {
             throw new TokenRequestIsInvalidRequest();
         }
         $token = $token_request->json()["data"];
@@ -70,7 +71,7 @@ class HiworksController extends Controller
             $token["access_token"],
             Config::get('hiworks.hiworks_auth_uri') . '/user/v2/me'
         )->json();
-        if($hiworks_user["code"]=="ERR"){
+        if (array_key_exists("code", $hiworks_user)) {
             throw new HiworksAuthenticateFailException();
         }
 
