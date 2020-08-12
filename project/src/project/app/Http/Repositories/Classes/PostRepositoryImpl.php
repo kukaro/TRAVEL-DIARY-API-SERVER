@@ -8,7 +8,7 @@ use App\Model\Post;
 
 class PostRepositoryImpl implements PostRepository
 {
-    public function read(int $id)
+    public function read(int $id): PostDto
     {
         $data = Post::where('id', $id)->get();
         if (count($data) == 0) {
@@ -27,7 +27,7 @@ class PostRepositoryImpl implements PostRepository
         return $data;
     }
 
-    public function readWithPicture(int $id)
+    public function readWithPicture(int $id): array
     {
         $ret = [];
         $datas = Post::join('post_picture', 'post_picture.post_id', '=', 'post.id')
@@ -65,7 +65,7 @@ class PostRepositoryImpl implements PostRepository
         string $title,
         string $contents,
         ?int $parents_post_id
-    )
+    ): int
     {
         $data = new Post();
         $data->owner_id = $owner_id;
@@ -111,7 +111,7 @@ class PostRepositoryImpl implements PostRepository
         return $data;
     }
 
-    public function readWithUser(array $wheres)
+    public function readWithUser(array $wheres): array
     {
         $ret = [];
         $datas = Post::join('user', 'user.id', '=', 'post.owner_id');

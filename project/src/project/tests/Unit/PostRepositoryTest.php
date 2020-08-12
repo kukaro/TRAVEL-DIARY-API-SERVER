@@ -104,6 +104,4 @@ class PostRepositoryTest extends TestCase
         $result = json_encode($this->repository->readWithPicture($id)[0]);
         $this->assertSame($dest, $result);
     }
-
-
 }

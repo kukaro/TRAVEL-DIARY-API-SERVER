@@ -2,6 +2,8 @@
 
 namespace App\Http\Services\Classes;
 
+use App\Http\Dto\PostDto;
+use App\Http\Dto\UserDto;
 use App\Http\Requests\RestRequests\RestRequest;
 use App\Http\Services\Interfaces\PostService;
 use App\Http\Repositories\Interfaces\PostRepository;
@@ -20,13 +22,14 @@ class PostServiceImpl implements PostService
         $this->repository = $repository;
     }
 
-    public function get(int $id)
+
+    public function get(int $id): PostDto
     {
         $data = $this->repository->read($id);
         return $data;
     }
 
-    public function getWithPicture(int $id)
+    public function getWithPicture(int $id): array
     {
         $data = $this->repository->readWithPicture($id);
         return $data;
@@ -37,7 +40,7 @@ class PostServiceImpl implements PostService
         string $title,
         string $contents,
         ?int $parents_post_id
-    )
+    ): int
     {
         $data = $this->repository->create(
             $owner_id,
@@ -76,7 +79,7 @@ class PostServiceImpl implements PostService
         return $data;
     }
 
-    public function getWithUser(array $wheres)
+    public function getWithUser(array $wheres): array
     {
         $data = $this->repository->readWithUser($wheres);
         return $data;
