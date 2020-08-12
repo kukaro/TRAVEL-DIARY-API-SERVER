@@ -2,11 +2,11 @@
 
 namespace App\Http\Services\Interfaces;
 
-use App\Http\Requests\RestRequests\RestRequest;
+use App\Http\Dto\UserDto;
 
 interface UserService
 {
-    public function get(string $email);
+    public function get(string $email): UserDto;
 
     public function post(
         string $email,

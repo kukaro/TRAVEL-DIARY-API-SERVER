@@ -2,6 +2,7 @@
 
 namespace App\Http\Services\Classes;
 
+use App\Http\Dto\UserDto;
 use App\Http\Requests\RestRequests\RestRequest;
 use App\Http\Services\Interfaces\UserService;
 use App\Http\Repositories\Interfaces\UserRepository;
@@ -20,7 +21,7 @@ class UserServiceImpl implements UserService
         $this->repository = $repository;
     }
 
-    public function get(string $email)
+    public function get(string $email): UserDto
     {
         $data = $this->repository->read($email);
         return $data;

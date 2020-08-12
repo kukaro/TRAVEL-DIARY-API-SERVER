@@ -36,7 +36,8 @@ class UserDto implements Dto
         bool $is_hiworks,
         string $created_date,
         string $updated_date
-    ) {
+    )
+    {
         $this->id = $id;
         $this->email = $email;
         $this->name = $name;
@@ -54,6 +55,12 @@ class UserDto implements Dto
             $this->$name = $value;
         }
     }
+
+    public function unsetProperty($name)
+    {
+        unset($this->$name);
+    }
+
 
     public function jsonSerialize()
     {

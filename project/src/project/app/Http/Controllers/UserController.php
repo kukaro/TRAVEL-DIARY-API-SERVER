@@ -20,6 +20,7 @@ class UserController extends Controller
     public function get()
     {
         $data = $this->service->get($this->request->email);
+        $data->unsetProperty('password');
         return response()->json(['data' => $data], 200, [], JSON_UNESCAPED_UNICODE);
     }
 
