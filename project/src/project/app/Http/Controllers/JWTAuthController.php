@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\LoginFailException;
 use App\Exceptions\SignupFailException;
-use App\Http\Requests\RestRequests\RestRequest;
 use App\Http\Services\Interfaces\UserService;
-use App\Model\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;

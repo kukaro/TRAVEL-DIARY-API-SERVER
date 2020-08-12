@@ -5,31 +5,46 @@ namespace App\Http\Controllers;
 use App;
 use App\Http\Requests\RestRequests\RestRequest;
 use App\Http\Services\Interfaces\PostService;
+use Illuminate\Http\JsonResponse;
 
 class PostController extends Controller
 {
     private PostService $service;
     private RestRequest $request;
 
+    /**
+     * PostController constructor.
+     * @param PostService $service
+     * @param RestRequest $request
+     */
     public function __construct(PostService $service, RestRequest $request)
     {
         $this->service = $service;
         $this->request = $request;
     }
 
-    public function get()
+    /**
+     * @return JsonResponse
+     */
+    public function get(): JsonResponse
     {
         $data = $this->service->get($this->request->id);
         return response()->json(['data' => $data], 200, [], JSON_UNESCAPED_UNICODE);
     }
 
-    public function getWithPicture()
+    /**
+     * @return JsonResponse
+     */
+    public function getWithPicture(): JsonResponse
     {
         $data = $this->service->getWithPicture($this->request->id);
         return response()->json(['data' => $data], 200, [], JSON_UNESCAPED_UNICODE);
     }
 
-    public function post()
+    /**
+     * @return JsonResponse
+     */
+    public function post(): JsonResponse
     {
         $data = $this->service->post(
             $this->request->owner_id,
@@ -40,7 +55,10 @@ class PostController extends Controller
         return response()->json(['data' => $data], 200, [], JSON_UNESCAPED_UNICODE);
     }
 
-    public function patch()
+    /**
+     * @return JsonResponse
+     */
+    public function patch(): JsonResponse
     {
         $this->service->patch(
             $this->request->id,
@@ -54,13 +72,19 @@ class PostController extends Controller
         return response()->json(['data' => 'SUCCESS'], 200, [], JSON_UNESCAPED_UNICODE);
     }
 
-    public function delete()
+    /**
+     * @return JsonResponse
+     */
+    public function delete(): JsonResponse
     {
         $this->service->delete($this->request->id);
         return response()->json(['data' => 'SUCCESS'], 200, [], JSON_UNESCAPED_UNICODE);
     }
 
-    public function getWithUser()
+    /**
+     * @return JsonResponse
+     */
+    public function getWithUser(): JsonResponse
     {
         $data = $this->service->getWithUser($this->request->wheres);
         return response()->json(['data' => $data], 200, [], JSON_UNESCAPED_UNICODE);

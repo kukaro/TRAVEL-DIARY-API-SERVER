@@ -8,6 +8,10 @@ use App\Model\Post;
 
 class PostRepositoryImpl implements PostRepository
 {
+    /**
+     * @param int $id
+     * @return PostDto
+     */
     public function read(int $id): PostDto
     {
         $data = Post::where('id', $id)->get();
@@ -27,6 +31,10 @@ class PostRepositoryImpl implements PostRepository
         return $data;
     }
 
+    /**
+     * @param int $id
+     * @return array
+     */
     public function readWithPicture(int $id): array
     {
         $ret = [];
@@ -60,6 +68,13 @@ class PostRepositoryImpl implements PostRepository
         return $ret;
     }
 
+    /**
+     * @param int $owner_id
+     * @param string $title
+     * @param string $contents
+     * @param int|null $parents_post_id
+     * @return int
+     */
     public function create(
         int $owner_id,
         string $title,
@@ -77,6 +92,16 @@ class PostRepositoryImpl implements PostRepository
         return $data;
     }
 
+    /**
+     * @param int $id
+     * @param int $owner_id
+     * @param string $title
+     * @param string $contents
+     * @param int|null $parents_post_id
+     * @param string|null $created_date
+     * @param string|null $updated_date
+     * @return int
+     */
     public function update(
         int $id,
         int $owner_id,
@@ -101,16 +126,24 @@ class PostRepositoryImpl implements PostRepository
                 unset($arr[$key]);
             }
         }
-        $data = Post::where('id', $id)->update($arr);
-        return $data;
+        Post::where('id', $id)->update($arr);
+        return $id;
     }
 
-    public function delete(int $id)
+    /**
+     * @param int $id
+     * @return int
+     */
+    public function delete(int $id): int
     {
-        $data = Post::where('id', $id)->delete();
-        return $data;
+        Post::where('id', $id)->delete();
+        return $id;
     }
 
+    /**
+     * @param array $wheres
+     * @return array
+     */
     public function readWithUser(array $wheres): array
     {
         $ret = [];
