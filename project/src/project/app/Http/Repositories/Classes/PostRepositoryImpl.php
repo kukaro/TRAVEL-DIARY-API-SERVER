@@ -6,6 +6,7 @@ use App\Exceptions\PostIsNotExistException;
 use App\Http\Dto\PostDto;
 use App\Http\Repositories\Interfaces\PostRepository;
 use App\Model\Post;
+use Illuminate\Support\Facades\DB;
 
 class PostRepositoryImpl implements PostRepository
 {
