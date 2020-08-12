@@ -2,6 +2,7 @@
 
 namespace App\Http\Repositories\Classes;
 
+use App\Exceptions\PostIsNotExistException;
 use App\Http\Dto\PostDto;
 use App\Http\Repositories\Interfaces\PostRepository;
 use App\Model\Post;
@@ -133,10 +134,15 @@ class PostRepositoryImpl implements PostRepository
     /**
      * @param int $id
      * @return int
+     * @throws PostIsNotExistException
      */
     public function delete(int $id): int
     {
-        Post::where('id', $id)->delete();
+        $post = Post::where('id', $id);
+        if(count($post->get())==0){
+            throw new PostIsNotExistException($id);
+        }
+        $post->delete();
         return $id;
     }
 
